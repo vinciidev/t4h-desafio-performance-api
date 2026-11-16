@@ -1,0 +1,24 @@
+-- itens-do-pedido
+-- 2026-11-16 16:44:56 -0300 · commit 1e48069
+SELECT * FROM itens_pedido WHERE pedido_id = 136871 ORDER BY id
+
+                                                             QUERY PLAN                                                             
+------------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=18367.94..18367.95 rows=4 width=20) (actual time=188.518..200.674 rows=2 loops=1)
+   Sort Key: id
+   Sort Method: quicksort  Memory: 25kB
+   Buffers: shared hit=9558
+   ->  Gather  (cost=1000.00..18367.90 rows=4 width=20) (actual time=188.253..200.622 rows=2 loops=1)
+         Workers Planned: 2
+         Workers Launched: 2
+         Buffers: shared hit=9555
+         ->  Parallel Seq Scan on itens_pedido  (cost=0.00..17367.50 rows=2 width=20) (actual time=156.506..183.674 rows=1 loops=3)
+               Filter: (pedido_id = 136871)
+               Rows Removed by Filter: 499999
+               Buffers: shared hit=9555
+ Planning:
+   Buffers: shared hit=73
+ Planning Time: 0.572 ms
+ Execution Time: 200.765 ms
+(16 rows)
+

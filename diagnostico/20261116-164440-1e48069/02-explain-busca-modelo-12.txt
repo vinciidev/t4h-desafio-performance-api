@@ -1,0 +1,22 @@
+-- busca-modelo-12
+-- 2026-11-16 16:45:08 -0300 · commit 1e48069
+SELECT * FROM produtos WHERE nome ILIKE '%' || 'modelo 12' || '%' ORDER BY nome, id LIMIT 20
+
+                                                     QUERY PLAN                                                      
+---------------------------------------------------------------------------------------------------------------------
+ Limit  (cost=440.01..440.01 rows=2 width=44) (actual time=28.989..28.994 rows=20 loops=1)
+   Buffers: shared hit=196
+   ->  Sort  (cost=440.01..440.01 rows=2 width=44) (actual time=28.987..28.989 rows=20 loops=1)
+         Sort Key: nome, id
+         Sort Method: top-N heapsort  Memory: 27kB
+         Buffers: shared hit=196
+         ->  Seq Scan on produtos  (cost=0.00..440.00 rows=2 width=44) (actual time=0.047..28.315 rows=1111 loops=1)
+               Filter: (nome ~~* '%modelo 12%'::text)
+               Rows Removed by Filter: 18889
+               Buffers: shared hit=190
+ Planning:
+   Buffers: shared hit=83
+ Planning Time: 0.961 ms
+ Execution Time: 29.039 ms
+(14 rows)
+

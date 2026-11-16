@@ -1,0 +1,28 @@
+-- vendas-por-dia-7-dias
+-- 2026-11-16 16:45:12 -0300 · commit 1e48069
+SELECT p.id AS pedido_id, p.criado_em, p.observacoes, i.quantidade, i.preco_unitario_centavos FROM pedidos p JOIN itens_pedido i ON i.pedido_id = p.id WHERE p.criado_em::date BETWEEN '2024-03-01' AND '2024-03-07' AND p.status <> 'cancelado'
+
+                                                                       QUERY PLAN                                                                        
+---------------------------------------------------------------------------------------------------------------------------------------------------------
+ Gather  (cost=26533.19..44652.32 rows=6735 width=297) (actual time=189.394..877.654 rows=12951 loops=1)
+   Workers Planned: 2
+   Workers Launched: 2
+   Buffers: shared hit=11741 read=18840
+   ->  Parallel Hash Join  (cost=25533.19..42978.82 rows=2806 width=297) (actual time=186.406..836.780 rows=4317 loops=3)
+         Hash Cond: (i.pedido_id = p.id)
+         Buffers: shared hit=11741 read=18840
+         ->  Parallel Seq Scan on itens_pedido i  (cost=0.00..15805.00 rows=625000 width=12) (actual time=0.044..191.536 rows=500000 loops=3)
+               Buffers: shared hit=9555
+         ->  Parallel Hash  (cost=25521.50..25521.50 rows=935 width=289) (actual time=184.191..184.193 rows=1438 loops=3)
+               Buckets: 8192 (originally 4096)  Batches: 1 (originally 1)  Memory Usage: 1536kB
+               Buffers: shared hit=1994 read=18840
+               ->  Parallel Seq Scan on pedidos p  (cost=0.00..25521.50 rows=935 width=289) (actual time=0.340..179.234 rows=1438 loops=3)
+                     Filter: ((status <> 'cancelado'::text) AND ((criado_em)::date >= '2024-03-01'::date) AND ((criado_em)::date <= '2024-03-07'::date))
+                     Rows Removed by Filter: 165228
+                     Buffers: shared hit=1994 read=18840
+ Planning:
+   Buffers: shared hit=220
+ Planning Time: 1.078 ms
+ Execution Time: 878.755 ms
+(20 rows)
+

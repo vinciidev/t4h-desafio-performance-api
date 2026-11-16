@@ -1,0 +1,24 @@
+-- pedidos-status-contagem
+-- 2026-11-16 16:44:59 -0300 · commit 1e48069
+SELECT count(*) AS total FROM pedidos WHERE status = 'pago'
+
+                                                                 QUERY PLAN                                                                 
+--------------------------------------------------------------------------------------------------------------------------------------------
+ Finalize Aggregate  (cost=24750.53..24750.54 rows=1 width=8) (actual time=156.981..162.527 rows=1 loops=1)
+   Buffers: shared hit=1418 read=19416
+   ->  Gather  (cost=24750.32..24750.53 rows=2 width=8) (actual time=156.727..162.517 rows=3 loops=1)
+         Workers Planned: 2
+         Workers Launched: 2
+         Buffers: shared hit=1418 read=19416
+         ->  Partial Aggregate  (cost=23750.32..23750.33 rows=1 width=8) (actual time=151.906..151.907 rows=1 loops=3)
+               Buffers: shared hit=1418 read=19416
+               ->  Parallel Seq Scan on pedidos  (cost=0.00..23438.17 rows=124861 width=0) (actual time=0.066..143.280 rows=100000 loops=3)
+                     Filter: (status = 'pago'::text)
+                     Rows Removed by Filter: 66667
+                     Buffers: shared hit=1418 read=19416
+ Planning:
+   Buffers: shared hit=66
+ Planning Time: 0.834 ms
+ Execution Time: 162.754 ms
+(16 rows)
+
