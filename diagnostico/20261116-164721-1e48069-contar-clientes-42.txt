@@ -7,3 +7,4 @@ método: delta de pg_stat_database (sessions, xact_commit + xact_rollback) em to
 execução conexões_novas  transações     tempo_s      bytes      http  
 1          1                0                0.029246     0          200   
 2          1                0                0.033069     0          200   
+3          1                0                0.026719     0          200   
