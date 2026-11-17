@@ -11,7 +11,7 @@ const config = {
 // conexão é um processo novo no servidor, e /clientes/:id/pedidos abria 16-17
 // por requisição (diagnostico/20261116-164528-*-contar-clientes-42-pedidos.txt).
 // Tamanho do pool: ver experimentos.md, mudança 01.
-const pool = new Pool({ ...config, max: 10 });
+const pool = new Pool({ ...config, max: 20 });
 
 // Sem este ouvinte, um erro em conexão ociosa derruba o processo Node.
 pool.on('error', (erro) => {
