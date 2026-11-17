@@ -1,0 +1,11 @@
+rotulo: 03-pedidos-cliente-sem-n-mais-1
+data: 2026-11-16 23:34:59 -0300
+vus: 20
+duracao: 60s
+aquecimento: 15s
+commit: 014d4dc
+arquivos alterados sem commit: 1
+
+limites dos containers:
+  api: cpus=500000000 (1e9 = 1 CPU) memoria=268435456 bytes
+  banco: cpus=1000000000 (1e9 = 1 CPU) memoria=536870912 bytes
