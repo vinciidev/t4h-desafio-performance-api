@@ -1,0 +1,26 @@
+-- pedidos-do-cliente
+-- 2026-11-16 23:04:38 -0300 · commit 7b68209
+SELECT * FROM pedidos WHERE cliente_id = 42 ORDER BY criado_em DESC, id DESC
+
+                                                          QUERY PLAN                                                           
+-------------------------------------------------------------------------------------------------------------------------------
+ Gather Merge  (cost=24438.20..24438.67 rows=4 width=301) (actual time=182.215..186.814 rows=5 loops=1)
+   Workers Planned: 2
+   Workers Launched: 2
+   Buffers: shared hit=2367 read=18593 written=10
+   ->  Sort  (cost=23438.18..23438.18 rows=2 width=301) (actual time=176.177..176.179 rows=2 loops=3)
+         Sort Key: criado_em DESC, id DESC
+         Sort Method: quicksort  Memory: 26kB
+         Buffers: shared hit=2367 read=18593 written=10
+         Worker 0:  Sort Method: quicksort  Memory: 25kB
+         Worker 1:  Sort Method: quicksort  Memory: 25kB
+         ->  Parallel Seq Scan on pedidos  (cost=0.00..23438.17 rows=2 width=301) (actual time=55.224..175.960 rows=2 loops=3)
+               Filter: (cliente_id = 42)
+               Rows Removed by Filter: 166665
+               Buffers: shared hit=2241 read=18593 written=10
+ Planning:
+   Buffers: shared hit=84
+ Planning Time: 0.541 ms
+ Execution Time: 186.904 ms
+(18 rows)
+

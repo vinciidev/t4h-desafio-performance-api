@@ -1,0 +1,20 @@
+-- clientes-email
+-- 2026-11-16 23:04:35 -0300 · commit 7b68209
+SELECT * FROM clientes WHERE lower(email) = lower('cliente4@exemplo.com') ORDER BY id
+
+                                                  QUERY PLAN                                                   
+---------------------------------------------------------------------------------------------------------------
+ Sort  (cost=2678.41..2679.66 rows=500 width=60) (actual time=78.053..78.055 rows=1 loops=1)
+   Sort Key: id
+   Sort Method: quicksort  Memory: 25kB
+   Buffers: shared hit=1159
+   ->  Seq Scan on clientes  (cost=0.00..2656.00 rows=500 width=60) (actual time=0.017..78.027 rows=1 loops=1)
+         Filter: (lower(email) = 'cliente4@exemplo.com'::text)
+         Rows Removed by Filter: 99999
+         Buffers: shared hit=1156
+ Planning:
+   Buffers: shared hit=81
+ Planning Time: 0.713 ms
+ Execution Time: 78.093 ms
+(12 rows)
+

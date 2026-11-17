@@ -1,0 +1,15 @@
+-- produto-por-id
+-- 2026-11-16 23:04:41 -0300 · commit 7b68209
+SELECT * FROM produtos WHERE id = 3
+
+                                                       QUERY PLAN                                                        
+-------------------------------------------------------------------------------------------------------------------------
+ Index Scan using produtos_pkey on produtos  (cost=0.29..8.30 rows=1 width=44) (actual time=0.023..0.024 rows=1 loops=1)
+   Index Cond: (id = 3)
+   Buffers: shared hit=3
+ Planning:
+   Buffers: shared hit=70
+ Planning Time: 0.374 ms
+ Execution Time: 0.061 ms
+(7 rows)
+
