@@ -71,14 +71,33 @@ rotas.get('/clientes/:id/pedidos', assincrono(async (req, res) => {
     [id],
   );
 
+  // 3 consultas fixas em vez de 1 por pedido + 1 por item (N+1): o número de idas ao
+  // banco deixa de crescer com os pedidos do cliente
+  // (diagnostico/20261116-164528-1e48069-contar-clientes-42-pedidos.txt).
+  // Ordem preservada: itens por id dentro de cada pedido. Experimento: experimentos.md, mudança 03.
+  const idsPedidos = pedidos.map((pedido) => pedido.id);
+  const todosItens = idsPedidos.length
+    ? await consultar('SELECT * FROM itens_pedido WHERE pedido_id = ANY($1) ORDER BY pedido_id, id', [idsPedidos])
+    : [];
+  const itensPorPedido = new Map();
+  for (const item of todosItens) {
+    if (!itensPorPedido.has(item.pedido_id)) itensPorPedido.set(item.pedido_id, []);
+    itensPorPedido.get(item.pedido_id).push(item);
+  }
+  const idsProdutos = [...new Set(todosItens.map((item) => item.produto_id))];
+  const produtos = idsProdutos.length
+    ? await consultar('SELECT * FROM produtos WHERE id = ANY($1)', [idsProdutos])
+    : [];
+  const produtoPorId = new Map(produtos.map((produto) => [produto.id, produto]));
+
   const resposta = [];
   for (const pedido of pedidos) {
-    const itens = await consultar('SELECT * FROM itens_pedido WHERE pedido_id = $1 ORDER BY id', [pedido.id]);
+    const itens = itensPorPedido.get(pedido.id) || [];
 
     const itensFormatados = [];
     let total = 0;
     for (const item of itens) {
-      const [produto] = await consultar('SELECT * FROM produtos WHERE id = $1', [item.produto_id]);
+      const produto = produtoPorId.get(item.produto_id);
       itensFormatados.push({
         produto_id: item.produto_id,
         produto_nome: produto.nome,
