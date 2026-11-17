@@ -1,0 +1,584 @@
+{
+  "base": "00-linha-de-base",
+  "rotulos": [
+    {
+      "rotulo": "00-linha-de-base",
+      "execucoes": [
+        "20261116-163843-00-linha-de-base",
+        "20261116-164039-00-linha-de-base",
+        "20261116-164228-00-linha-de-base"
+      ],
+      "commits": [
+        "ab12125"
+      ],
+      "parametros": {
+        "vus": "20",
+        "duracao": "60s"
+      },
+      "limites": {
+        "api": {
+          "cpus": 0.5,
+          "memoriaMiB": 256
+        },
+        "banco": {
+          "cpus": 1,
+          "memoriaMiB": 512
+        }
+      },
+      "reqPorSegundo": {
+        "mediana": 1.5258772634025641,
+        "min": 1.3479667797679118,
+        "max": 1.5870152360128122,
+        "n": 3
+      },
+      "p50": {
+        "mediana": 2359.8630565,
+        "min": 2308.5589085,
+        "max": 2967.006651,
+        "n": 3
+      },
+      "p95": {
+        "mediana": 45762.93596634999,
+        "min": 42965.7461723,
+        "max": 48595.447652,
+        "n": 3
+      },
+      "p99": {
+        "mediana": 52174.4621953,
+        "min": 49331.67443522999,
+        "max": 52916.48559024,
+        "n": 3
+      },
+      "erros": {
+        "mediana": 0,
+        "min": 0,
+        "max": 0.8333333333333334,
+        "n": 3
+      },
+      "porRota": {
+        "cliente": {
+          "mediana": 1090.6920565,
+          "min": 856.0297737999999,
+          "max": 1103.377908,
+          "n": 3
+        },
+        "pedidos-do-cliente": {
+          "mediana": 52183.75890015,
+          "min": 49351.921521599994,
+          "max": 52436.0739603,
+          "n": 3
+        },
+        "cliente-por-email": {
+          "mediana": 4596.990959,
+          "min": 4096.894678299999,
+          "max": 4701.6626808500005,
+          "n": 3
+        },
+        "pedidos-por-status": {
+          "mediana": 30521.198433799997,
+          "min": 21331.1544971,
+          "max": 32659.70583775,
+          "n": 3
+        },
+        "busca-produtos": {
+          "mediana": 2402.6813571999996,
+          "min": 1795.3186688,
+          "max": 2905.6529625,
+          "n": 3
+        },
+        "vendas-por-dia": {
+          "mediana": 25135.8259243,
+          "min": 20029.62045475,
+          "max": 25764.719309999997,
+          "n": 3
+        },
+        "top-produtos": {
+          "mediana": 36802.484613,
+          "min": 29602.23595,
+          "max": 59996.882958,
+          "n": 3
+        }
+      },
+      "recursos": {
+        "api": {
+          "cpuMedia": {
+            "mediana": 7.5,
+            "min": 7.5,
+            "max": 8.3,
+            "n": 3
+          },
+          "memMedia": {
+            "mediana": 28.6,
+            "min": 28,
+            "max": 32,
+            "n": 3
+          },
+          "memMax": {
+            "mediana": 36.5,
+            "min": 34.8,
+            "max": 45.3,
+            "n": 3
+          }
+        },
+        "banco": {
+          "cpuMedia": {
+            "mediana": 98.3,
+            "min": 95.2,
+            "max": 98.5,
+            "n": 3
+          },
+          "memMedia": {
+            "mediana": 389,
+            "min": 381.4,
+            "max": 392.7,
+            "n": 3
+          },
+          "memMax": {
+            "mediana": 443.5,
+            "min": 437.1,
+            "max": 449.4,
+            "n": 3
+          }
+        }
+      },
+      "avisos": [
+        "arquivos sem commit (ou sem git) em: 20261116-163843-00-linha-de-base, 20261116-164039-00-linha-de-base, 20261116-164228-00-linha-de-base"
+      ]
+    },
+    {
+      "rotulo": "01-pool-10",
+      "execucoes": [
+        "20261116-171626-01-pool-10",
+        "20261116-171832-01-pool-10",
+        "20261116-172015-01-pool-10"
+      ],
+      "commits": [
+        "264c066"
+      ],
+      "parametros": {
+        "vus": "20",
+        "duracao": "60s"
+      },
+      "limites": {
+        "api": {
+          "cpus": 0.5,
+          "memoriaMiB": 256
+        },
+        "banco": {
+          "cpus": 1,
+          "memoriaMiB": 512
+        }
+      },
+      "reqPorSegundo": {
+        "mediana": 1.7325968426826732,
+        "min": 1.320815200554133,
+        "max": 1.8202288142704475,
+        "n": 3
+      },
+      "p50": {
+        "mediana": 3053.577822,
+        "min": 2499.006742,
+        "max": 3963.831746,
+        "n": 3
+      },
+      "p95": {
+        "mediana": 46024.49413069998,
+        "min": 37295.215401,
+        "max": 47107.81216969999,
+        "n": 3
+      },
+      "p99": {
+        "mediana": 54285.87147582999,
+        "min": 48763.3055608,
+        "max": 54660.88430563998,
+        "n": 3
+      },
+      "erros": {
+        "mediana": 0,
+        "min": 0,
+        "max": 0.8403361344537815,
+        "n": 3
+      },
+      "porRota": {
+        "cliente": {
+          "mediana": 2209.673263799999,
+          "min": 2169.2538782999995,
+          "max": 3431.7131320999974,
+          "n": 3
+        },
+        "pedidos-do-cliente": {
+          "mediana": 54590.094574099996,
+          "min": 48763.3055608,
+          "max": 54929.8717578,
+          "n": 3
+        },
+        "cliente-por-email": {
+          "mediana": 6883.101699699991,
+          "min": 4642.875917899999,
+          "max": 7805.700780399998,
+          "n": 3
+        },
+        "pedidos-por-status": {
+          "mediana": 18107.728572,
+          "min": 15363.295933599991,
+          "max": 19807.58466805,
+          "n": 3
+        },
+        "busca-produtos": {
+          "mediana": 3485.1682762499963,
+          "min": 2391.47207905,
+          "max": 4979.151654999996,
+          "n": 3
+        },
+        "vendas-por-dia": {
+          "mediana": 15759.707175,
+          "min": 15249.649447599999,
+          "max": 20308.2481755,
+          "n": 3
+        },
+        "top-produtos": {
+          "mediana": 26693.489239,
+          "min": 25301.463598,
+          "max": 26794.1927,
+          "n": 3
+        }
+      },
+      "recursos": {
+        "api": {
+          "cpuMedia": {
+            "mediana": 8.1,
+            "min": 7,
+            "max": 8.3,
+            "n": 3
+          },
+          "memMedia": {
+            "mediana": 32.2,
+            "min": 27.3,
+            "max": 41.7,
+            "n": 3
+          },
+          "memMax": {
+            "mediana": 43,
+            "min": 37.4,
+            "max": 49.7,
+            "n": 3
+          }
+        },
+        "banco": {
+          "cpuMedia": {
+            "mediana": 95.2,
+            "min": 95.1,
+            "max": 103.4,
+            "n": 3
+          },
+          "memMedia": {
+            "mediana": 409.2,
+            "min": 407.9,
+            "max": 412.7,
+            "n": 3
+          },
+          "memMax": {
+            "mediana": 453.7,
+            "min": 447.2,
+            "max": 455.8,
+            "n": 3
+          }
+        }
+      },
+      "avisos": [
+        "arquivos sem commit (ou sem git) em: 20261116-171626-01-pool-10, 20261116-171832-01-pool-10, 20261116-172015-01-pool-10",
+        "contrato não mantido em: 20261116-171626-01-pool-10 (ausente), 20261116-171832-01-pool-10 (ausente), 20261116-172015-01-pool-10 (ausente)"
+      ]
+    },
+    {
+      "rotulo": "01b-pool-5",
+      "execucoes": [
+        "20261116-172308-01b-pool-5",
+        "20261116-172449-01b-pool-5",
+        "20261116-172632-01b-pool-5"
+      ],
+      "commits": [
+        "b6013c1"
+      ],
+      "parametros": {
+        "vus": "20",
+        "duracao": "60s"
+      },
+      "limites": {
+        "api": {
+          "cpus": 0.5,
+          "memoriaMiB": 256
+        },
+        "banco": {
+          "cpus": 1,
+          "memoriaMiB": 512
+        }
+      },
+      "reqPorSegundo": {
+        "mediana": 1.7218359171376874,
+        "min": 1.299551968684826,
+        "max": 1.7936969663633444,
+        "n": 3
+      },
+      "p50": {
+        "mediana": 3554.278408,
+        "min": 3317.665969,
+        "max": 5806.601885,
+        "n": 3
+      },
+      "p95": {
+        "mediana": 49659.8809,
+        "min": 46702.2544594,
+        "max": 59138.1321009,
+        "n": 3
+      },
+      "p99": {
+        "mediana": 59989.16730828,
+        "min": 59348.88017408,
+        "max": 59994.2975261,
+        "n": 3
+      },
+      "erros": {
+        "mediana": 2.4,
+        "min": 1.550387596899225,
+        "max": 4.2105263157894735,
+        "n": 3
+      },
+      "porRota": {
+        "cliente": {
+          "mediana": 3812.4468432500003,
+          "min": 3725.6815765999995,
+          "max": 7834.204773999999,
+          "n": 3
+        },
+        "pedidos-do-cliente": {
+          "mediana": 59989.3548814,
+          "min": 59417.6616635,
+          "max": 59994.4296935,
+          "n": 3
+        },
+        "cliente-por-email": {
+          "mediana": 5022.07883375,
+          "min": 4623.6056911000005,
+          "max": 7369.0983165,
+          "n": 3
+        },
+        "pedidos-por-status": {
+          "mediana": 10317.920298999998,
+          "min": 10104.048443799998,
+          "max": 16697.9003195,
+          "n": 3
+        },
+        "busca-produtos": {
+          "mediana": 3909.958814,
+          "min": 3710.9295474000005,
+          "max": 6234.024705199996,
+          "n": 3
+        },
+        "vendas-por-dia": {
+          "mediana": 9069.936656349997,
+          "min": 8316.022006949997,
+          "max": 10181.4377919,
+          "n": 3
+        },
+        "top-produtos": {
+          "mediana": 28406.739926,
+          "min": 15996.52701,
+          "max": 30291.411696,
+          "n": 3
+        }
+      },
+      "recursos": {
+        "api": {
+          "cpuMedia": {
+            "mediana": 6.5,
+            "min": 5.7,
+            "max": 7,
+            "n": 3
+          },
+          "memMedia": {
+            "mediana": 26.9,
+            "min": 25.1,
+            "max": 27.6,
+            "n": 3
+          },
+          "memMax": {
+            "mediana": 32.2,
+            "min": 31.8,
+            "max": 32.8,
+            "n": 3
+          }
+        },
+        "banco": {
+          "cpuMedia": {
+            "mediana": 96.5,
+            "min": 93,
+            "max": 98.2,
+            "n": 3
+          },
+          "memMedia": {
+            "mediana": 408.8,
+            "min": 394.3,
+            "max": 424.4,
+            "n": 3
+          },
+          "memMax": {
+            "mediana": 438.8,
+            "min": 429.9,
+            "max": 459.2,
+            "n": 3
+          }
+        }
+      },
+      "avisos": [
+        "arquivos sem commit (ou sem git) em: 20261116-172308-01b-pool-5, 20261116-172449-01b-pool-5, 20261116-172632-01b-pool-5",
+        "contrato não mantido em: 20261116-172308-01b-pool-5 (ausente), 20261116-172449-01b-pool-5 (ausente), 20261116-172632-01b-pool-5 (ausente)"
+      ]
+    },
+    {
+      "rotulo": "01c-pool-20",
+      "execucoes": [
+        "20261116-172911-01c-pool-20",
+        "20261116-173101-01c-pool-20",
+        "20261116-173246-01c-pool-20"
+      ],
+      "commits": [
+        "7da713d"
+      ],
+      "parametros": {
+        "vus": "20",
+        "duracao": "60s"
+      },
+      "limites": {
+        "api": {
+          "cpus": 0.5,
+          "memoriaMiB": 256
+        },
+        "banco": {
+          "cpus": 1,
+          "memoriaMiB": 512
+        }
+      },
+      "reqPorSegundo": {
+        "mediana": 1.6545525455503345,
+        "min": 1.6364194717128964,
+        "max": 1.8525856889545576,
+        "n": 3
+      },
+      "p50": {
+        "mediana": 2442.692649,
+        "min": 1641.879438,
+        "max": 2498.376936,
+        "n": 3
+      },
+      "p95": {
+        "mediana": 34834.84387355,
+        "min": 33631.79492544999,
+        "max": 37567.2319007,
+        "n": 3
+      },
+      "p99": {
+        "mediana": 42274.42236683999,
+        "min": 39457.091025539965,
+        "max": 44800.08810815998,
+        "n": 3
+      },
+      "erros": {
+        "mediana": 0.7874015748031495,
+        "min": 0,
+        "max": 0.8064516129032258,
+        "n": 3
+      },
+      "porRota": {
+        "cliente": {
+          "mediana": 673.2322250000001,
+          "min": 622.3762141999979,
+          "max": 711.5011597999992,
+          "n": 3
+        },
+        "pedidos-do-cliente": {
+          "mediana": 39999.47729775,
+          "min": 37932.314934999995,
+          "max": 41403.91870879999,
+          "n": 3
+        },
+        "cliente-por-email": {
+          "mediana": 3693.6387446,
+          "min": 2758.0572663,
+          "max": 5558.4129113499985,
+          "n": 3
+        },
+        "pedidos-por-status": {
+          "mediana": 31951.82045,
+          "min": 31435.260236199993,
+          "max": 35314.9279312,
+          "n": 3
+        },
+        "busca-produtos": {
+          "mediana": 2673.0373311999997,
+          "min": 1573.22077325,
+          "max": 3247.1359905,
+          "n": 3
+        },
+        "vendas-por-dia": {
+          "mediana": 25743.23779925,
+          "min": 25286.827062799995,
+          "max": 26389.061338599997,
+          "n": 3
+        },
+        "top-produtos": {
+          "mediana": 60003.515186,
+          "min": 36597.821214,
+          "max": 60007.443163,
+          "n": 3
+        }
+      },
+      "recursos": {
+        "api": {
+          "cpuMedia": {
+            "mediana": 7.2,
+            "min": 7.2,
+            "max": 9.6,
+            "n": 3
+          },
+          "memMedia": {
+            "mediana": 33.8,
+            "min": 31.6,
+            "max": 37.7,
+            "n": 3
+          },
+          "memMax": {
+            "mediana": 49.9,
+            "min": 44.8,
+            "max": 52.9,
+            "n": 3
+          }
+        },
+        "banco": {
+          "cpuMedia": {
+            "mediana": 95.9,
+            "min": 94.4,
+            "max": 98.7,
+            "n": 3
+          },
+          "memMedia": {
+            "mediana": 398.8,
+            "min": 396.1,
+            "max": 409.1,
+            "n": 3
+          },
+          "memMax": {
+            "mediana": 439.7,
+            "min": 438.2,
+            "max": 483.8,
+            "n": 3
+          }
+        }
+      },
+      "avisos": [
+        "arquivos sem commit (ou sem git) em: 20261116-172911-01c-pool-20, 20261116-173101-01c-pool-20, 20261116-173246-01c-pool-20",
+        "contrato não mantido em: 20261116-172911-01c-pool-20 (ausente), 20261116-173101-01c-pool-20 (ausente), 20261116-173246-01c-pool-20 (ausente)"
+      ]
+    }
+  ]
+}
