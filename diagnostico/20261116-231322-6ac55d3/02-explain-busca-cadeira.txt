@@ -1,0 +1,22 @@
+-- busca-cadeira
+-- 2026-11-16 23:13:43 -0300 · commit 6ac55d3
+SELECT * FROM produtos WHERE nome ILIKE '%' || 'cadeira' || '%' ORDER BY nome, id LIMIT 20
+
+                                                       QUERY PLAN                                                       
+------------------------------------------------------------------------------------------------------------------------
+ Limit  (cost=466.88..466.93 rows=20 width=44) (actual time=22.702..22.708 rows=20 loops=1)
+   Buffers: shared hit=196
+   ->  Sort  (cost=466.88..469.40 rows=1010 width=44) (actual time=22.701..22.703 rows=20 loops=1)
+         Sort Key: nome, id
+         Sort Method: top-N heapsort  Memory: 27kB
+         Buffers: shared hit=196
+         ->  Seq Scan on produtos  (cost=0.00..440.00 rows=1010 width=44) (actual time=0.045..21.892 rows=1000 loops=1)
+               Filter: (nome ~~* '%cadeira%'::text)
+               Rows Removed by Filter: 19000
+               Buffers: shared hit=190
+ Planning:
+   Buffers: shared hit=83
+ Planning Time: 0.716 ms
+ Execution Time: 22.745 ms
+(14 rows)
+

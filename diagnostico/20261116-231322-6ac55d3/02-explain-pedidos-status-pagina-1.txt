@@ -1,0 +1,28 @@
+-- pedidos-status-pagina-1
+-- 2026-11-16 23:13:38 -0300 · commit 6ac55d3
+SELECT * FROM pedidos WHERE status = 'pago' ORDER BY criado_em DESC, id DESC LIMIT 20 OFFSET 0
+
+                                                                  QUERY PLAN                                                                  
+----------------------------------------------------------------------------------------------------------------------------------------------
+ Limit  (cost=27744.44..27746.77 rows=20 width=300) (actual time=232.334..237.335 rows=20 loops=1)
+   Buffers: shared hit=2099 read=18861
+   ->  Gather Merge  (cost=27744.44..56738.13 rows=248500 width=300) (actual time=232.332..237.329 rows=20 loops=1)
+         Workers Planned: 2
+         Workers Launched: 2
+         Buffers: shared hit=2099 read=18861
+         ->  Sort  (cost=26744.41..27055.04 rows=124250 width=300) (actual time=228.179..228.185 rows=16 loops=3)
+               Sort Key: criado_em DESC, id DESC
+               Sort Method: top-N heapsort  Memory: 41kB
+               Buffers: shared hit=2099 read=18861
+               Worker 0:  Sort Method: top-N heapsort  Memory: 42kB
+               Worker 1:  Sort Method: top-N heapsort  Memory: 42kB
+               ->  Parallel Seq Scan on pedidos  (cost=0.00..23438.17 rows=124250 width=300) (actual time=0.038..210.123 rows=100000 loops=3)
+                     Filter: (status = 'pago'::text)
+                     Rows Removed by Filter: 66667
+                     Buffers: shared hit=1973 read=18861
+ Planning:
+   Buffers: shared hit=105
+ Planning Time: 0.457 ms
+ Execution Time: 237.403 ms
+(20 rows)
+
