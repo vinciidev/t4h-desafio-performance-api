@@ -873,6 +873,153 @@
         "execuções em commits diferentes: 07c5de8, d33d97c, b519b29",
         "arquivos sem commit (ou sem git) em: 20261116-231411-02b-indice-pedidos-cliente-id, 20261116-231609-02b-indice-pedidos-cliente-id, 20261116-231801-02b-indice-pedidos-cliente-id"
       ]
+    },
+    {
+      "rotulo": "03-pedidos-cliente-sem-n-mais-1",
+      "execucoes": [
+        "20261116-233459-03-pedidos-cliente-sem-n-mais-1",
+        "20261116-233700-03-pedidos-cliente-sem-n-mais-1",
+        "20261116-233931-03-pedidos-cliente-sem-n-mais-1"
+      ],
+      "commits": [
+        "014d4dc",
+        "2546c27",
+        "efdb276"
+      ],
+      "parametros": {
+        "vus": "20",
+        "duracao": "60s"
+      },
+      "limites": {
+        "api": {
+          "cpus": 0.5,
+          "memoriaMiB": 256
+        },
+        "banco": {
+          "cpus": 1,
+          "memoriaMiB": 512
+        }
+      },
+      "reqPorSegundo": {
+        "mediana": 2.826313337542345,
+        "min": 2.2064708684176986,
+        "max": 3.757270079426925,
+        "n": 3
+      },
+      "p50": {
+        "mediana": 933.2084265000001,
+        "min": 792.49267,
+        "max": 1307.038154,
+        "n": 3
+      },
+      "p95": {
+        "mediana": 29114.462406099996,
+        "min": 23450.3223235,
+        "max": 40204.18218619994,
+        "n": 3
+      },
+      "p99": {
+        "mediana": 47988.27356008993,
+        "min": 40274.478839100004,
+        "max": 59991.79522674,
+        "n": 3
+      },
+      "erros": {
+        "mediana": 0.43859649122807015,
+        "min": 0.36363636363636365,
+        "max": 2.13903743315508,
+        "n": 3
+      },
+      "porRota": {
+        "cliente": {
+          "mediana": 778.8116195999996,
+          "min": 408.6357402,
+          "max": 1018.974748,
+          "n": 3
+        },
+        "pedidos-do-cliente": {
+          "mediana": 1290.32535725,
+          "min": 1212.9651075999998,
+          "max": 2041.3406713999998,
+          "n": 3
+        },
+        "cliente-por-email": {
+          "mediana": 3911.7664083499994,
+          "min": 3873.8780398,
+          "max": 5719.925442199999,
+          "n": 3
+        },
+        "pedidos-por-status": {
+          "mediana": 39883.147648,
+          "min": 27881.43436904997,
+          "max": 53285.80047409999,
+          "n": 3
+        },
+        "busca-produtos": {
+          "mediana": 2368.133705799998,
+          "min": 1606.1453813999997,
+          "max": 2494.4594605,
+          "n": 3
+        },
+        "vendas-por-dia": {
+          "mediana": 44575.12096025,
+          "min": 40253.91902675,
+          "max": 59992.618841,
+          "n": 3
+        },
+        "top-produtos": {
+          "mediana": 58117.0001354,
+          "min": 57634.5946731,
+          "max": 58286.4639502,
+          "n": 3
+        }
+      },
+      "recursos": {
+        "api": {
+          "cpuMedia": {
+            "mediana": 12.6,
+            "min": 10.2,
+            "max": 12.8,
+            "n": 3
+          },
+          "memMedia": {
+            "mediana": 58.8,
+            "min": 56.1,
+            "max": 62.2,
+            "n": 3
+          },
+          "memMax": {
+            "mediana": 72.8,
+            "min": 67.8,
+            "max": 78.4,
+            "n": 3
+          }
+        },
+        "banco": {
+          "cpuMedia": {
+            "mediana": 97.7,
+            "min": 96.1,
+            "max": 98.2,
+            "n": 3
+          },
+          "memMedia": {
+            "mediana": 401,
+            "min": 399.2,
+            "max": 401.2,
+            "n": 3
+          },
+          "memMax": {
+            "mediana": 456.1,
+            "min": 453.6,
+            "max": 472,
+            "n": 3
+          }
+        }
+      },
+      "avisos": [
+        "execuções em commits diferentes: 014d4dc, 2546c27, efdb276",
+        "arquivos sem commit (ou sem git) em: 20261116-233459-03-pedidos-cliente-sem-n-mais-1, 20261116-233700-03-pedidos-cliente-sem-n-mais-1, 20261116-233931-03-pedidos-cliente-sem-n-mais-1"
+      ]
     }
   ]
 }
