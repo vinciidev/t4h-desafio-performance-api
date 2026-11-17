@@ -579,6 +579,153 @@
         "arquivos sem commit (ou sem git) em: 20261116-172911-01c-pool-20, 20261116-173101-01c-pool-20, 20261116-173246-01c-pool-20",
         "contrato não mantido em: 20261116-172911-01c-pool-20 (ausente), 20261116-173101-01c-pool-20 (ausente), 20261116-173246-01c-pool-20 (ausente)"
       ]
+    },
+    {
+      "rotulo": "02a-indice-itens-pedido-pedido-id",
+      "execucoes": [
+        "20261116-230525-02a-indice-itens-pedido-pedido-id",
+        "20261116-230722-02a-indice-itens-pedido-pedido-id",
+        "20261116-230917-02a-indice-itens-pedido-pedido-id"
+      ],
+      "commits": [
+        "ad71f47",
+        "02a4c54",
+        "10c0723"
+      ],
+      "parametros": {
+        "vus": "20",
+        "duracao": "60s"
+      },
+      "limites": {
+        "api": {
+          "cpus": 0.5,
+          "memoriaMiB": 256
+        },
+        "banco": {
+          "cpus": 1,
+          "memoriaMiB": 512
+        }
+      },
+      "reqPorSegundo": {
+        "mediana": 3.7019976593535677,
+        "min": 3.663690068779461,
+        "max": 4.04991193395313,
+        "n": 3
+      },
+      "p50": {
+        "mediana": 1821.459792,
+        "min": 1520.892053,
+        "max": 1978.1869285,
+        "n": 3
+      },
+      "p95": {
+        "mediana": 19608.72946509998,
+        "min": 17052.2533325,
+        "max": 21086.060591199996,
+        "n": 3
+      },
+      "p99": {
+        "mediana": 36172.05005299998,
+        "min": 28748.92792310021,
+        "max": 38694.88900642,
+        "n": 3
+      },
+      "erros": {
+        "mediana": 0,
+        "min": 0,
+        "max": 0.3436426116838488,
+        "n": 3
+      },
+      "porRota": {
+        "cliente": {
+          "mediana": 485.1304662499995,
+          "min": 305.9727744,
+          "max": 906.9742648,
+          "n": 3
+        },
+        "pedidos-do-cliente": {
+          "mediana": 8095.902180649999,
+          "min": 7396.2142526,
+          "max": 8414.325517599998,
+          "n": 3
+        },
+        "cliente-por-email": {
+          "mediana": 3411.2851783999986,
+          "min": 2981.6862714999997,
+          "max": 3597.8247768999977,
+          "n": 3
+        },
+        "pedidos-por-status": {
+          "mediana": 20975.327087499998,
+          "min": 19764.735828999983,
+          "max": 21969.7951866,
+          "n": 3
+        },
+        "busca-produtos": {
+          "mediana": 1890.32144645,
+          "min": 1673.234012949999,
+          "max": 1958.1487967999997,
+          "n": 3
+        },
+        "vendas-por-dia": {
+          "mediana": 33715.15476739999,
+          "min": 29213.761706649988,
+          "max": 39197.585778749984,
+          "n": 3
+        },
+        "top-produtos": {
+          "mediana": 57586.162102400005,
+          "min": 57127.303386700005,
+          "max": 57957.9654243,
+          "n": 3
+        }
+      },
+      "recursos": {
+        "api": {
+          "cpuMedia": {
+            "mediana": 11.1,
+            "min": 10.3,
+            "max": 12.1,
+            "n": 3
+          },
+          "memMedia": {
+            "mediana": 50,
+            "min": 46.6,
+            "max": 55.9,
+            "n": 3
+          },
+          "memMax": {
+            "mediana": 66.1,
+            "min": 65.1,
+            "max": 76.5,
+            "n": 3
+          }
+        },
+        "banco": {
+          "cpuMedia": {
+            "mediana": 99.2,
+            "min": 96.4,
+            "max": 101.5,
+            "n": 3
+          },
+          "memMedia": {
+            "mediana": 402.3,
+            "min": 401.4,
+            "max": 405.9,
+            "n": 3
+          },
+          "memMax": {
+            "mediana": 454.2,
+            "min": 451.2,
+            "max": 465,
+            "n": 3
+          }
+        }
+      },
+      "avisos": [
+        "execuções em commits diferentes: ad71f47, 02a4c54, 10c0723",
+        "arquivos sem commit (ou sem git) em: 20261116-230525-02a-indice-itens-pedido-pedido-id, 20261116-230722-02a-indice-itens-pedido-pedido-id, 20261116-230917-02a-indice-itens-pedido-pedido-id"
+      ]
     }
   ]
 }
