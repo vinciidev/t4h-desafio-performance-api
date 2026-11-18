@@ -33,6 +33,8 @@ flowchart LR
 
 **Reproduzir:** `docker compose up -d --build`, depois `scripts/verificar-contrato.sh comparar` e `scripts/medir.sh <rotulo>` (3 vezes por rótulo), e `node analise/resumir.js --base 00-linha-de-base-B`. No Git Bash do Windows, rode `export MSYS_NO_PATHCONV=1` antes do `medir.sh`. Números de máquinas diferentes não se comparam: as pastas sem sufixo `-B` são de outra máquina e ficam só como histórico.
 
+**Aviso sobre `resultados/`:** o `contexto.txt` de cada execução registra "arquivos alterados sem commit" maior que zero. É o contador do `medir.sh` enxergando as pastas das execuções anteriores da própria série; o código medido estava limpo (o commit exato está no mesmo arquivo, e cada execução tem o seu commit).
+
 ## Prazo e entrega
 
 - **Prazo:** 14 dias corridos a partir da largada
