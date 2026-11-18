@@ -1,0 +1,11 @@
+rotulo: 02a-indice-itens-pedido-pedido-id-B
+data: 2026-11-18 00:29:24 -0300
+vus: 20
+duracao: 60s
+aquecimento: 15s
+commit: 7b68209
+arquivos alterados sem commit: 3
+
+limites dos containers:
+  api: cpus=500000000 (1e9 = 1 CPU) memoria=268435456 bytes
+  banco: cpus=1000000000 (1e9 = 1 CPU) memoria=536870912 bytes
