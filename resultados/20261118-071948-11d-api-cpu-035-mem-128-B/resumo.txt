@@ -1,0 +1,17 @@
+Medição: 11d-api-cpu-035-mem-128-B
+Carga: 20 usuários virtuais por 60s
+
+Requisições:        776
+Requisições/s:      12.11
+Tempo de resposta:  mediana 353.9 ms | p95 9920.2 ms | p99 15281.6 ms
+Erros:              0.00%
+
+Por rota:
+rota                  req       mediana       p95           p99           erros   
+cliente               201       104.1 ms      390.0 ms      764.3 ms      0.0%    
+cliente-por-email     117       131.3 ms      872.4 ms      1164.1 ms     0.0%    
+pedidos-do-cliente    168       402.4 ms      837.3 ms      1397.5 ms     0.0%    
+pedidos-por-status    104       1398.7 ms     12453.0 ms    14569.4 ms    0.0%    
+busca-produtos        121       509.1 ms      1156.1 ms     2651.5 ms     0.0%    
+vendas-por-dia        54        8319.0 ms     14381.9 ms    18680.2 ms    0.0%    
+top-produtos          11        14944.3 ms    31171.3 ms    31439.2 ms    0.0%    
