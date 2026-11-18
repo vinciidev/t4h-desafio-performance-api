@@ -1,39 +1,47 @@
-# API da loja: com o banco saturado, índices certos e limites justos deram 6,5 vezes mais vazão
+# Eficiência de uma API Node.js com PostgreSQL sob carga: efeito de índices, pool de conexões e limites de recursos sobre vazão, latência e custo de CPU
 
 ## 1. Resumo
 
-Uma API de loja (Node.js e PostgreSQL) ficava lenta sob carga: o banco usava 97% de um CPU e a API, 8%. Diagnostiquei quatro causas com `EXPLAIN` e contagem de consultas e apliquei sete mudanças, uma por commit, cada uma medida três vezes e sem alterar nenhuma resposta. A vazão (requisições por segundo) foi de 1,8 para 11,5 e o p95 (tempo abaixo do qual ficam 95% das respostas) de 36.404 para 9.920 ms. Cada requisição passou a custar 85% menos CPU do banco; quase tudo veio de dois índices, e o pool e o N+1 mexeram pouco.
+Este trabalho investiga, de forma experimental, como reduzir a latência e o custo de execução de uma API Node.js com PostgreSQL 16 sem alterar suas respostas. O diagnóstico, por `EXPLAIN ANALYZE` e contagem de conexões, indicou o banco saturado (97% de CPU, contra 8% da API). Sete intervenções, uma por commit e medidas três vezes cada, elevaram a vazão de 1,8 para 11,5 requisições por segundo e reduziram o p95 de 36.404 para 9.920 ms, com 85% menos CPU de banco por requisição e as 42 respostas preservadas. Dois índices responderam pela maior parte do ganho.
+
+**Palavras-chave:** desempenho de APIs; PostgreSQL; indexação; pool de conexões; consultas N+1; latência de cauda.
 
 ## 2. Contexto e diagnóstico
 
-A aplicação tem sete rotas de leitura sobre 100 mil clientes, 20 mil produtos, 500 mil pedidos e 1,5 milhão de itens; a API roda com 0,5 CPU e 256 MB, o banco com 1 CPU e 512 MB. Gravei o contrato (as 42 respostas que não podem mudar) e medi a linha de base três vezes com `scripts/medir.sh`: 1,8 req/s, p95 de 36.404,2 ms, 0,75% de erros ([1](../resultados/20261117-234931-00-linha-de-base-B) [2](../resultados/20261117-235149-00-linha-de-base-B) [3](../resultados/20261117-235352-00-linha-de-base-B)). O banco ficou em 97,4% de CPU e a API em 7,8%: o gargalo é o PostgreSQL, não o Node.
+**Objeto e método.** A aplicação expõe sete rotas de leitura sobre 100 mil clientes, 20 mil produtos, 500 mil pedidos e 1,5 milhão de itens, com a API limitada a 0,5 CPU e 256 MB e o banco a 1 CPU e 512 MB. A carga é fechada (k6): 20 usuários virtuais por 60 s, após 15 s de aquecimento. Cada configuração foi medida três vezes (mediana e faixa mínimo–máximo); faixas sobrepostas contam como ruído. As métricas são a vazão (requisições por segundo) e o p95 (valor abaixo do qual ficam 95% dos tempos de resposta). Um contrato de 42 respostas, gravado antes de qualquer alteração, garantiu que o comportamento não mudasse.
 
-Usei `EXPLAIN ANALYZE` (o plano que o banco executou, com tempo real) e a contagem de conexões por requisição. Hipóteses de causa, com evidências em `diagnostico/`:
+**Linha de base.** 1,8 req/s, p95 de 36.404,2 ms e 0,75% de erros ([1](../resultados/20261117-234931-00-linha-de-base-B) [2](../resultados/20261117-235149-00-linha-de-base-B) [3](../resultados/20261117-235352-00-linha-de-base-B)). O banco operou a 97,4% de CPU e a API a 7,8%: o gargalo está no PostgreSQL, não no Node.js.
+
+**Hipóteses de causa**, formuladas com `EXPLAIN ANALYZE` (plano executado, com tempos reais) e contagem de conexões, com evidências em `diagnostico/`:
 
 - **Conexão nova por consulta:** `GET /clientes/42/pedidos` abriu 16–17 conexões; `/clientes/42`, 1 ([contagem](../diagnostico/20261116-164528-1e48069-contar-clientes-42-pedidos.txt), [contagem](../diagnostico/20261116-164721-1e48069-contar-clientes-42.txt)).
 - **Consultas em laço (N+1: uma consulta para a lista e N para os detalhes):** na mesma rota, uma consulta por pedido e por item, em vez de um número fixo.
 - **Chaves estrangeiras sem índice:** itens de um pedido, 200,765 ms ([plano](../diagnostico/20261116-164440-1e48069/02-explain-itens-do-pedido.txt)); pedidos de um cliente, 108,279 ms ([plano](../diagnostico/20261116-164440-1e48069/02-explain-pedidos-do-cliente.txt)), ambos por varredura da tabela inteira.
 - **Filtros sem índice:** e-mail, 76,386 ms ([plano](../diagnostico/20261116-164440-1e48069/02-explain-clientes-email.txt)); listagem por status, 245,2 ms na página 1 e 779,4 ms na 1000, ordenando em disco ([página 1000](../diagnostico/20261116-164440-1e48069/02-explain-pedidos-status-pagina-1000.txt)).
 
-Os planos vêm da primeira máquina: o plano não depende dela, mas os tempos valem só como indicação.
+Os planos vêm da primeira máquina; os tempos isolados são apenas indicativos.
 
 ## 3. Estado da arte
 
 ### Reaproveitar conexões
 
-No PostgreSQL, cada conexão nova faz o supervisor criar um processo de backend [1]. O `node-postgres` recomenda pool (conexões reaproveitadas) em apps web e cita 20–30 ms só no handshake [2]. O HikariCP defende pools pequenos, perto de núcleos × 2 + discos, e manda testar sob carga [3]. Contraponto de mercado: com 56 clientes, a conexão direta teve cerca de 2,5 vezes a vazão do PgBouncer, um pooler externo [4]. O nosso pool fica dentro da API.
+No PostgreSQL, cada conexão nova leva o supervisor a criar um processo de backend [1], e o `node-postgres` recomenda um pool (conexões reaproveitadas) em aplicações web, citando 20–30 ms só no handshake [2]. O HikariCP defende pools pequenos, da ordem de núcleos × 2 + discos, calibrados sob carga [3]. Em contraponto, com 56 clientes a conexão direta alcançou cerca de 2,5 vezes a vazão do PgBouncer, um pooler externo [4].
 
 ### Eliminar consultas em laço
 
-Chen et al. descrevem o *one-by-one processing*, que "repeatedly performs similar database operations in loops" [5], a estrutura do nosso N+1. Corrigi-lo cortou o tempo de resposta em 20% a 32% em 4 de 9 suítes de um sistema aberto e em 69% num industrial; nas demais, sem efeito significativo: "not all anti-patterns are worth fixing" [5]. É sobre ORM em Java, não SQL direto. Um caso de mercado reporta mediana de 3,41 s para 290 ms numa página [6].
+Chen et al. definem o *one-by-one processing* como operações de banco semelhantes repetidas em laço ("repeatedly performs similar database operations in loops") [5], equivalente ao N+1 observado. Corrigi-lo reduziu o tempo de resposta em 20% a 32% em 4 de 9 suítes de um sistema aberto e em 69% num industrial; nas demais, o efeito não foi significativo ("not all anti-patterns are worth fixing") [5]. A evidência é de ORM em Java, não de SQL direto. Um caso de mercado relata a mediana de uma página caindo de 3,41 s para 290 ms [6].
 
 ### Indexar o que a consulta filtra
 
-Um índice (aqui, B-tree) é uma estrutura ordenada que evita varrer a tabela inteira. Declarar chave estrangeira não cria índice [7]; índice de expressão serve a consultas com a mesma expressão, ao custo de calculá-la a cada escrita [8]; um índice pode entregar linhas já ordenadas e, com `ORDER BY ... LIMIT`, ler só as primeiras [9]. Paginar com `OFFSET` obriga a buscar as linhas puladas, e a alternativa (*keyset*) filtra pelo último valor visto [10]; contar com exatidão é caro porque o MVCC (cada transação vê sua própria versão das linhas) exige checar a visibilidade linha a linha [11]. Um `DELETE` caiu de 19 s para 342 ms ao indexar chaves estrangeiras [12]; é outra operação, vale pelo mecanismo.
+Um índice (aqui, B-tree) é uma estrutura ordenada que evita varrer a tabela. Declarar chave estrangeira não cria índice [7]; um índice de expressão serve a consultas com a mesma expressão, ao custo de calculá-la a cada escrita [8]; e um índice pode entregar linhas já ordenadas, lendo só as primeiras em `ORDER BY ... LIMIT` [9]. O `OFFSET` obriga a buscar as linhas puladas, e a alternativa (*keyset*) filtra pelo último valor visto [10]; contar com exatidão é caro porque o MVCC (cada transação vê sua versão das linhas) exige checar a visibilidade linha a linha [11]. Um `DELETE` caiu de 19 s para 342 ms ao indexar chaves estrangeiras [12] (outra operação; vale pelo mecanismo).
 
 ### Medir e limitar recursos
 
-Episódios temporários de latência alta, irrelevantes em sistemas de porte moderado, "may come to dominate overall service performance at large scale" [13]; o argumento é para muitos servidores por requisição, então o p95 aqui é escolha de método. O k6 usa modelo fechado, em que a carga cai quando o sistema desacelera [14], e há "a vast difference in behavior between open and closed models" [15]. O Docker limita CPU com `--cpus` e, por padrão, num estouro de memória (OOM) o kernel mata processos do container [16].
+Dean e Barroso afirmam que episódios temporários de alta latência, irrelevantes em sistemas de porte moderado, "may come to dominate overall service performance at large scale" [13]; o argumento vale para muitos servidores por requisição, e usar o p95 aqui é escolha metodológica. O k6 usa modelo fechado, no qual a carga cai quando o sistema desacelera [14], e Schroeder et al. mostram "a vast difference in behavior between open and closed models" [15]. O Docker limita CPU com `--cpus` e, por padrão, o kernel encerra processos do container em estouro de memória (OOM) [16].
+
+### Rotas que continuam lentas: busca e relatórios
+
+Na busca por substring (`busca-produtos`), índices trigrama (`pg_trgm`) suportam `LIKE`/`ILIKE` sem âncora à esquerda, ao contrário do B-tree, mas padrões sem trigramas extraíveis degeneram em varredura do índice inteiro [17]. Nos relatórios, uma visão materializada guarda o resultado como tabela e acelera a leitura, ao custo de dados defasados até o refresh [18], que sem `CONCURRENTLY` pode bloquear leituras [19]. Nenhuma foi aplicada; a segunda pode alterar o que a rota devolve.
 
 ## 4. Alternativas consideradas
 
@@ -46,21 +54,22 @@ Episódios temporários de latência alta, irrelevantes em sistemas de porte mod
 | `json_agg` no banco | nenhum | não testado | formato de data pode quebrar o contrato | médio |
 | Reduzir limites da API | -10% CPU, -17% memória reservados | geral no ruído; 0,25 CPU piora rotas leves | OOM, fila | baixo |
 | Mais CPU ao banco | sobe a conta | não testado | contraria "mais barato" | baixo |
+| Índice trigrama (`pg_trgm`) na busca | índice adicional | não testado [17] | padrão curto degenera em varredura | médio |
+| Visão materializada nos relatórios | guardar e atualizar o resultado [19] | não testado [18] | dado defasado quebra o contrato | alto |
 
-Descartei o PgBouncer (soma um serviço e a fonte mostra perda em escala pequena [4]), o `json_agg` (risco ao contrato) e mais CPU ao banco (trata o sintoma pagando mais). Fiquei com um índice por commit, casando com o que a consulta filtra e ordena, para atribuir cada ganho a uma causa, e com três consultas fixas com `ANY` no N+1, que mantêm a ordem do contrato.
+O PgBouncer foi descartado por acrescentar um serviço e porque a fonte indica perda em escala pequena [4]; o `json_agg`, pelo risco ao formato de datas; mais CPU ao banco, por tratar o sintoma com uma conta maior. Mantiveram-se um índice por commit, alinhado ao filtro e à ordenação, para atribuir cada ganho a uma causa, e três consultas fixas com `ANY` no N+1, que preservam a ordem do contrato.
 
 ## 5. Solução escolhida e por quê
 
-Reduzi o trabalho do banco antes de mexer em recursos, porque ele estava a 97% de CPU e a API a 8%. A ordem foi: pool (afeta todas as rotas), índices, N+1 (o ganho depende de cada consulta já ser barata) e, por último, limites. Cada mudança foi um commit, com contrato conferido.
+**Argumento.** Com o banco saturado e a API a 8% de CPU, reduzir o trabalho por consulta tinha precedência sobre ajustar recursos. A ordem seguiu esse raciocínio: pool (afeta todas as rotas), índices, N+1 e, por último, limites de recursos. Cada intervenção teve hipótese própria (seção 6), commit isolado e contrato verificado.
 
-O argumento é mecanismo mais número. Na mudança 06, o plano da página 1 passou de varredura com ordenação (245,2 ms) para leitura do índice sem ordenar (0,107 ms) ([plano depois](../diagnostico/20261118-014212-a8050f5/02-explain-pedidos-status-pagina-1.txt)) e a vazão dobrou (5,2 → 10,1 req/s, faixas separadas).
+**Mecanismo e evidência.** Na mudança 06, o plano da página 1 de `pedidos-por-status` passou de varredura com ordenação (245,2 ms) para leitura do índice, sem ordenar (0,107 ms) ([plano depois](../diagnostico/20261118-014212-a8050f5/02-explain-pedidos-status-pagina-1.txt)), e a vazão dobrou (5,2 → 10,1 req/s, faixas separadas). O índice composto casa o filtro (`status`) e a ordenação (`criado_em`, `id`), como descrito em [9].
 
-**Na prática (opinião minha, não testada):** (1) começar pelo `EXPLAIN` das listagens e filtros mais usados; (2) em produção, evitar travar escritas pede `CREATE INDEX CONCURRENTLY` (não testei); (3) medir o custo de escrita antes de acumular índices; (4) cortar recursos olhando o p95 **por rota**, não só o geral (seção 6).
+**Aplicação prática (opinião do autor, não testada):** (1) começar pelo `EXPLAIN` das listagens e filtros mais usados; (2) criar índices sem travar escritas exige `CREATE INDEX CONCURRENTLY` (não testado); (3) medir o custo de escrita antes de acumular índices; (4) olhar o p95 **por rota** ao cortar recursos (seção 6).
 
 ## 6. Experimento e resultado
 
-Máquina B, base `00-linha-de-base-B`; medianas de 3 execuções; contrato mantido em todas. CPU % e MiB: API / banco.
-
+Máquina B (Intel i5-9300H, 15,8 GB de RAM), base `00-linha-de-base-B`; medianas de 3 execuções; contrato mantido em todas. CPU em % e memória em MiB, API / banco.
 | Mudança | Hipótese | p95 (ms) | req/s | CPU · MiB | Pastas | Conclusão |
 |---|---|---|---|---|---|---|
 | 00 base | — | 36404,2 | 1,8 | 7,8 · 29 / 97,4 · 402 | [1](../resultados/20261117-234931-00-linha-de-base-B) [2](../resultados/20261117-235149-00-linha-de-base-B) [3](../resultados/20261117-235352-00-linha-de-base-B) | ponto de partida |
@@ -74,18 +83,27 @@ Máquina B, base `00-linha-de-base-B`; medianas de 3 execuções; contrato manti
 
 ![p95 mediano por mudança, em milissegundos, na máquina B](img/p95-por-mudanca.svg)
 
-A vazão subiu 6,5 vezes e o p95 caiu 73%, quase tudo pelos índices 02a e 06. Para o custo de rodar, o número mais útil é a CPU por requisição: no banco caiu de 555,8 para 85,3 ms (-85%) e na API de 44,5 para 17,7 ms, mais que a reserva de recursos (-10% de CPU, -17% de memória); cálculo em [`resumo.md`](../analise/saida/resumo.md). O pool mexeu pouco, o N+1 melhorou só a rota-alvo e 0,25 CPU deixou `cliente` e `pedidos-do-cliente` de 492,3 e 1002,0 para 1239,1 e 1811,2 ms de p95, sem mudar o agregado (série 11b). Com 0,35 CPU e 128 MiB voltaram a 486,5 e 997,7 ms (série 11d), sem OOM (pico de 99,1 MiB). Detalhes: [`experimentos.md`](../experimentos.md).
+![Vazão mediana por mudança, em requisições por segundo, na máquina B](img/req-s-por-mudanca.svg)
+
+**Leitura dos resultados.** A vazão subiu 6,5 vezes e o p95 caiu 73%, sobretudo pelos índices 02a e 06. Quanto ao custo, a métrica mais informativa é a CPU por requisição: no banco caiu de 555,8 para 85,3 ms (-85%) e na API de 44,5 para 17,7 ms, ganho maior que a redução da reserva de recursos (-10% de CPU, -17% de memória); o cálculo está em [`resumo.md`](../analise/saida/resumo.md).
+
+**O que não funcionou ou foi marginal.** O pool alterou pouco o p95; o N+1 melhorou apenas a rota-alvo; e 0,25 CPU na API elevou o p95 de `cliente` e `pedidos-do-cliente` de 492,3 e 1002,0 para 1239,1 e 1811,2 ms sem alterar o agregado (série 11b): o p95 geral pode ocultar degradações em rotas leves. Com 0,35 CPU e 128 MiB voltaram a 486,5 e 997,7 ms (série 11d), sem OOM (pico de 99,1 MiB). Detalhes em [`experimentos.md`](../experimentos.md).
 
 ## 7. Limites e testes futuros
 
-- **Modelo fechado:** o k6 reduz a carga quando a API desacelera [14][15], então o p95 pode subestimar o pior caso. Não testei carga aberta.
-- **Ambiente:** a RAM livre do host variou de 851 a 2.397 MB entre séries, com plano de energia "Equilibrado". As séries 04, 06 e 11a começaram com menos de 1 GB livre; não verifiquei o efeito.
-- **Duas máquinas:** a primeira é só histórico (lá a série 03 foi inconclusiva); os planos de 02a, 02b e 03 vêm dela.
-- **Escrita não medida:** o teste só lê; os índices (4,7 a 21 MB) deixam INSERT e UPDATE mais lentos.
-- **Poucas execuções:** 3 por série; faixas sobrepostas contam como ruído.
-- **"Arquivos sem commit" no `contexto.txt`:** aparece como 1, 2 e 3 porque o `medir.sh` conta a pasta da própria execução, criada antes do arquivo; o código medido estava limpo, no commit indicado ([explicação](../experimentos.md)).
-- **O que derrubaria a conclusão:** outro hardware com as faixas de 02a e 06 sobrepostas, ou carga aberta em que o p95 piora.
-- **Próximo gargalo:** `vendas-por-dia` e `top-produtos` (p95 acima de 14 s). Ver [ideias não testadas](../proximos-testes.md).
+**Validade interna.**
+- A RAM livre do host variou de 851 a 2.397 MB entre séries (plano de energia "Equilibrado"); 04, 06 e 11a começaram com menos de 1 GB livre, e o efeito não foi verificado.
+- Três execuções por série limitam o poder estatístico.
+- O "arquivos sem commit" do `contexto.txt` (1, 2 e 3) decorre de o `medir.sh` contar a pasta da própria execução; o código medido estava limpo ([explicação](../experimentos.md)).
+
+**Validade externa.**
+- O k6 usa modelo fechado, de modo que o p95 pode subestimar o pior caso [14][15]; carga aberta não foi testada.
+- O teste só lê: o custo dos índices (4,7 a 21 MB) em INSERT e UPDATE não foi medido.
+- Os números valem para a máquina B; a primeira é histórico (lá a série 03 foi inconclusiva) e dela vêm os planos de 02a, 02b e 03.
+
+**O que refutaria a conclusão.** Outro hardware com as faixas de 02a e 06 sobrepostas, ou uma carga aberta em que o p95 piore.
+
+**Trabalhos futuros.** O próximo gargalo são `vendas-por-dia` e `top-produtos` (p95 acima de 14 s); ver [ideias não testadas](../proximos-testes.md).
 
 ## 8. Referências
 
@@ -105,6 +123,9 @@ A vazão subiu 6,5 vezes e o p95 caiu 73%, quase tudo pelos índices 02a e 06. P
 14. Grafana k6. *Open and closed models*. https://grafana.com/docs/k6/latest/using-k6/scenarios/concepts/open-vs-closed/. Acesso em 13/11/2026.
 15. Schroeder, B.; Wierman, A.; Harchol-Balter, M. *Open Versus Closed: A Cautionary Tale*. NSDI 2006. https://www.usenix.org/conference/nsdi-06/open-versus-closed-cautionary-tale. Acesso em 17/11/2026.
 16. Docker. *Resource constraints*. https://docs.docker.com/engine/containers/resource_constraints/. Acesso em 13/11/2026.
+17. PostgreSQL Global Development Group. *pg_trgm* (PostgreSQL 16). https://www.postgresql.org/docs/16/pgtrgm.html. Acesso em 13/11/2026.
+18. PostgreSQL Global Development Group. *Materialized Views* (PostgreSQL 16, seção 41.3). https://www.postgresql.org/docs/16/rules-materializedviews.html. Acesso em 13/11/2026.
+19. PostgreSQL Global Development Group. *REFRESH MATERIALIZED VIEW* (PostgreSQL 16). https://www.postgresql.org/docs/16/sql-refreshmaterializedview.html. Acesso em 16/11/2026.
 
 ## 9. Uso de IA
 
