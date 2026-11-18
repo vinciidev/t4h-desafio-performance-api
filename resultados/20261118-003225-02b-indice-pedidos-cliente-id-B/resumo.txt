@@ -1,0 +1,17 @@
+Medição: 02b-indice-pedidos-cliente-id-B
+Carga: 20 usuários virtuais por 60s
+
+Requisições:        349
+Requisições/s:      4.78
+Tempo de resposta:  mediana 997.4 ms | p95 18516.3 ms | p99 37856.4 ms
+Erros:              0.00%
+
+Por rota:
+rota                  req       mediana       p95           p99           erros   
+cliente               90        98.2 ms       813.5 ms      1412.1 ms     0.0%    
+cliente-por-email     53        1474.1 ms     2441.2 ms     3470.3 ms     0.0%    
+pedidos-do-cliente    67        998.8 ms      2356.8 ms     2949.9 ms     0.0%    
+pedidos-por-status    49        8392.6 ms     17440.7 ms    36600.5 ms    0.0%    
+busca-produtos        58        653.1 ms      1553.6 ms     2454.3 ms     0.0%    
+vendas-por-dia        26        12860.7 ms    35841.5 ms    37663.1 ms    0.0%    
+top-produtos          6         36710.9 ms    49826.6 ms    50204.9 ms    0.0%    
