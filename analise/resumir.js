@@ -4,6 +4,7 @@
 //   node analise/resumir.js                 # gera analise/saida/resumo.md, execucoes.csv e medianas.json
 //   node analise/resumir.js --svg           # também gera gráficos SVG em artigo/img/
 //   node analise/resumir.js --base 00-linha-de-base
+//   node analise/resumir.js --svg --svg-sufixo -B   # gráficos só dos rótulos que terminam em -B (uma máquina)
 //
 // Sem Node instalado, rode pelo container que o desafio já usa:
 //   docker run --rm -v "$PWD":/w -w /w node:20.18.0-alpine node analise/resumir.js --svg
@@ -31,6 +32,8 @@ const argumentos = process.argv.slice(2);
 const gerarSvg = argumentos.includes('--svg');
 const indiceBase = argumentos.indexOf('--base');
 const rotuloBaseInformado = indiceBase >= 0 ? argumentos[indiceBase + 1] : null;
+const indiceSufixo = argumentos.indexOf('--svg-sufixo');
+const sufixoSvg = indiceSufixo >= 0 ? argumentos[indiceSufixo + 1] : null;
 
 // ---------- leitura de uma execução ----------
 
@@ -380,7 +383,8 @@ function graficoBarras({ titulo, subtitulo, unidade, casas, dados }) {
 
 if (gerarSvg) {
   fs.mkdirSync(PASTA_IMG, { recursive: true });
-  const n = consolidado.map((r) => r.execucoes.length);
+  const paraGrafico = sufixoSvg ? consolidado.filter((r) => r.rotulo.endsWith(sufixoSvg)) : consolidado;
+  const n = paraGrafico.map((r) => r.execucoes.length);
   const faixaN = Math.min(...n) === Math.max(...n) ? `${n[0]}` : `${Math.min(...n)} a ${Math.max(...n)}`;
   const notaExec = `Mediana de ${faixaN} execuções por rótulo; traço = mínimo–máximo. Fonte: resultados/ via analise/resumir.js.`;
   fs.writeFileSync(path.join(PASTA_IMG, 'p95-por-mudanca.svg'), graficoBarras({
@@ -388,14 +392,14 @@ if (gerarSvg) {
     subtitulo: notaExec,
     unidade: 'ms',
     casas: 1,
-    dados: consolidado.map((r) => ({ rotulo: r.rotulo, valor: r.p95.mediana, min: r.p95.min, max: r.p95.max })),
+    dados: paraGrafico.map((r) => ({ rotulo: r.rotulo, valor: r.p95.mediana, min: r.p95.min, max: r.p95.max })),
   }));
   fs.writeFileSync(path.join(PASTA_IMG, 'req-s-por-mudanca.svg'), graficoBarras({
     titulo: 'Requisições por segundo por mudança (maior é melhor)',
     subtitulo: notaExec,
     unidade: 'req/s',
     casas: 1,
-    dados: consolidado.map((r) => ({ rotulo: r.rotulo, valor: r.reqPorSegundo.mediana, min: r.reqPorSegundo.min, max: r.reqPorSegundo.max })),
+    dados: paraGrafico.map((r) => ({ rotulo: r.rotulo, valor: r.reqPorSegundo.mediana, min: r.reqPorSegundo.min, max: r.reqPorSegundo.max })),
   }));
 }
 

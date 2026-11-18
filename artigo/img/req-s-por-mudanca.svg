@@ -1,0 +1,91 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 760 482" width="760" height="482" role="img" aria-labelledby="t d">
+<title id="t">Requisições por segundo por mudança (maior é melhor)</title><desc id="d">Mediana de 3 execuções por rótulo; traço = mínimo–máximo. Fonte: resultados/ via analise/resumir.js.</desc>
+<style>
+    .fundo{fill:#fcfcfb}.tit{fill:#0b0b0b;font:600 16px system-ui,-apple-system,Segoe UI,sans-serif}
+    .sub,.eixo{fill:#52514e;font:12px system-ui,-apple-system,Segoe UI,sans-serif}
+    .rot{fill:#0b0b0b;font:13px ui-monospace,SFMono-Regular,Menlo,monospace}
+    .val{fill:#0b0b0b;font:600 12px system-ui,-apple-system,Segoe UI,sans-serif}
+    .grade{stroke:#e1e0d9;stroke-width:1}.barra{fill:#2a78d6}.faixa{stroke:#52514e;stroke-width:1.5}
+    @media (prefers-color-scheme: dark){
+      .fundo{fill:#1a1a19}.tit,.rot,.val{fill:#f0efec}.sub,.eixo{fill:#c3c2b7}
+      .grade{stroke:#2c2c2a}.barra{fill:#3987e5}.faixa{stroke:#c3c2b7}
+    }
+  </style>
+<rect class="fundo" width="760" height="482" rx="8"/>
+<text class="tit" x="16" y="28">Requisições por segundo por mudança (maior é melhor)</text>
+<text class="sub" x="16" y="48">Mediana de 3 execuções por rótulo; traço = mínimo–máximo. Fonte: resultados/ via analise/resumir.js.</text>
+<line class="grade" x1="230" x2="230" y1="66" y2="452"/>
+<text class="eixo" x="230" y="468" text-anchor="middle">0</text>
+<line class="grade" x1="376.66666666666663" x2="376.66666666666663" y1="66" y2="452"/>
+<text class="eixo" x="376.66666666666663" y="468" text-anchor="middle">5</text>
+<line class="grade" x1="523.3333333333333" x2="523.3333333333333" y1="66" y2="452"/>
+<text class="eixo" x="523.3333333333333" y="468" text-anchor="middle">10</text>
+<line class="grade" x1="670" x2="670" y1="66" y2="452"/>
+<text class="eixo" x="670" y="468" text-anchor="middle">15 req/s</text>
+<text class="rot" x="218" y="91" text-anchor="end">00-linha-de-base-B</text>
+<path class="barra" d="M230,79 h47.86938703438227 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-47.86938703438227 z"><title>00-linha-de-base-B: 1,8 req/s (faixa 1,8–1,8)</title></path>
+<line class="faixa" x1="281.40521162430684" x2="283.20290529715044" y1="87" y2="87"/>
+<line class="faixa" x1="281.40521162430684" x2="281.40521162430684" y1="82" y2="92"/>
+<line class="faixa" x1="283.20290529715044" x2="283.20290529715044" y1="82" y2="92"/>
+<text class="val" x="291.20290529715044" y="91">1,8</text>
+<text class="rot" x="218" y="125" text-anchor="end">01c-pool-20-B</text>
+<path class="barra" d="M230,113 h54.714713961002815 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-54.714713961002815 z"><title>01c-pool-20-B: 2,0 req/s (faixa 1,9–2,1)</title></path>
+<line class="faixa" x1="286.9204652156413" x2="292.9311082851166" y1="121" y2="121"/>
+<line class="faixa" x1="286.9204652156413" x2="286.9204652156413" y1="116" y2="126"/>
+<line class="faixa" x1="292.9311082851166" x2="292.9311082851166" y1="116" y2="126"/>
+<text class="val" x="300.9311082851166" y="125">2,0</text>
+<text class="rot" x="218" y="159" text-anchor="end">02a-indice-itens-pedido-pedido-id-B</text>
+<path class="barra" d="M230,147 h108.1505947702193 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-108.1505947702193 z"><title>02a-indice-itens-pedido-pedido-id-B: 3,8 req/s (faixa 2,8–4,4)</title></path>
+<line class="faixa" x1="312.1620858241257" x2="359.9653556952211" y1="155" y2="155"/>
+<line class="faixa" x1="312.1620858241257" x2="312.1620858241257" y1="150" y2="160"/>
+<line class="faixa" x1="359.9653556952211" x2="359.9653556952211" y1="150" y2="160"/>
+<text class="val" x="367.9653556952211" y="159">3,8</text>
+<text class="rot" x="218" y="193" text-anchor="end">02b-indice-pedidos-cliente-id-B</text>
+<path class="barra" d="M230,181 h136.32168856768158 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-136.32168856768158 z"><title>02b-indice-pedidos-cliente-id-B: 4,8 req/s (faixa 4,3–4,9)</title></path>
+<line class="faixa" x1="355.73011607736885" x2="373.9739031542093" y1="189" y2="189"/>
+<line class="faixa" x1="355.73011607736885" x2="355.73011607736885" y1="184" y2="194"/>
+<line class="faixa" x1="373.9739031542093" x2="373.9739031542093" y1="184" y2="194"/>
+<text class="val" x="381.9739031542093" y="193">4,8</text>
+<text class="rot" x="218" y="227" text-anchor="end">03-pedidos-cliente-sem-n-mais-1-B</text>
+<path class="barra" d="M230,215 h120.75369668898179 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-120.75369668898179 z"><title>03-pedidos-cliente-sem-n-mais-1-B: 4,3 req/s (faixa 4,2–5,7)</title></path>
+<line class="faixa" x1="353.951746541242" x2="398.431618022518" y1="223" y2="223"/>
+<line class="faixa" x1="353.951746541242" x2="353.951746541242" y1="218" y2="228"/>
+<line class="faixa" x1="398.431618022518" x2="398.431618022518" y1="218" y2="228"/>
+<text class="val" x="406.431618022518" y="227">4,3</text>
+<text class="rot" x="218" y="261" text-anchor="end">04-indice-clientes-email-lower-B</text>
+<path class="barra" d="M230,249 h148.96723041635687 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-148.96723041635687 z"><title>04-indice-clientes-email-lower-B: 5,2 req/s (faixa 5,2–5,8)</title></path>
+<line class="faixa" x1="381.7465909768223" x2="400.1752104515451" y1="257" y2="257"/>
+<line class="faixa" x1="381.7465909768223" x2="381.7465909768223" y1="252" y2="262"/>
+<line class="faixa" x1="400.1752104515451" x2="400.1752104515451" y1="252" y2="262"/>
+<text class="val" x="408.1752104515451" y="261">5,2</text>
+<text class="rot" x="218" y="295" text-anchor="end">06-indice-pedidos-status-B</text>
+<path class="barra" d="M230,283 h292.5751790291465 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-292.5751790291465 z"><title>06-indice-pedidos-status-B: 10,1 req/s (faixa 10,0–10,3)</title></path>
+<line class="faixa" x1="521.8789864219193" x2="530.9813152737896" y1="291" y2="291"/>
+<line class="faixa" x1="521.8789864219193" x2="521.8789864219193" y1="286" y2="296"/>
+<line class="faixa" x1="530.9813152737896" x2="530.9813152737896" y1="286" y2="296"/>
+<text class="val" x="538.9813152737896" y="295">10,1</text>
+<text class="rot" x="218" y="329" text-anchor="end">11a-api-cpu-035-B</text>
+<path class="barra" d="M230,317 h324.983156008828 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-324.983156008828 z"><title>11a-api-cpu-035-B: 11,2 req/s (faixa 9,6–11,6)</title></path>
+<line class="faixa" x1="512.6414572442181" x2="569.4058210565623" y1="325" y2="325"/>
+<line class="faixa" x1="512.6414572442181" x2="512.6414572442181" y1="320" y2="330"/>
+<line class="faixa" x1="569.4058210565623" x2="569.4058210565623" y1="320" y2="330"/>
+<text class="val" x="577.4058210565623" y="329">11,2</text>
+<text class="rot" x="218" y="363" text-anchor="end">11b-api-cpu-025-B</text>
+<path class="barra" d="M230,351 h321.54185620633257 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-321.54185620633257 z"><title>11b-api-cpu-025-B: 11,1 req/s (faixa 10,3–11,6)</title></path>
+<line class="faixa" x1="530.9783873980398" x2="568.9567339174018" y1="359" y2="359"/>
+<line class="faixa" x1="530.9783873980398" x2="530.9783873980398" y1="354" y2="364"/>
+<line class="faixa" x1="568.9567339174018" x2="568.9567339174018" y1="354" y2="364"/>
+<text class="val" x="576.9567339174018" y="363">11,1</text>
+<text class="rot" x="218" y="397" text-anchor="end">11c-api-mem-128-B</text>
+<path class="barra" d="M230,385 h329.41753053422303 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-329.41753053422303 z"><title>11c-api-mem-128-B: 11,4 req/s (faixa 10,3–11,5)</title></path>
+<line class="faixa" x1="533.2237323192309" x2="567.041536240743" y1="393" y2="393"/>
+<line class="faixa" x1="533.2237323192309" x2="533.2237323192309" y1="388" y2="398"/>
+<line class="faixa" x1="567.041536240743" x2="567.041536240743" y1="388" y2="398"/>
+<text class="val" x="575.041536240743" y="397">11,4</text>
+<text class="rot" x="218" y="431" text-anchor="end">11d-api-cpu-035-mem-128-B</text>
+<path class="barra" d="M230,419 h333.481084015212 a4,4 0 0 1 4,4 v8 a4,4 0 0 1 -4,4 h-333.481084015212 z"><title>11d-api-cpu-035-mem-128-B: 11,5 req/s (faixa 9,4–12,1)</title></path>
+<line class="faixa" x1="505.9286197087699" x2="585.372655380339" y1="427" y2="427"/>
+<line class="faixa" x1="505.9286197087699" x2="505.9286197087699" y1="422" y2="432"/>
+<line class="faixa" x1="585.372655380339" x2="585.372655380339" y1="422" y2="432"/>
+<text class="val" x="593.372655380339" y="431">11,5</text>
+</svg>

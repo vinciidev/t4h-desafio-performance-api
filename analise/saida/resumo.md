@@ -1,6 +1,6 @@
 # Resumo das medições
 
-> Gerado por `analise/resumir.js` em 2026-11-18T10:21:21.819Z a partir de 54 pastas de `resultados/`. Não editar à mão: rode o script de novo.
+> Gerado por `analise/resumir.js` em 2026-11-18T11:25:39.898Z a partir de 54 pastas de `resultados/`. Não editar à mão: rode o script de novo.
 
 Valores: **mediana** das execuções de cada rótulo, com a faixa (mínimo–máximo) entre parênteses. Base de comparação: `00-linha-de-base-B`. Parâmetros da base: VUS=20, DURAÇÃO=60s, SEMENTE=undefined.
 
