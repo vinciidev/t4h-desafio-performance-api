@@ -29,7 +29,7 @@ flowchart LR
   API -->|"pg.Pool, 20 conexões"| PG[("PostgreSQL 16<br/>1 CPU · 512 MiB<br/>4 índices novos")]
 ```
 
-**Onde ler mais:** [artigo](artigo/artigo.md) (raciocínio, alternativas, limites) · [experimentos.md](experimentos.md) (uma linha por mudança, com planos e pastas) · [proximos-testes.md](proximos-testes.md) (o que foi pesquisado e não testado) · [diagnostico/](diagnostico/) (planos `EXPLAIN` antes e depois) · [resumo.md](analise/saida/resumo.md) (tabela completa, incluindo o p95 por rota).
+**Onde ler mais:** [artigo](artigo/artigo.md) (raciocínio, alternativas, limites) · [experimentos.md](experimentos.md) (uma linha por mudança, com planos e pastas) · [pesquisa.md](pesquisa.md) (fontes e casos de empresas por problema, com alternativas e custos) · [proximos-testes.md](proximos-testes.md) (o que foi pesquisado e não testado) · [diagnostico/](diagnostico/) (planos `EXPLAIN` antes e depois) · [resumo.md](analise/saida/resumo.md) (tabela completa, incluindo o p95 por rota).
 
 **Reproduzir:** `docker compose up -d --build`, depois `scripts/verificar-contrato.sh comparar` e `scripts/medir.sh <rotulo>` (3 vezes por rótulo), e `node analise/resumir.js --base 00-linha-de-base-B`. No Git Bash do Windows, rode `export MSYS_NO_PATHCONV=1` antes do `medir.sh`. Números de máquinas diferentes não se comparam: as pastas sem sufixo `-B` são de outra máquina e ficam só como histórico.
 
