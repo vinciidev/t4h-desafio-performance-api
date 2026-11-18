@@ -1,0 +1,11 @@
+rotulo: 11c-api-mem-128-B
+data: 2026-11-18 07:13:23 -0300
+vus: 20
+duracao: 60s
+aquecimento: 15s
+commit: d50aaa0
+arquivos alterados sem commit: 3
+
+limites dos containers:
+  api: cpus=250000000 (1e9 = 1 CPU) memoria=134217728 bytes
+  banco: cpus=1000000000 (1e9 = 1 CPU) memoria=536870912 bytes
