@@ -35,7 +35,7 @@ Declarar chave estrangeira não cria índice [7]; índice de expressão serve a 
 
 ### Medir e limitar recursos
 
-Latência alta, irrelevante em sistemas pequenos, "may come to dominate overall service performance at large scale" [13]; o argumento é para muitos servidores por requisição, então o p95 aqui é escolha de método. O k6 usa modelo fechado, em que a carga cai quando o sistema desacelera [14], e há "a vast difference in behavior between open and closed models" [15]. O Docker limita CPU com `--cpus` e, sem memória, o kernel mata processos do container [16].
+Episódios temporários de latência alta, irrelevantes em sistemas de porte moderado, "may come to dominate overall service performance at large scale" [13]; o argumento é para muitos servidores por requisição, então o p95 aqui é escolha de método. O k6 usa modelo fechado, em que a carga cai quando o sistema desacelera [14], e há "a vast difference in behavior between open and closed models" [15]. O Docker limita CPU com `--cpus` e, por padrão, num estouro de memória (OOM) o kernel mata processos do container [16].
 
 ## 4. Alternativas consideradas
 
