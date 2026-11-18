@@ -1,0 +1,17 @@
+Medição: 11c-api-mem-128-B
+Carga: 20 usuários virtuais por 60s
+
+Requisições:        789
+Requisições/s:      11.49
+Tempo de resposta:  mediana 587.9 ms | p95 8209.5 ms | p99 16296.1 ms
+Erros:              0.00%
+
+Por rota:
+rota                  req       mediana       p95           p99           erros   
+cliente               203       191.3 ms      1203.2 ms     1683.4 ms     0.0%    
+cliente-por-email     117       197.3 ms      1099.3 ms     2592.9 ms     0.0%    
+pedidos-do-cliente    167       514.2 ms      2720.3 ms     3258.8 ms     0.0%    
+pedidos-por-status    117       1696.9 ms     12200.6 ms    15910.6 ms    0.0%    
+busca-produtos        120       878.3 ms      2314.5 ms     2873.0 ms     0.0%    
+vendas-por-dia        53        5011.2 ms     15653.8 ms    16047.7 ms    0.0%    
+top-produtos          12        17308.3 ms    23913.3 ms    24608.3 ms    0.0%    
