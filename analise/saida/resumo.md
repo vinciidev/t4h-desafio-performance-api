@@ -1,6 +1,6 @@
 # Resumo das medições
 
-> Gerado por `analise/resumir.js` em 2026-11-18T10:15:13.383Z a partir de 51 pastas de `resultados/`. Não editar à mão: rode o script de novo.
+> Gerado por `analise/resumir.js` em 2026-11-18T10:21:21.819Z a partir de 54 pastas de `resultados/`. Não editar à mão: rode o script de novo.
 
 Valores: **mediana** das execuções de cada rótulo, com a faixa (mínimo–máximo) entre parênteses. Base de comparação: `00-linha-de-base-B`. Parâmetros da base: VUS=20, DURAÇÃO=60s, SEMENTE=undefined.
 
@@ -25,6 +25,7 @@ Valores: **mediana** das execuções de cada rótulo, com a faixa (mínimo–má
 | `11a-api-cpu-035-B` | 3 | 11,2 (9,6–11,6) | +534% | +11% | 9071,3 (9052,2–10004,0) | -75% | -18% | 382,1 | 18309,1 | 0,00 |
 | `11b-api-cpu-025-B` | 3 | 11,1 (10,3–11,6) | +528% | -1% | 9210,7 (8318,8–10235,9) | -75% | +2% ⚠︎ | 487,5 | 18194,4 | 0,00 |
 | `11c-api-mem-128-B` | 3 | 11,4 (10,3–11,5) | +543% | +2% | 8209,5 (8115,0–9553,0) | -77% | -11% ⚠︎ | 503,4 | 17319,7 | 0,00 |
+| `11d-api-cpu-035-mem-128-B` | 3 | 11,5 (9,4–12,1) | +551% | +1% | 9920,2 (8689,4–12183,3) | -73% | +21% ⚠︎ | 382,7 | 18970,1 | 0,00 |
 
 ⚠︎ = as faixas mínimo–máximo das execuções se sobrepõem: a diferença pode estar dentro do ruído.
 
@@ -49,6 +50,7 @@ Valores: **mediana** das execuções de cada rótulo, com a faixa (mínimo–má
 | `11a-api-cpu-035-B` | 18,7 | 71,4 | 0,35 CPU / 256 MiB | 94,6 | 423,5 | 1,00 CPU / 512 MiB |
 | `11b-api-cpu-025-B` | 17,6 | 65,5 | 0,25 CPU / 256 MiB | 96,5 | 432,5 | 1,00 CPU / 512 MiB |
 | `11c-api-mem-128-B` | 18,2 | 67,8 | 0,25 CPU / 128 MiB | 97,3 | 432,2 | 1,00 CPU / 512 MiB |
+| `11d-api-cpu-035-mem-128-B` | 20,4 | 63,4 | 0,35 CPU / 128 MiB | 98,2 | 426,4 | 1,00 CPU / 512 MiB |
 
 CPU: 100% = 1 CPU inteira (convenção do `docker stats`). Um container perto do próprio limite de CPU está saturado.
 
@@ -73,6 +75,7 @@ CPU: 100% = 1 CPU inteira (convenção do `docker stats`). Um container perto do
 | `11a-api-cpu-035-B` | 492,3 | 1002,0 | 993,5 | 12006,3 | 1379,8 | 14061,7 | 28670,2 |
 | `11b-api-cpu-025-B` | 1239,1 | 1811,2 | 1109,1 | 11441,1 | 1603,7 | 13528,9 | 29367,4 |
 | `11c-api-mem-128-B` | 1203,2 | 2612,9 | 1226,7 | 12200,6 | 2079,3 | 15760,0 | 27582,2 |
+| `11d-api-cpu-035-mem-128-B` | 486,5 | 997,7 | 955,5 | 12453,0 | 1156,1 | 14381,9 | 37176,8 |
 
 Rotas lentas têm poucas requisições por execução: o p95 por rota oscila mais que o geral.
 
@@ -95,6 +98,7 @@ Rotas lentas têm poucas requisições por execução: o p95 por rota oscila mai
 - `11a-api-cpu-035-B` (commit 01b97c9): [20261118-065626-11a-api-cpu-035-B](../../resultados/20261118-065626-11a-api-cpu-035-B/resumo.txt) · [20261118-065809-11a-api-cpu-035-B](../../resultados/20261118-065809-11a-api-cpu-035-B/resumo.txt) · [20261118-065953-11a-api-cpu-035-B](../../resultados/20261118-065953-11a-api-cpu-035-B/resumo.txt)
 - `11b-api-cpu-025-B` (commit c8d9c74): [20261118-070317-11b-api-cpu-025-B](../../resultados/20261118-070317-11b-api-cpu-025-B/resumo.txt) · [20261118-070457-11b-api-cpu-025-B](../../resultados/20261118-070457-11b-api-cpu-025-B/resumo.txt) · [20261118-070640-11b-api-cpu-025-B](../../resultados/20261118-070640-11b-api-cpu-025-B/resumo.txt)
 - `11c-api-mem-128-B` (commit d50aaa0): [20261118-071003-11c-api-mem-128-B](../../resultados/20261118-071003-11c-api-mem-128-B/resumo.txt) · [20261118-071142-11c-api-mem-128-B](../../resultados/20261118-071142-11c-api-mem-128-B/resumo.txt) · [20261118-071323-11c-api-mem-128-B](../../resultados/20261118-071323-11c-api-mem-128-B/resumo.txt)
+- `11d-api-cpu-035-mem-128-B` (commit 97e48c0): [20261118-071632-11d-api-cpu-035-mem-128-B](../../resultados/20261118-071632-11d-api-cpu-035-mem-128-B/resumo.txt) · [20261118-071809-11d-api-cpu-035-mem-128-B](../../resultados/20261118-071809-11d-api-cpu-035-mem-128-B/resumo.txt) · [20261118-071948-11d-api-cpu-035-mem-128-B](../../resultados/20261118-071948-11d-api-cpu-035-mem-128-B/resumo.txt)
 
 ## Avisos
 
@@ -126,3 +130,4 @@ Rotas lentas têm poucas requisições por execução: o p95 por rota oscila mai
 - `11a-api-cpu-035-B`: arquivos sem commit (ou sem git) em: 20261118-065626-11a-api-cpu-035-B, 20261118-065809-11a-api-cpu-035-B, 20261118-065953-11a-api-cpu-035-B
 - `11b-api-cpu-025-B`: arquivos sem commit (ou sem git) em: 20261118-070317-11b-api-cpu-025-B, 20261118-070457-11b-api-cpu-025-B, 20261118-070640-11b-api-cpu-025-B
 - `11c-api-mem-128-B`: arquivos sem commit (ou sem git) em: 20261118-071003-11c-api-mem-128-B, 20261118-071142-11c-api-mem-128-B, 20261118-071323-11c-api-mem-128-B
+- `11d-api-cpu-035-mem-128-B`: arquivos sem commit (ou sem git) em: 20261118-071632-11d-api-cpu-035-mem-128-B, 20261118-071809-11d-api-cpu-035-mem-128-B, 20261118-071948-11d-api-cpu-035-mem-128-B

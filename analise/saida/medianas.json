@@ -2438,6 +2438,150 @@
       "avisos": [
         "arquivos sem commit (ou sem git) em: 20261118-071003-11c-api-mem-128-B, 20261118-071142-11c-api-mem-128-B, 20261118-071323-11c-api-mem-128-B"
       ]
+    },
+    {
+      "rotulo": "11d-api-cpu-035-mem-128-B",
+      "execucoes": [
+        "20261118-071632-11d-api-cpu-035-mem-128-B",
+        "20261118-071809-11d-api-cpu-035-mem-128-B",
+        "20261118-071948-11d-api-cpu-035-mem-128-B"
+      ],
+      "commits": [
+        "97e48c0"
+      ],
+      "parametros": {
+        "vus": "20",
+        "duracao": "60s"
+      },
+      "limites": {
+        "api": {
+          "cpus": 0.35,
+          "memoriaMiB": 128
+        },
+        "banco": {
+          "cpus": 1,
+          "memoriaMiB": 512
+        }
+      },
+      "reqPorSegundo": {
+        "mediana": 11.505036955064048,
+        "min": 9.4066574900717,
+        "max": 12.1149768879661,
+        "n": 3
+      },
+      "p50": {
+        "mediana": 382.6577485,
+        "min": 353.9403855,
+        "max": 403.2485655,
+        "n": 3
+      },
+      "p95": {
+        "mediana": 9920.241173999999,
+        "min": 8689.353035099999,
+        "max": 12183.325035999998,
+        "n": 3
+      },
+      "p99": {
+        "mediana": 18970.066640050027,
+        "min": 15281.59347775,
+        "max": 21196.870322630013,
+        "n": 3
+      },
+      "erros": {
+        "mediana": 0,
+        "min": 0,
+        "max": 0,
+        "n": 3
+      },
+      "porRota": {
+        "cliente": {
+          "mediana": 486.508059,
+          "min": 390.039436,
+          "max": 693.6719921499968,
+          "n": 3
+        },
+        "pedidos-do-cliente": {
+          "mediana": 997.7107516499999,
+          "min": 837.2980967,
+          "max": 1278.7879409999998,
+          "n": 3
+        },
+        "cliente-por-email": {
+          "mediana": 955.5129483999998,
+          "min": 872.3938863999999,
+          "max": 1008.1517213999992,
+          "n": 3
+        },
+        "pedidos-por-status": {
+          "mediana": 12452.962518199998,
+          "min": 12412.132926749991,
+          "max": 12736.24583844999,
+          "n": 3
+        },
+        "busca-produtos": {
+          "mediana": 1156.131283,
+          "min": 1101.26431875,
+          "max": 1350.0553298999998,
+          "n": 3
+        },
+        "vendas-por-dia": {
+          "mediana": 14381.949904549983,
+          "min": 11872.996324999998,
+          "max": 17862.907416499987,
+          "n": 3
+        },
+        "top-produtos": {
+          "mediana": 37176.8026455,
+          "min": 31171.3176665,
+          "max": 48977.943549799995,
+          "n": 3
+        }
+      },
+      "recursos": {
+        "api": {
+          "cpuMedia": {
+            "mediana": 20.4,
+            "min": 17.6,
+            "max": 20.4,
+            "n": 3
+          },
+          "memMedia": {
+            "mediana": 63.4,
+            "min": 61.6,
+            "max": 69.6,
+            "n": 3
+          },
+          "memMax": {
+            "mediana": 88.3,
+            "min": 80.4,
+            "max": 90,
+            "n": 3
+          }
+        },
+        "banco": {
+          "cpuMedia": {
+            "mediana": 98.2,
+            "min": 98.1,
+            "max": 98.2,
+            "n": 3
+          },
+          "memMedia": {
+            "mediana": 426.4,
+            "min": 422.7,
+            "max": 431.1,
+            "n": 3
+          },
+          "memMax": {
+            "mediana": 495.5,
+            "min": 475.1,
+            "max": 499.9,
+            "n": 3
+          }
+        }
+      },
+      "avisos": [
+        "arquivos sem commit (ou sem git) em: 20261118-071632-11d-api-cpu-035-mem-128-B, 20261118-071809-11d-api-cpu-035-mem-128-B, 20261118-071948-11d-api-cpu-035-mem-128-B"
+      ]
     }
   ]
 }
