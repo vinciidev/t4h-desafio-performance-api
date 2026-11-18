@@ -187,6 +187,8 @@ const consolidado = [...grupos.entries()].map(([rotulo, lista]) => {
       cpuMedia: resumo(lista.map((e) => (e.recursos[s] ? e.recursos[s].cpuMedia : NaN))),
       memMedia: resumo(lista.map((e) => (e.recursos[s] ? e.recursos[s].memMedia : NaN))),
       memMax: resumo(lista.map((e) => (e.recursos[s] ? e.recursos[s].memMax : NaN))),
+      // CPU gasta por requisição, em ms: (CPU média / 100) CPU-segundos por segundo ÷ req/s × 1000.
+      cpuMsPorReq: resumo(lista.map((e) => (e.recursos[s] ? (e.recursos[s].cpuMedia / 100 / e.reqPorSegundo) * 1000 : NaN))),
     };
   }
 
@@ -262,6 +264,19 @@ for (const r of consolidado) {
 }
 linhas.push('');
 linhas.push('CPU: 100% = 1 CPU inteira (convenção do `docker stats`). Um container perto do próprio limite de CPU está saturado.');
+linhas.push('');
+
+linhas.push('## CPU gasta por requisição (ms de CPU por requisição)');
+linhas.push('');
+linhas.push(`| Rótulo | ${servicos.map((s) => `${s} (ms/req)`).join(' | ')} | Δ banco vs base |`);
+linhas.push(`|---|${servicos.map(() => '---').join('|')}|---|`);
+for (const r of consolidado) {
+  const bancoMs = r.recursos.banco ? r.recursos.banco.cpuMsPorReq.mediana : NaN;
+  const baseMs = base.recursos.banco ? base.recursos.banco.cpuMsPorReq.mediana : NaN;
+  linhas.push(`| \`${r.rotulo}\` | ${servicos.map((s) => fmt(r.recursos[s].cpuMsPorReq.mediana, 1)).join(' | ')} | ${r === base ? '—' : fmtPct(variacao(bancoMs, baseMs))} |`);
+}
+linhas.push('');
+linhas.push('Calculado por execução como (CPU média ÷ 100) ÷ req/s × 1000 e depois mediana. É uma aproximação: o CPU vem do `docker stats` amostrado durante a carga. Mostra quanto trabalho de CPU cada requisição custa; é a medida de "mais barato de rodar" quando o limite de CPU está saturado.');
 linhas.push('');
 
 linhas.push('## p95 por rota (ms)');

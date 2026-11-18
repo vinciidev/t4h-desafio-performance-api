@@ -1,6 +1,6 @@
 # Resumo das medições
 
-> Gerado por `analise/resumir.js` em 2026-11-18T11:25:39.898Z a partir de 54 pastas de `resultados/`. Não editar à mão: rode o script de novo.
+> Gerado por `analise/resumir.js` em 2026-11-18T14:22:34.941Z a partir de 54 pastas de `resultados/`. Não editar à mão: rode o script de novo.
 
 Valores: **mediana** das execuções de cada rótulo, com a faixa (mínimo–máximo) entre parênteses. Base de comparação: `00-linha-de-base-B`. Parâmetros da base: VUS=20, DURAÇÃO=60s, SEMENTE=undefined.
 
@@ -53,6 +53,31 @@ Valores: **mediana** das execuções de cada rótulo, com a faixa (mínimo–má
 | `11d-api-cpu-035-mem-128-B` | 20,4 | 63,4 | 0,35 CPU / 128 MiB | 98,2 | 426,4 | 1,00 CPU / 512 MiB |
 
 CPU: 100% = 1 CPU inteira (convenção do `docker stats`). Um container perto do próprio limite de CPU está saturado.
+
+## CPU gasta por requisição (ms de CPU por requisição)
+
+| Rótulo | api (ms/req) | banco (ms/req) | Δ banco vs base |
+|---|---|---|---|
+| `00-linha-de-base` | 54,4 | 645,5 | +16% |
+| `01-pool-10` | 47,9 | 548,9 | -1% |
+| `01b-pool-5` | 39,0 | 547,5 | -1% |
+| `01c-pool-20` | 43,5 | 570,5 | +3% |
+| `02a-indice-itens-pedido-pedido-id` | 27,8 | 260,4 | -53% |
+| `02b-indice-pedidos-cliente-id` | 32,2 | 233,5 | -58% |
+| `03-pedidos-cliente-sem-n-mais-1` | 45,3 | 347,4 | -37% |
+| `00-linha-de-base-B` | 44,5 | 555,8 | — |
+| `01c-pool-20-B` | 33,1 | 456,3 | -18% |
+| `02a-indice-itens-pedido-pedido-id-B` | 30,2 | 220,1 | -60% |
+| `02b-indice-pedidos-cliente-id-B` | 31,6 | 201,1 | -64% |
+| `03-pedidos-cliente-sem-n-mais-1-B` | 30,8 | 228,8 | -59% |
+| `04-indice-clientes-email-lower-B` | 30,9 | 184,0 | -67% |
+| `06-indice-pedidos-status-B` | 20,1 | 95,7 | -83% |
+| `11a-api-cpu-035-B` | 18,1 | 84,3 | -85% |
+| `11b-api-cpu-025-B` | 15,9 | 88,0 | -84% |
+| `11c-api-mem-128-B` | 15,8 | 85,6 | -85% |
+| `11d-api-cpu-035-mem-128-B` | 17,7 | 85,3 | -85% |
+
+Calculado por execução como (CPU média ÷ 100) ÷ req/s × 1000 e depois mediana. É uma aproximação: o CPU vem do `docker stats` amostrado durante a carga. Mostra quanto trabalho de CPU cada requisição custa; é a medida de "mais barato de rodar" quando o limite de CPU está saturado.
 
 ## p95 por rota (ms)
 
