@@ -1,6 +1,6 @@
 # Resumo das medições
 
-> Gerado por `analise/resumir.js` em 2026-11-18T04:42:39.219Z a partir de 42 pastas de `resultados/`. Não editar à mão: rode o script de novo.
+> Gerado por `analise/resumir.js` em 2026-11-18T10:15:13.383Z a partir de 51 pastas de `resultados/`. Não editar à mão: rode o script de novo.
 
 Valores: **mediana** das execuções de cada rótulo, com a faixa (mínimo–máximo) entre parênteses. Base de comparação: `00-linha-de-base-B`. Parâmetros da base: VUS=20, DURAÇÃO=60s, SEMENTE=undefined.
 
@@ -22,6 +22,9 @@ Valores: **mediana** das execuções de cada rótulo, com a faixa (mínimo–má
 | `03-pedidos-cliente-sem-n-mais-1-B` | 3 | 4,3 (4,2–5,7) | +141% | -11% | 20597,2 (16132,9–21874,5) | -43% | +11% ⚠︎ | 788,8 | 38788,0 | 0,30 |
 | `04-indice-clientes-email-lower-B` | 3 | 5,2 (5,2–5,8) | +195% | +23% | 15888,0 (14548,6–19359,7) | -56% | -23% ⚠︎ | 491,5 | 30976,4 | 0,24 |
 | `06-indice-pedidos-status-B` | 3 | 10,1 (10,0–10,3) | +472% | +94% | 11116,4 (10275,6–13107,1) | -69% | -30% | 393,6 | 25184,9 | 0,00 |
+| `11a-api-cpu-035-B` | 3 | 11,2 (9,6–11,6) | +534% | +11% | 9071,3 (9052,2–10004,0) | -75% | -18% | 382,1 | 18309,1 | 0,00 |
+| `11b-api-cpu-025-B` | 3 | 11,1 (10,3–11,6) | +528% | -1% | 9210,7 (8318,8–10235,9) | -75% | +2% ⚠︎ | 487,5 | 18194,4 | 0,00 |
+| `11c-api-mem-128-B` | 3 | 11,4 (10,3–11,5) | +543% | +2% | 8209,5 (8115,0–9553,0) | -77% | -11% ⚠︎ | 503,4 | 17319,7 | 0,00 |
 
 ⚠︎ = as faixas mínimo–máximo das execuções se sobrepõem: a diferença pode estar dentro do ruído.
 
@@ -43,6 +46,9 @@ Valores: **mediana** das execuções de cada rótulo, com a faixa (mínimo–má
 | `03-pedidos-cliente-sem-n-mais-1-B` | 13,1 | 69,8 | 0,50 CPU / 256 MiB | 97,9 | 412,2 | 1,00 CPU / 512 MiB |
 | `04-indice-clientes-email-lower-B` | 16,0 | 66,7 | 0,50 CPU / 256 MiB | 97,3 | 403,7 | 1,00 CPU / 512 MiB |
 | `06-indice-pedidos-status-B` | 20,0 | 67,3 | 0,50 CPU / 256 MiB | 96,8 | 429,4 | 1,00 CPU / 512 MiB |
+| `11a-api-cpu-035-B` | 18,7 | 71,4 | 0,35 CPU / 256 MiB | 94,6 | 423,5 | 1,00 CPU / 512 MiB |
+| `11b-api-cpu-025-B` | 17,6 | 65,5 | 0,25 CPU / 256 MiB | 96,5 | 432,5 | 1,00 CPU / 512 MiB |
+| `11c-api-mem-128-B` | 18,2 | 67,8 | 0,25 CPU / 128 MiB | 97,3 | 432,2 | 1,00 CPU / 512 MiB |
 
 CPU: 100% = 1 CPU inteira (convenção do `docker stats`). Um container perto do próprio limite de CPU está saturado.
 
@@ -64,6 +70,9 @@ CPU: 100% = 1 CPU inteira (convenção do `docker stats`). Um container perto do
 | `03-pedidos-cliente-sem-n-mais-1-B` | 823,4 | 1190,3 | 3211,4 | 21796,8 | 2216,5 | 36243,3 | 56623,3 |
 | `04-indice-clientes-email-lower-B` | 467,1 | 1041,0 | 674,8 | 17694,3 | 1356,4 | 31067,9 | 56551,0 |
 | `06-indice-pedidos-status-B` | 381,1 | 887,5 | 680,2 | 12914,7 | 1240,2 | 18182,2 | 36842,7 |
+| `11a-api-cpu-035-B` | 492,3 | 1002,0 | 993,5 | 12006,3 | 1379,8 | 14061,7 | 28670,2 |
+| `11b-api-cpu-025-B` | 1239,1 | 1811,2 | 1109,1 | 11441,1 | 1603,7 | 13528,9 | 29367,4 |
+| `11c-api-mem-128-B` | 1203,2 | 2612,9 | 1226,7 | 12200,6 | 2079,3 | 15760,0 | 27582,2 |
 
 Rotas lentas têm poucas requisições por execução: o p95 por rota oscila mais que o geral.
 
@@ -83,6 +92,9 @@ Rotas lentas têm poucas requisições por execução: o p95 por rota oscila mai
 - `03-pedidos-cliente-sem-n-mais-1-B` (commit 014d4dc): [20261118-010222-03-pedidos-cliente-sem-n-mais-1-B](../../resultados/20261118-010222-03-pedidos-cliente-sem-n-mais-1-B/resumo.txt) · [20261118-010425-03-pedidos-cliente-sem-n-mais-1-B](../../resultados/20261118-010425-03-pedidos-cliente-sem-n-mais-1-B/resumo.txt) · [20261118-010621-03-pedidos-cliente-sem-n-mais-1-B](../../resultados/20261118-010621-03-pedidos-cliente-sem-n-mais-1-B/resumo.txt)
 - `04-indice-clientes-email-lower-B` (commit ef8d217): [20261118-012627-04-indice-clientes-email-lower-B](../../resultados/20261118-012627-04-indice-clientes-email-lower-B/resumo.txt) · [20261118-012814-04-indice-clientes-email-lower-B](../../resultados/20261118-012814-04-indice-clientes-email-lower-B/resumo.txt) · [20261118-013006-04-indice-clientes-email-lower-B](../../resultados/20261118-013006-04-indice-clientes-email-lower-B/resumo.txt)
 - `06-indice-pedidos-status-B` (commit a8050f5): [20261118-013722-06-indice-pedidos-status-B](../../resultados/20261118-013722-06-indice-pedidos-status-B/resumo.txt) · [20261118-013859-06-indice-pedidos-status-B](../../resultados/20261118-013859-06-indice-pedidos-status-B/resumo.txt) · [20261118-014038-06-indice-pedidos-status-B](../../resultados/20261118-014038-06-indice-pedidos-status-B/resumo.txt)
+- `11a-api-cpu-035-B` (commit 01b97c9): [20261118-065626-11a-api-cpu-035-B](../../resultados/20261118-065626-11a-api-cpu-035-B/resumo.txt) · [20261118-065809-11a-api-cpu-035-B](../../resultados/20261118-065809-11a-api-cpu-035-B/resumo.txt) · [20261118-065953-11a-api-cpu-035-B](../../resultados/20261118-065953-11a-api-cpu-035-B/resumo.txt)
+- `11b-api-cpu-025-B` (commit c8d9c74): [20261118-070317-11b-api-cpu-025-B](../../resultados/20261118-070317-11b-api-cpu-025-B/resumo.txt) · [20261118-070457-11b-api-cpu-025-B](../../resultados/20261118-070457-11b-api-cpu-025-B/resumo.txt) · [20261118-070640-11b-api-cpu-025-B](../../resultados/20261118-070640-11b-api-cpu-025-B/resumo.txt)
+- `11c-api-mem-128-B` (commit d50aaa0): [20261118-071003-11c-api-mem-128-B](../../resultados/20261118-071003-11c-api-mem-128-B/resumo.txt) · [20261118-071142-11c-api-mem-128-B](../../resultados/20261118-071142-11c-api-mem-128-B/resumo.txt) · [20261118-071323-11c-api-mem-128-B](../../resultados/20261118-071323-11c-api-mem-128-B/resumo.txt)
 
 ## Avisos
 
@@ -111,3 +123,6 @@ Rotas lentas têm poucas requisições por execução: o p95 por rota oscila mai
 - `03-pedidos-cliente-sem-n-mais-1-B`: arquivos sem commit (ou sem git) em: 20261118-010222-03-pedidos-cliente-sem-n-mais-1-B, 20261118-010425-03-pedidos-cliente-sem-n-mais-1-B, 20261118-010621-03-pedidos-cliente-sem-n-mais-1-B
 - `04-indice-clientes-email-lower-B`: arquivos sem commit (ou sem git) em: 20261118-012627-04-indice-clientes-email-lower-B, 20261118-012814-04-indice-clientes-email-lower-B, 20261118-013006-04-indice-clientes-email-lower-B
 - `06-indice-pedidos-status-B`: arquivos sem commit (ou sem git) em: 20261118-013722-06-indice-pedidos-status-B, 20261118-013859-06-indice-pedidos-status-B, 20261118-014038-06-indice-pedidos-status-B
+- `11a-api-cpu-035-B`: arquivos sem commit (ou sem git) em: 20261118-065626-11a-api-cpu-035-B, 20261118-065809-11a-api-cpu-035-B, 20261118-065953-11a-api-cpu-035-B
+- `11b-api-cpu-025-B`: arquivos sem commit (ou sem git) em: 20261118-070317-11b-api-cpu-025-B, 20261118-070457-11b-api-cpu-025-B, 20261118-070640-11b-api-cpu-025-B
+- `11c-api-mem-128-B`: arquivos sem commit (ou sem git) em: 20261118-071003-11c-api-mem-128-B, 20261118-071142-11c-api-mem-128-B, 20261118-071323-11c-api-mem-128-B
