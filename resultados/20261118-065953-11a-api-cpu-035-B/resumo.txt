@@ -1,0 +1,17 @@
+Medição: 11a-api-cpu-035-B
+Carga: 20 usuários virtuais por 60s
+
+Requisições:        756
+Requisições/s:      11.22
+Tempo de resposta:  mediana 382.1 ms | p95 9071.3 ms | p99 25495.8 ms
+Erros:              0.00%
+
+Por rota:
+rota                  req       mediana       p95           p99           erros   
+cliente               197       103.8 ms      697.4 ms      957.2 ms      0.0%    
+cliente-por-email     117       117.5 ms      1007.2 ms     1553.2 ms     0.0%    
+pedidos-do-cliente    162       408.6 ms      1176.8 ms     1969.6 ms     0.0%    
+pedidos-por-status    100       1310.5 ms     12006.3 ms    38617.5 ms    0.0%    
+busca-produtos        119       580.1 ms      1441.4 ms     2373.7 ms     0.0%    
+vendas-por-dia        49        7274.6 ms     12396.7 ms    14865.4 ms    0.0%    
+top-produtos          12        25560.8 ms    28670.2 ms    29208.2 ms    0.0%    
