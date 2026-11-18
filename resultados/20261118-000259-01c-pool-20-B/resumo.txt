@@ -1,0 +1,17 @@
+Medição: 01c-pool-20-B
+Carga: 20 usuários virtuais por 60s
+
+Requisições:        154
+Requisições/s:      2.00
+Tempo de resposta:  mediana 1705.7 ms | p95 36401.9 ms | p99 43914.4 ms
+Erros:              0.00%
+
+Por rota:
+rota                  req       mediana       p95           p99           erros   
+cliente               43        102.5 ms      504.0 ms      730.9 ms      0.0%    
+cliente-por-email     25        1894.6 ms     2596.0 ms     2822.0 ms     0.0%    
+pedidos-do-cliente    31        27800.3 ms    39997.1 ms    42260.3 ms    0.0%    
+pedidos-por-status    19        12104.6 ms    44991.6 ms    49316.3 ms    0.0%    
+busca-produtos        24        756.3 ms      1265.0 ms     1462.3 ms     0.0%    
+vendas-por-dia        11        11227.2 ms    18527.6 ms    19880.3 ms    0.0%    
+top-produtos          1         43491.7 ms    43491.7 ms    43491.7 ms    0.0%    
