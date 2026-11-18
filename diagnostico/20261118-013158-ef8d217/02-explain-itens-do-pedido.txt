@@ -1,0 +1,19 @@
+-- itens-do-pedido
+-- 2026-11-18 01:32:08 -0300 · commit ef8d217
+SELECT * FROM itens_pedido WHERE pedido_id = 136871 ORDER BY id
+
+                                                                   QUERY PLAN                                                                   
+------------------------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=8.54..8.55 rows=4 width=20) (actual time=0.129..0.130 rows=2 loops=1)
+   Sort Key: id
+   Sort Method: quicksort  Memory: 25kB
+   Buffers: shared hit=7
+   ->  Index Scan using itens_pedido_pedido_id_idx on itens_pedido  (cost=0.43..8.50 rows=4 width=20) (actual time=0.089..0.091 rows=2 loops=1)
+         Index Cond: (pedido_id = 136871)
+         Buffers: shared hit=4
+ Planning:
+   Buffers: shared hit=85
+ Planning Time: 0.446 ms
+ Execution Time: 0.171 ms
+(11 rows)
+

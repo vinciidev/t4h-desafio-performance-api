@@ -1,0 +1,25 @@
+-- vendas-por-dia-7-dias
+-- 2026-11-18 01:32:18 -0300 · commit ef8d217
+SELECT p.id AS pedido_id, p.criado_em, p.observacoes, i.quantidade, i.preco_unitario_centavos FROM pedidos p JOIN itens_pedido i ON i.pedido_id = p.id WHERE p.criado_em::date BETWEEN '2024-03-01' AND '2024-03-07' AND p.status <> 'cancelado'
+
+                                                                        QUERY PLAN                                                                         
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+ Gather  (cost=1000.43..33683.23 rows=6735 width=297) (actual time=0.639..301.331 rows=12951 loops=1)
+   Workers Planned: 2
+   Workers Launched: 2
+   Buffers: shared hit=26631 read=11515
+   ->  Nested Loop  (cost=0.43..32009.73 rows=2806 width=297) (actual time=0.301..227.997 rows=4317 loops=3)
+         Buffers: shared hit=26631 read=11515
+         ->  Parallel Seq Scan on pedidos p  (cost=0.00..25521.50 rows=935 width=289) (actual time=0.261..194.105 rows=1438 loops=3)
+               Filter: ((status <> 'cancelado'::text) AND ((criado_em)::date >= '2024-03-01'::date) AND ((criado_em)::date <= '2024-03-07'::date))
+               Rows Removed by Filter: 165228
+               Buffers: shared hit=9319 read=11515
+         ->  Index Scan using itens_pedido_pedido_id_idx on itens_pedido i  (cost=0.43..6.90 rows=4 width=12) (actual time=0.005..0.022 rows=3 loops=4315)
+               Index Cond: (pedido_id = p.id)
+               Buffers: shared hit=17312
+ Planning:
+   Buffers: shared hit=253
+ Planning Time: 0.918 ms
+ Execution Time: 302.504 ms
+(17 rows)
+
