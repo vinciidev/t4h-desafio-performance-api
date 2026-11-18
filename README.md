@@ -4,6 +4,35 @@ Desafio de seleção para a vaga de estágio em Pesquisa e Inovação da Tech fo
 
 A aplicação é a API de uma loja fictícia, em Node.js (Express) com PostgreSQL 16, rodando em containers. Ela funciona, mas fica lenta sob carga e gasta mais recursos do que deveria. Todos os dados são sintéticos e gerados na primeira subida: 100 mil clientes, 20 mil produtos, 500 mil pedidos e 1,5 milhão de itens de pedido.
 
+## Resultados
+
+Com o banco saturado (97% de um CPU, contra 8% da API), reduzir o trabalho das consultas deu **6,5 vezes mais vazão (1,8 → 11,5 req/s) e p95 73% menor (36.404 → 9.920 ms)**, sem mudar nenhuma das 42 respostas do contrato. Quase todo o ganho veio de dois índices; pool de conexões e correção do N+1 mexeram pouco no geral.
+
+| Mudança | p95 (ms) | req/s | Em uma frase |
+|---|---|---|---|
+| 00 · linha de base | 36404,2 | 1,8 | banco a 97% de CPU, API a 8% |
+| 01c · pool de 20 conexões | 32815,2 | 2,0 | p95 dentro do ruído; vazão +13% |
+| 02a · índice `itens_pedido(pedido_id)` | 22465,4 | 3,8 | vazão +91% |
+| 02b · índice `pedidos(cliente_id)` | 18516,3 | 4,8 | rota-alvo -75%; geral no ruído |
+| 03 · N+1 vira 3 consultas | 20597,2 | 4,3 | rota-alvo -49%; geral no ruído |
+| 04 · índice `lower(email)` | 15888,0 | 5,2 | rota-alvo -79%; geral no ruído |
+| 06 · índice `pedidos(status, criado_em, id)` | 11116,4 | 10,1 | vazão +94%, p95 -30% |
+| 11 · API a 0,35 CPU e 128 MiB | 9920,2 | 11,5 | sem perda; reserva de recursos -10% CPU e -17% memória |
+
+Medianas de 3 execuções na máquina B (i5-9300H, 15,8 GB de RAM), cada mudança comparada com a anterior; todos os números vêm de [`resultados/`](resultados/) via [`analise/resumir.js`](analise/resumir.js). As ressalvas (RAM livre do host entre 851 e 2.397 MB, 3 execuções por série) estão no [artigo](artigo/artigo.md) e em [`experimentos.md`](experimentos.md).
+
+![p95 mediano por mudança, em milissegundos, na máquina B](artigo/img/p95-por-mudanca.svg)
+
+```mermaid
+flowchart LR
+  K6["k6 (20 usuários virtuais)"] --> API["API Express<br/>0,35 CPU · 128 MiB"]
+  API -->|"pg.Pool, 20 conexões"| PG[("PostgreSQL 16<br/>1 CPU · 512 MiB<br/>4 índices novos")]
+```
+
+**Onde ler mais:** [artigo](artigo/artigo.md) (raciocínio, alternativas, limites) · [experimentos.md](experimentos.md) (uma linha por mudança, com planos e pastas) · [proximos-testes.md](proximos-testes.md) (o que foi pesquisado e não testado) · [diagnostico/](diagnostico/) (planos `EXPLAIN` antes e depois) · [resumo.md](analise/saida/resumo.md) (tabela completa, incluindo o p95 por rota).
+
+**Reproduzir:** `docker compose up -d --build`, depois `scripts/verificar-contrato.sh comparar` e `scripts/medir.sh <rotulo>` (3 vezes por rótulo), e `node analise/resumir.js --base 00-linha-de-base-B`. No Git Bash do Windows, rode `export MSYS_NO_PATHCONV=1` antes do `medir.sh`. Números de máquinas diferentes não se comparam: as pastas sem sufixo `-B` são de outra máquina e ficam só como histórico.
+
 ## Prazo e entrega
 
 - **Prazo:** 14 dias corridos a partir da largada
