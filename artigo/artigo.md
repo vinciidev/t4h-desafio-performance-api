@@ -1,8 +1,8 @@
-# API da loja: com o banco saturado, índices certos e limites justos deram 6 vezes mais vazão
+# API da loja: com o banco saturado, índices certos e limites justos deram 6,5 vezes mais vazão
 
 ## 1. Resumo
 
-Uma API de loja (Node.js e PostgreSQL) ficava lenta sob carga: o banco usava 97% de um CPU e a API, 8%. Diagnostiquei quatro causas com `EXPLAIN` e contagem de consultas e apliquei sete mudanças, uma por commit, cada uma medida três vezes e sem alterar nenhuma resposta. A vazão (requisições por segundo) foi de 1,8 para 11,5 e o p95 (tempo abaixo do qual ficam 95% das respostas) de 36.404 para 9.920 ms. Quase tudo veio de dois índices; o pool de conexões e a correção do N+1 mexeram pouco no geral.
+Uma API de loja (Node.js e PostgreSQL) ficava lenta sob carga: o banco usava 97% de um CPU e a API, 8%. Diagnostiquei quatro causas com `EXPLAIN` e contagem de consultas e apliquei sete mudanças, uma por commit, cada uma medida três vezes e sem alterar nenhuma resposta. A vazão (requisições por segundo) foi de 1,8 para 11,5 e o p95 (tempo abaixo do qual ficam 95% das respostas) de 36.404 para 9.920 ms. Cada requisição passou a custar 85% menos CPU do banco; quase tudo veio de dois índices, e o pool e o N+1 mexeram pouco.
 
 ## 2. Contexto e diagnóstico
 
@@ -11,7 +11,7 @@ A aplicação tem sete rotas de leitura sobre 100 mil clientes, 20 mil produtos,
 Usei `EXPLAIN ANALYZE` (o plano que o banco executou, com tempo real) e a contagem de conexões por requisição. Hipóteses de causa, com evidências em `diagnostico/`:
 
 - **Conexão nova por consulta:** `GET /clientes/42/pedidos` abriu 16–17 conexões; `/clientes/42`, 1 ([contagem](../diagnostico/20261116-164528-1e48069-contar-clientes-42-pedidos.txt), [contagem](../diagnostico/20261116-164721-1e48069-contar-clientes-42.txt)).
-- **Consultas em laço (N+1):** na mesma rota, uma consulta por pedido e por item, em vez de um número fixo.
+- **Consultas em laço (N+1: uma consulta para a lista e N para os detalhes):** na mesma rota, uma consulta por pedido e por item, em vez de um número fixo.
 - **Chaves estrangeiras sem índice:** itens de um pedido, 200,765 ms ([plano](../diagnostico/20261116-164440-1e48069/02-explain-itens-do-pedido.txt)); pedidos de um cliente, 108,279 ms ([plano](../diagnostico/20261116-164440-1e48069/02-explain-pedidos-do-cliente.txt)), ambos por varredura da tabela inteira.
 - **Filtros sem índice:** e-mail, 76,386 ms ([plano](../diagnostico/20261116-164440-1e48069/02-explain-clientes-email.txt)); listagem por status, 245,2 ms na página 1 e 779,4 ms na 1000, ordenando em disco ([página 1000](../diagnostico/20261116-164440-1e48069/02-explain-pedidos-status-pagina-1000.txt)).
 
@@ -29,7 +29,7 @@ Chen et al. descrevem o *one-by-one processing*, que "repeatedly performs simila
 
 ### Indexar o que a consulta filtra
 
-Declarar chave estrangeira não cria índice [7]; índice de expressão serve a consultas com a mesma expressão, ao custo de calculá-la a cada escrita [8]; um índice pode entregar linhas já ordenadas e, com `ORDER BY ... LIMIT`, ler só as primeiras [9]. O `OFFSET` obriga a buscar as linhas puladas [10], e contagem exata é cara por causa do MVCC [11]. Um `DELETE` caiu de 19 s para 342 ms ao indexar chaves estrangeiras [12]; é outra operação, vale pelo mecanismo.
+Um índice (aqui, B-tree) é uma estrutura ordenada que evita varrer a tabela inteira. Declarar chave estrangeira não cria índice [7]; índice de expressão serve a consultas com a mesma expressão, ao custo de calculá-la a cada escrita [8]; um índice pode entregar linhas já ordenadas e, com `ORDER BY ... LIMIT`, ler só as primeiras [9]. Paginar com `OFFSET` obriga a buscar as linhas puladas, e a alternativa (*keyset*) filtra pelo último valor visto [10]; contar com exatidão é caro porque o MVCC (cada transação vê sua própria versão das linhas) exige checar a visibilidade linha a linha [11]. Um `DELETE` caiu de 19 s para 342 ms ao indexar chaves estrangeiras [12]; é outra operação, vale pelo mecanismo.
 
 ### Medir e limitar recursos
 
@@ -74,7 +74,7 @@ Máquina B, base `00-linha-de-base-B`; medianas de 3 execuções; contrato manti
 
 ![p95 mediano por mudança, em milissegundos, na máquina B](img/p95-por-mudanca.svg)
 
-A vazão subiu 6,5 vezes e o p95 caiu 73%, quase tudo pelos índices 02a e 06. O pool mexeu pouco, o N+1 melhorou só a rota-alvo e 0,25 CPU deixou `cliente` e `pedidos-do-cliente` de 492,3 e 1002,0 para 1239,1 e 1811,2 ms de p95, sem mudar o agregado (série 11b). Com 0,35 CPU e 128 MiB voltaram a 486,5 e 997,7 ms (série 11d), sem OOM (pico de 99,1 MiB). Detalhes: [`experimentos.md`](../experimentos.md).
+A vazão subiu 6,5 vezes e o p95 caiu 73%, quase tudo pelos índices 02a e 06. Para o custo de rodar, o número mais útil é a CPU por requisição: no banco caiu de 555,8 para 85,3 ms (-85%) e na API de 44,5 para 17,7 ms, mais que a reserva de recursos (-10% de CPU, -17% de memória); cálculo em [`resumo.md`](../analise/saida/resumo.md). O pool mexeu pouco, o N+1 melhorou só a rota-alvo e 0,25 CPU deixou `cliente` e `pedidos-do-cliente` de 492,3 e 1002,0 para 1239,1 e 1811,2 ms de p95, sem mudar o agregado (série 11b). Com 0,35 CPU e 128 MiB voltaram a 486,5 e 997,7 ms (série 11d), sem OOM (pico de 99,1 MiB). Detalhes: [`experimentos.md`](../experimentos.md).
 
 ## 7. Limites e testes futuros
 
@@ -83,6 +83,7 @@ A vazão subiu 6,5 vezes e o p95 caiu 73%, quase tudo pelos índices 02a e 06. O
 - **Duas máquinas:** a primeira é só histórico (lá a série 03 foi inconclusiva); os planos de 02a, 02b e 03 vêm dela.
 - **Escrita não medida:** o teste só lê; os índices (4,7 a 21 MB) deixam INSERT e UPDATE mais lentos.
 - **Poucas execuções:** 3 por série; faixas sobrepostas contam como ruído.
+- **"Arquivos sem commit" no `contexto.txt`:** aparece como 1, 2 e 3 porque o `medir.sh` conta a pasta da própria execução, criada antes do arquivo; o código medido estava limpo, no commit indicado ([explicação](../experimentos.md)).
 - **O que derrubaria a conclusão:** outro hardware com as faixas de 02a e 06 sobrepostas, ou carga aberta em que o p95 piora.
 - **Próximo gargalo:** `vendas-por-dia` e `top-produtos` (p95 acima de 14 s). Ver [ideias não testadas](../proximos-testes.md).
 
