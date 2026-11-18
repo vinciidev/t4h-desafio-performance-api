@@ -1,6 +1,6 @@
 # Resumo das medições
 
-> Gerado por `analise/resumir.js` em 2026-11-18T04:32:30.796Z a partir de 39 pastas de `resultados/`. Não editar à mão: rode o script de novo.
+> Gerado por `analise/resumir.js` em 2026-11-18T04:42:39.219Z a partir de 42 pastas de `resultados/`. Não editar à mão: rode o script de novo.
 
 Valores: **mediana** das execuções de cada rótulo, com a faixa (mínimo–máximo) entre parênteses. Base de comparação: `00-linha-de-base-B`. Parâmetros da base: VUS=20, DURAÇÃO=60s, SEMENTE=undefined.
 
@@ -21,6 +21,7 @@ Valores: **mediana** das execuções de cada rótulo, com a faixa (mínimo–má
 | `02b-indice-pedidos-cliente-id-B` | 3 | 4,8 (4,3–4,9) | +171% | +25% | 18516,3 (16942,5–24697,2) | -49% | -18% ⚠︎ | 1011,8 | 37856,4 | 0,00 |
 | `03-pedidos-cliente-sem-n-mais-1-B` | 3 | 4,3 (4,2–5,7) | +141% | -11% | 20597,2 (16132,9–21874,5) | -43% | +11% ⚠︎ | 788,8 | 38788,0 | 0,30 |
 | `04-indice-clientes-email-lower-B` | 3 | 5,2 (5,2–5,8) | +195% | +23% | 15888,0 (14548,6–19359,7) | -56% | -23% ⚠︎ | 491,5 | 30976,4 | 0,24 |
+| `06-indice-pedidos-status-B` | 3 | 10,1 (10,0–10,3) | +472% | +94% | 11116,4 (10275,6–13107,1) | -69% | -30% | 393,6 | 25184,9 | 0,00 |
 
 ⚠︎ = as faixas mínimo–máximo das execuções se sobrepõem: a diferença pode estar dentro do ruído.
 
@@ -41,6 +42,7 @@ Valores: **mediana** das execuções de cada rótulo, com a faixa (mínimo–má
 | `02b-indice-pedidos-cliente-id-B` | 14,6 | 62,4 | 0,50 CPU / 256 MiB | 96,9 | 406,2 | 1,00 CPU / 512 MiB |
 | `03-pedidos-cliente-sem-n-mais-1-B` | 13,1 | 69,8 | 0,50 CPU / 256 MiB | 97,9 | 412,2 | 1,00 CPU / 512 MiB |
 | `04-indice-clientes-email-lower-B` | 16,0 | 66,7 | 0,50 CPU / 256 MiB | 97,3 | 403,7 | 1,00 CPU / 512 MiB |
+| `06-indice-pedidos-status-B` | 20,0 | 67,3 | 0,50 CPU / 256 MiB | 96,8 | 429,4 | 1,00 CPU / 512 MiB |
 
 CPU: 100% = 1 CPU inteira (convenção do `docker stats`). Um container perto do próprio limite de CPU está saturado.
 
@@ -61,6 +63,7 @@ CPU: 100% = 1 CPU inteira (convenção do `docker stats`). Um container perto do
 | `02b-indice-pedidos-cliente-id-B` | 813,5 | 2356,8 | 2677,8 | 17440,7 | 1424,3 | 31543,7 | 43666,0 |
 | `03-pedidos-cliente-sem-n-mais-1-B` | 823,4 | 1190,3 | 3211,4 | 21796,8 | 2216,5 | 36243,3 | 56623,3 |
 | `04-indice-clientes-email-lower-B` | 467,1 | 1041,0 | 674,8 | 17694,3 | 1356,4 | 31067,9 | 56551,0 |
+| `06-indice-pedidos-status-B` | 381,1 | 887,5 | 680,2 | 12914,7 | 1240,2 | 18182,2 | 36842,7 |
 
 Rotas lentas têm poucas requisições por execução: o p95 por rota oscila mais que o geral.
 
@@ -79,6 +82,7 @@ Rotas lentas têm poucas requisições por execução: o p95 por rota oscila mai
 - `02b-indice-pedidos-cliente-id-B` (commit 6ac55d3): [20261118-003225-02b-indice-pedidos-cliente-id-B](../../resultados/20261118-003225-02b-indice-pedidos-cliente-id-B/resumo.txt) · [20261118-003412-02b-indice-pedidos-cliente-id-B](../../resultados/20261118-003412-02b-indice-pedidos-cliente-id-B/resumo.txt) · [20261118-003558-02b-indice-pedidos-cliente-id-B](../../resultados/20261118-003558-02b-indice-pedidos-cliente-id-B/resumo.txt)
 - `03-pedidos-cliente-sem-n-mais-1-B` (commit 014d4dc): [20261118-010222-03-pedidos-cliente-sem-n-mais-1-B](../../resultados/20261118-010222-03-pedidos-cliente-sem-n-mais-1-B/resumo.txt) · [20261118-010425-03-pedidos-cliente-sem-n-mais-1-B](../../resultados/20261118-010425-03-pedidos-cliente-sem-n-mais-1-B/resumo.txt) · [20261118-010621-03-pedidos-cliente-sem-n-mais-1-B](../../resultados/20261118-010621-03-pedidos-cliente-sem-n-mais-1-B/resumo.txt)
 - `04-indice-clientes-email-lower-B` (commit ef8d217): [20261118-012627-04-indice-clientes-email-lower-B](../../resultados/20261118-012627-04-indice-clientes-email-lower-B/resumo.txt) · [20261118-012814-04-indice-clientes-email-lower-B](../../resultados/20261118-012814-04-indice-clientes-email-lower-B/resumo.txt) · [20261118-013006-04-indice-clientes-email-lower-B](../../resultados/20261118-013006-04-indice-clientes-email-lower-B/resumo.txt)
+- `06-indice-pedidos-status-B` (commit a8050f5): [20261118-013722-06-indice-pedidos-status-B](../../resultados/20261118-013722-06-indice-pedidos-status-B/resumo.txt) · [20261118-013859-06-indice-pedidos-status-B](../../resultados/20261118-013859-06-indice-pedidos-status-B/resumo.txt) · [20261118-014038-06-indice-pedidos-status-B](../../resultados/20261118-014038-06-indice-pedidos-status-B/resumo.txt)
 
 ## Avisos
 
@@ -106,3 +110,4 @@ Rotas lentas têm poucas requisições por execução: o p95 por rota oscila mai
 - `02b-indice-pedidos-cliente-id-B`: arquivos sem commit (ou sem git) em: 20261118-003225-02b-indice-pedidos-cliente-id-B, 20261118-003412-02b-indice-pedidos-cliente-id-B, 20261118-003558-02b-indice-pedidos-cliente-id-B
 - `03-pedidos-cliente-sem-n-mais-1-B`: arquivos sem commit (ou sem git) em: 20261118-010222-03-pedidos-cliente-sem-n-mais-1-B, 20261118-010425-03-pedidos-cliente-sem-n-mais-1-B, 20261118-010621-03-pedidos-cliente-sem-n-mais-1-B
 - `04-indice-clientes-email-lower-B`: arquivos sem commit (ou sem git) em: 20261118-012627-04-indice-clientes-email-lower-B, 20261118-012814-04-indice-clientes-email-lower-B, 20261118-013006-04-indice-clientes-email-lower-B
+- `06-indice-pedidos-status-B`: arquivos sem commit (ou sem git) em: 20261118-013722-06-indice-pedidos-status-B, 20261118-013859-06-indice-pedidos-status-B, 20261118-014038-06-indice-pedidos-status-B
