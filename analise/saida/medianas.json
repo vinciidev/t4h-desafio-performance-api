@@ -1718,6 +1718,150 @@
       "avisos": [
         "arquivos sem commit (ou sem git) em: 20261118-010222-03-pedidos-cliente-sem-n-mais-1-B, 20261118-010425-03-pedidos-cliente-sem-n-mais-1-B, 20261118-010621-03-pedidos-cliente-sem-n-mais-1-B"
       ]
+    },
+    {
+      "rotulo": "04-indice-clientes-email-lower-B",
+      "execucoes": [
+        "20261118-012627-04-indice-clientes-email-lower-B",
+        "20261118-012814-04-indice-clientes-email-lower-B",
+        "20261118-013006-04-indice-clientes-email-lower-B"
+      ],
+      "commits": [
+        "ef8d217"
+      ],
+      "parametros": {
+        "vus": "20",
+        "duracao": "60s"
+      },
+      "limites": {
+        "api": {
+          "cpus": 0.5,
+          "memoriaMiB": 256
+        },
+        "banco": {
+          "cpus": 1,
+          "memoriaMiB": 512
+        }
+      },
+      "reqPorSegundo": {
+        "mediana": 5.214791946012165,
+        "min": 5.173179237846215,
+        "max": 5.801427629029947,
+        "n": 3
+      },
+      "p50": {
+        "mediana": 491.4600135,
+        "min": 398.5736545,
+        "max": 503.95628750000003,
+        "n": 3
+      },
+      "p95": {
+        "mediana": 15887.97272025,
+        "min": 14548.565061899943,
+        "max": 19359.7426098,
+        "n": 3
+      },
+      "p99": {
+        "mediana": 30976.436559699992,
+        "min": 29548.160394120005,
+        "max": 36642.72881920004,
+        "n": 3
+      },
+      "erros": {
+        "mediana": 0.2380952380952381,
+        "min": 0,
+        "max": 0.2840909090909091,
+        "n": 3
+      },
+      "porRota": {
+        "cliente": {
+          "mediana": 467.13766764999986,
+          "min": 292.35408165,
+          "max": 702.8467911999993,
+          "n": 3
+        },
+        "pedidos-do-cliente": {
+          "mediana": 1041.0421871999977,
+          "min": 1001.4326427999999,
+          "max": 1401.907671599999,
+          "n": 3
+        },
+        "cliente-por-email": {
+          "mediana": 674.7852376000001,
+          "min": 672.5050056,
+          "max": 1132.7195904999992,
+          "n": 3
+        },
+        "pedidos-por-status": {
+          "mediana": 17694.26113519998,
+          "min": 14181.212225,
+          "max": 19152.934924499998,
+          "n": 3
+        },
+        "busca-produtos": {
+          "mediana": 1356.3921233999995,
+          "min": 1198.38951675,
+          "max": 1657.99150625,
+          "n": 3
+        },
+        "vendas-por-dia": {
+          "mediana": 31067.937274,
+          "min": 29383.0436674,
+          "max": 33849.66588559999,
+          "n": 3
+        },
+        "top-produtos": {
+          "mediana": 56550.99845175,
+          "min": 52030.9548445,
+          "max": 58749.825286399995,
+          "n": 3
+        }
+      },
+      "recursos": {
+        "api": {
+          "cpuMedia": {
+            "mediana": 16,
+            "min": 13.6,
+            "max": 16.8,
+            "n": 3
+          },
+          "memMedia": {
+            "mediana": 66.7,
+            "min": 53.7,
+            "max": 75.4,
+            "n": 3
+          },
+          "memMax": {
+            "mediana": 86.8,
+            "min": 82.4,
+            "max": 94.4,
+            "n": 3
+          }
+        },
+        "banco": {
+          "cpuMedia": {
+            "mediana": 97.3,
+            "min": 95.2,
+            "max": 97.7,
+            "n": 3
+          },
+          "memMedia": {
+            "mediana": 403.7,
+            "min": 397.7,
+            "max": 415.8,
+            "n": 3
+          },
+          "memMax": {
+            "mediana": 459.9,
+            "min": 433.7,
+            "max": 460,
+            "n": 3
+          }
+        }
+      },
+      "avisos": [
+        "arquivos sem commit (ou sem git) em: 20261118-012627-04-indice-clientes-email-lower-B, 20261118-012814-04-indice-clientes-email-lower-B, 20261118-013006-04-indice-clientes-email-lower-B"
+      ]
     }
   ]
 }
