@@ -1,0 +1,23 @@
+-- clientes-email
+-- 2026-11-18 01:42:18 -0300 · commit a8050f5
+SELECT * FROM clientes WHERE lower(email) = lower('cliente4@exemplo.com') ORDER BY id
+
+                                                                QUERY PLAN                                                                
+------------------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=956.32..957.57 rows=500 width=60) (actual time=0.045..0.046 rows=1 loops=1)
+   Sort Key: id
+   Sort Method: quicksort  Memory: 25kB
+   Buffers: shared hit=7
+   ->  Bitmap Heap Scan on clientes  (cost=16.29..933.91 rows=500 width=60) (actual time=0.030..0.030 rows=1 loops=1)
+         Recheck Cond: (lower(email) = 'cliente4@exemplo.com'::text)
+         Heap Blocks: exact=1
+         Buffers: shared hit=4
+         ->  Bitmap Index Scan on clientes_email_lower_idx  (cost=0.00..16.17 rows=500 width=0) (actual time=0.025..0.025 rows=1 loops=1)
+               Index Cond: (lower(email) = 'cliente4@exemplo.com'::text)
+               Buffers: shared hit=3
+ Planning:
+   Buffers: shared hit=104
+ Planning Time: 0.436 ms
+ Execution Time: 0.075 ms
+(15 rows)
+

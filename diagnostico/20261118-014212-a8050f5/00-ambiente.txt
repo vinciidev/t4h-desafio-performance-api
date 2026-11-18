@@ -1,0 +1,30 @@
+data: 2026-11-18 01:42:13 -0300
+commit: a8050f5
+arquivos alterados sem commit: 0
+
+== containers
+NAME                          IMAGE                     COMMAND                  SERVICE   CREATED         STATUS                   PORTS
+desafio-performance-api-1     desafio-performance-api   "docker-entrypoint.s…"   api       6 minutes ago   Up 5 minutes             127.0.0.1:3000->3000/tcp
+desafio-performance-banco-1   postgres:16.4             "docker-entrypoint.s…"   banco     6 minutes ago   Up 6 minutes (healthy)   127.0.0.1:5432->5432/tcp
+
+== versão do PostgreSQL
+PostgreSQL 16.4 (Debian 16.4-1.pgdg120+2) on x86_64-pc-linux-gnu, compiled by gcc (Debian 12.2.0-14) 12.2.0, 64-bit
+
+== parâmetros relevantes (valor e origem)
+              name               | setting | unit |       source       
+---------------------------------+---------+------+--------------------
+ effective_cache_size            | 524288  | 8kB  | default
+ effective_io_concurrency        | 1       |      | default
+ jit                             | on      |      | default
+ jit_above_cost                  | 100000  |      | default
+ maintenance_work_mem            | 65536   | kB   | default
+ max_connections                 | 100     |      | configuration file
+ max_parallel_workers            | 8       |      | default
+ max_parallel_workers_per_gather | 2       |      | default
+ max_worker_processes            | 8       |      | default
+ random_page_cost                | 4       |      | default
+ shared_buffers                  | 16384   | 8kB  | configuration file
+ shared_preload_libraries        |         |      | default
+ work_mem                        | 4096    | kB   | default
+(13 rows)
+
