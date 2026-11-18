@@ -8,16 +8,14 @@ Uma API de loja (Node.js e PostgreSQL) ficava lenta sob carga: o banco usava 97%
 
 A aplicação tem sete rotas de leitura sobre 100 mil clientes, 20 mil produtos, 500 mil pedidos e 1,5 milhão de itens; a API roda com 0,5 CPU e 256 MB, o banco com 1 CPU e 512 MB. Gravei o contrato (as 42 respostas que não podem mudar) e medi a linha de base três vezes com `scripts/medir.sh`: 1,8 req/s, p95 de 36.404,2 ms, 0,75% de erros ([1](../resultados/20261117-234931-00-linha-de-base-B) [2](../resultados/20261117-235149-00-linha-de-base-B) [3](../resultados/20261117-235352-00-linha-de-base-B)). O banco ficou em 97,4% de CPU e a API em 7,8%: o gargalo é o PostgreSQL, não o Node.
 
-Usei `EXPLAIN ANALYZE` (o plano que o banco executou, com tempo real) e a contagem de conexões por requisição. Evidências em `diagnostico/`:
-
-Hipótese de causa:
+Usei `EXPLAIN ANALYZE` (o plano que o banco executou, com tempo real) e a contagem de conexões por requisição. Hipóteses de causa, com evidências em `diagnostico/`:
 
 - **Conexão nova por consulta:** `GET /clientes/42/pedidos` abriu 16–17 conexões; `/clientes/42`, 1 ([contagem](../diagnostico/20261116-164528-1e48069-contar-clientes-42-pedidos.txt), [contagem](../diagnostico/20261116-164721-1e48069-contar-clientes-42.txt)).
 - **Consultas em laço (N+1):** na mesma rota, uma consulta por pedido e por item, em vez de um número fixo.
 - **Chaves estrangeiras sem índice:** itens de um pedido, 200,765 ms ([plano](../diagnostico/20261116-164440-1e48069/02-explain-itens-do-pedido.txt)); pedidos de um cliente, 108,279 ms ([plano](../diagnostico/20261116-164440-1e48069/02-explain-pedidos-do-cliente.txt)), ambos por varredura da tabela inteira.
 - **Filtros sem índice:** e-mail, 76,386 ms ([plano](../diagnostico/20261116-164440-1e48069/02-explain-clientes-email.txt)); listagem por status, 245,2 ms na página 1 e 779,4 ms na 1000, ordenando em disco ([página 1000](../diagnostico/20261116-164440-1e48069/02-explain-pedidos-status-pagina-1000.txt)).
 
-Esses planos vêm da primeira máquina; o plano não depende dela, mas os tempos isolados valem só como indicação.
+Os planos vêm da primeira máquina: o plano não depende dela, mas os tempos valem só como indicação.
 
 ## 3. Estado da arte
 
@@ -49,15 +47,15 @@ Episódios temporários de latência alta, irrelevantes em sistemas de porte mod
 | Reduzir limites da API | -10% CPU, -17% memória reservados | geral no ruído; 0,25 CPU piora rotas leves | OOM, fila | baixo |
 | Mais CPU ao banco | sobe a conta | não testado | contraria "mais barato" | baixo |
 
-Descartei o PgBouncer porque soma um serviço e a fonte que li mostra perda em escala pequena [4]; o `json_agg` porque o formato de data pode quebrar o contrato; mais CPU ao banco porque trata o sintoma pagando mais. Fiquei com um índice por commit, cada um casando com o que a consulta filtra e ordena, para atribuir cada ganho a uma causa, e com três consultas fixas com `ANY` no N+1, porque mantêm a ordem exata do contrato.
+Descartei o PgBouncer (soma um serviço e a fonte mostra perda em escala pequena [4]), o `json_agg` (risco ao contrato) e mais CPU ao banco (trata o sintoma pagando mais). Fiquei com um índice por commit, casando com o que a consulta filtra e ordena, para atribuir cada ganho a uma causa, e com três consultas fixas com `ANY` no N+1, que mantêm a ordem do contrato.
 
 ## 5. Solução escolhida e por quê
 
-Reduzi o trabalho do banco antes de mexer em recursos, porque ele estava a 97% de CPU e a API a 8%. A ordem foi: pool (afeta todas as rotas), índices, N+1 (o ganho depende de cada consulta já ser barata) e, por último, limites. Cada mudança foi um commit, com banco recriado e contrato conferido antes de cada execução.
+Reduzi o trabalho do banco antes de mexer em recursos, porque ele estava a 97% de CPU e a API a 8%. A ordem foi: pool (afeta todas as rotas), índices, N+1 (o ganho depende de cada consulta já ser barata) e, por último, limites. Cada mudança foi um commit, com contrato conferido.
 
 O argumento é mecanismo mais número. Na mudança 06, o plano da página 1 passou de varredura com ordenação (245,2 ms) para leitura do índice sem ordenar (0,107 ms) ([plano depois](../diagnostico/20261118-014212-a8050f5/02-explain-pedidos-status-pagina-1.txt)) e a vazão dobrou (5,2 → 10,1 req/s, faixas separadas).
 
-**Na prática (opinião minha, não testada):** (1) começar pelo `EXPLAIN` das listagens e filtros mais usados; (2) em produção, criar índice sem travar escritas pede `CREATE INDEX CONCURRENTLY`, que não testei; (3) medir o custo de escrita antes de acumular índices; (4) cortar recursos só com p95 **por rota**: aqui, 0,25 CPU parecia seguro no p95 geral e piorou as rotas leves.
+**Na prática (opinião minha, não testada):** (1) começar pelo `EXPLAIN` das listagens e filtros mais usados; (2) em produção, evitar travar escritas pede `CREATE INDEX CONCURRENTLY` (não testei); (3) medir o custo de escrita antes de acumular índices; (4) cortar recursos olhando o p95 **por rota**, não só o geral (seção 6).
 
 ## 6. Experimento e resultado
 
@@ -76,15 +74,15 @@ Máquina B, base `00-linha-de-base-B`; medianas de 3 execuções; contrato manti
 
 ![p95 mediano por mudança, em milissegundos, na máquina B](img/p95-por-mudanca.svg)
 
-No total, a vazão subiu 6,5 vezes e o p95 caiu 73%, quase tudo pelos índices 02a e 06. O que não funcionou: o pool mexeu pouco; o N+1 melhorou só a rota-alvo; e 0,25 CPU deixou `cliente` e `pedidos-do-cliente` de 492,3 e 1002,0 para 1239,1 e 1811,2 ms de p95, sem mudar o agregado (série 11b). Com 0,35 CPU e 128 MiB voltaram a 486,5 e 997,7 ms (série 11d), sem OOM (pico de 99,1 MiB). Detalhes: [`experimentos.md`](../experimentos.md).
+A vazão subiu 6,5 vezes e o p95 caiu 73%, quase tudo pelos índices 02a e 06. O pool mexeu pouco, o N+1 melhorou só a rota-alvo e 0,25 CPU deixou `cliente` e `pedidos-do-cliente` de 492,3 e 1002,0 para 1239,1 e 1811,2 ms de p95, sem mudar o agregado (série 11b). Com 0,35 CPU e 128 MiB voltaram a 486,5 e 997,7 ms (série 11d), sem OOM (pico de 99,1 MiB). Detalhes: [`experimentos.md`](../experimentos.md).
 
 ## 7. Limites e testes futuros
 
 - **Modelo fechado:** o k6 reduz a carga quando a API desacelera [14][15], então o p95 pode subestimar o pior caso. Não testei carga aberta.
 - **Ambiente:** a RAM livre do host variou de 851 a 2.397 MB entre séries, com plano de energia "Equilibrado". As séries 04, 06 e 11a começaram com menos de 1 GB livre; não verifiquei o efeito.
-- **Duas máquinas:** a primeira serve só de histórico (lá a série 03 foi inconclusiva); os planos de 02a, 02b e 03 vêm dela.
-- **Escrita não medida:** o teste só lê; os índices ocupam de 4,7 a 21 MB e deixam INSERT e UPDATE mais lentos.
-- **Poucas execuções:** 3 por série; faixas sobrepostas foram tratadas como ruído.
+- **Duas máquinas:** a primeira é só histórico (lá a série 03 foi inconclusiva); os planos de 02a, 02b e 03 vêm dela.
+- **Escrita não medida:** o teste só lê; os índices (4,7 a 21 MB) deixam INSERT e UPDATE mais lentos.
+- **Poucas execuções:** 3 por série; faixas sobrepostas contam como ruído.
 - **O que derrubaria a conclusão:** outro hardware com as faixas de 02a e 06 sobrepostas, ou carga aberta em que o p95 piora.
 - **Próximo gargalo:** `vendas-por-dia` e `top-produtos` (p95 acima de 14 s). Ver [ideias não testadas](../proximos-testes.md).
 
