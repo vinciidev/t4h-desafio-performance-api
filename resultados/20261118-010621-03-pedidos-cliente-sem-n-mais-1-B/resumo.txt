@@ -1,0 +1,17 @@
+Medição: 03-pedidos-cliente-sem-n-mais-1-B
+Carga: 20 usuários virtuais por 60s
+
+Requisições:        368
+Requisições/s:      5.74
+Tempo de resposta:  mediana 609.3 ms | p95 16132.9 ms | p99 36522.5 ms
+Erros:              0.00%
+
+Por rota:
+rota                  req       mediana       p95           p99           erros   
+cliente               97        99.6 ms       823.4 ms      1706.5 ms     0.0%    
+cliente-por-email     58        1592.1 ms     2634.0 ms     3494.5 ms     0.0%    
+pedidos-do-cliente    72        399.0 ms      1082.5 ms     1597.5 ms     0.0%    
+pedidos-por-status    53        8100.7 ms     21766.6 ms    33326.4 ms    0.0%    
+busca-produtos        62        597.3 ms      1483.7 ms     1871.1 ms     0.0%    
+vendas-por-dia        23        16151.3 ms    33575.7 ms    35896.9 ms    0.0%    
+top-produtos          3         43267.1 ms    53833.6 ms    54772.8 ms    0.0%    
