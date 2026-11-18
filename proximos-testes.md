@@ -32,7 +32,7 @@ Ideias que apareceram na pesquisa e **não foram testadas** aqui (por tempo ou p
 - **Riscos e custos:** índice GIN é maior e deixa a escrita mais lenta. Busca textual (`tsvector`) mudaria a semântica do `ILIKE` e quebraria o contrato, por isso não é alternativa.
 
 ### `vendas-por-dia`: intervalo em vez de `::date`, índice em `criado_em`, sem `observacoes` e agregação no banco
-- **Problema que ataca:** `GET /relatorios/vendas-por-dia`: a consulta aplica `criado_em::date` na coluna e traz `observacoes` sem usar ([EXPLAIN de 7 dias](diagnostico/20261116-164440-1e48069/02-explain-vendas-por-dia-7-dias.txt)); a soma por dia é feita em JavaScript.
+- **Problema que ataca:** `GET /relatorios/vendas-por-dia`: a consulta aplica `criado_em::date` na coluna e traz `observacoes` sem usar ([EXPLAIN de 7 dias](diagnostico/20261116-164440-1e48069/02-explain-vendas-por-dia-7-dias.txt)); a soma por dia é feita em JavaScript. **Depois das mudanças 02 a 06 e 11 (máquina B, [`resumo.md`](analise/saida/resumo.md)), o p95 desta rota ainda é de 14381,9 ms: é o próximo gargalo.**
 - **De onde veio:** [PostgreSQL 16, Using EXPLAIN](https://www.postgresql.org/docs/16/using-explain.html) (acesso em 13/11/2026), como método de diagnóstico; [PostgreSQL 16, Indexes on Expressions](https://www.postgresql.org/docs/16/indexes-expressional.html) (acesso em 13/11/2026), que mostra que uma expressão só usa índice se o índice for sobre a mesma expressão. **Não encontrei uma fonte que afirme o efeito do cast em `date` sobre o uso do índice**: isso está só como hipótese, a confirmar no EXPLAIN.
 - **O que acredito que ganharia:** menos linhas lidas e menos dados trafegados entre banco e API. São três mudanças distintas e devem ser medidas separadas.
 - **Por que não testei:** é uma rota de 8% do tráfego pelo `teste-carga.js`, e o tempo foi para as mudanças de maior peso.
@@ -41,7 +41,7 @@ Ideias que apareceram na pesquisa e **não foram testadas** aqui (por tempo ou p
 - **Riscos e custos:** risco real ao contrato em (c); índice em `criado_em` custa espaço e escrita.
 
 ### `top-produtos`: visão materializada ou cache com validade
-- **Problema que ataca:** `GET /relatorios/top-produtos` recalcula a agregação sobre os 1,5 milhão de itens a cada chamada ([EXPLAIN](diagnostico/20261116-164440-1e48069/02-explain-top-produtos-10.txt)). Pesa só 2% do tráfego, mas cada chamada segura a CPU do banco.
+- **Problema que ataca:** `GET /relatorios/top-produtos` recalcula a agregação sobre os 1,5 milhão de itens a cada chamada ([EXPLAIN](diagnostico/20261116-164440-1e48069/02-explain-top-produtos-10.txt)). Pesa só 2% do tráfego, mas cada chamada segura a CPU do banco. **Depois das mudanças 02 a 06 e 11 (máquina B), o p95 desta rota ainda é de 37176,8 ms ([`resumo.md`](analise/saida/resumo.md)).**
 - **De onde veio:** [PostgreSQL 16, Materialized Views](https://www.postgresql.org/docs/16/rules-materializedviews.html) (acesso em 13/11/2026) e [REFRESH MATERIALIZED VIEW](https://www.postgresql.org/docs/16/sql-refreshmaterializedview.html) (acesso em 16/11/2026): o resultado fica guardado, mas os dados não estão atualizados até o refresh; o refresh substitui todo o conteúdo e, sem `CONCURRENTLY`, pode bloquear leituras.
 - **O que acredito que ganharia:** a rota passaria a ser uma leitura de poucas linhas, e o banco ganharia folga para as outras rotas.
 - **Por que não testei:** os dados mudariam de atualidade. Aqui são estáticos, então o contrato passaria, mas numa loja real a visão ficaria defasada. Prefiro declarar isso do que esconder.
@@ -68,7 +68,7 @@ Ideias que apareceram na pesquisa e **não foram testadas** aqui (por tempo ou p
 - **Riscos e custos:** índice maior; mais escrita em `pedidos`.
 
 ### Paginação por cursor (*keyset*) em `/pedidos`
-- **Problema que ataca:** `GET /pedidos?status=&pagina=` com `OFFSET` grande ([EXPLAIN da página 1000](diagnostico/20261116-164440-1e48069/02-explain-pedidos-status-pagina-1000.txt)).
+- **Problema que ataca:** `GET /pedidos?status=&pagina=` com `OFFSET` grande ([EXPLAIN da página 1000](diagnostico/20261116-164440-1e48069/02-explain-pedidos-status-pagina-1000.txt)). Depois do índice da mudança 06, a página 1000 caiu de 779,4 para 32,490 ms ([plano depois](diagnostico/20261118-014212-a8050f5/02-explain-pedidos-status-pagina-1000.txt)); o `OFFSET` ainda caminha ~20 mil entradas do índice, então o ganho restante é pequeno em comparação.
 - **De onde veio:** [Winand, We need tool support for keyset pagination](https://use-the-index-luke.com/no-offset) (acesso em 13/11/2026): com `OFFSET` o banco ainda precisa buscar as linhas puladas; a paginação por cursor filtra pelo último valor visto.
 - **O que acredito que ganharia:** custo constante por página, sem crescer com o número da página.
 - **Por que não testei:** **muda o contrato**: a rota recebe `pagina` numérica e a resposta traz `pagina` e `total`. Descartada por regra do desafio, não por falta de tempo.
@@ -76,15 +76,3 @@ Ideias que apareceram na pesquisa e **não foram testadas** aqui (por tempo ou p
 - **O que precisaria:** autorização para mudar o contrato, o que o desafio não dá.
 - **Riscos e custos:** quebra de clientes que usam `pagina`.
 
----
-
-## Ficha modelo
-
-### <Nome da ideia>
-- **Problema que ataca:** <rota / recurso, com link para a evidência em `diagnostico/`>
-- **De onde veio:** [Autor ou organização, título](link) (acesso em DD/MM/2026)
-- **O que acredito que ganharia:** <efeito esperado e mecanismo, sem número inventado>
-- **Por que não testei:** <tempo / precisa de infraestrutura X / mudaria o contrato>
-- **Como testaria:** <mudança, rótulo, o que mediria, contra qual "antes">
-- **O que precisaria:** <serviço, recurso, dado, tempo estimado>
-- **Riscos e custos:** <operação, dinheiro, complexidade>
