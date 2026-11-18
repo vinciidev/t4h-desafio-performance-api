@@ -178,7 +178,7 @@ rotas.get('/relatorios/vendas-por-dia', assincrono(async (req, res) => {
     `SELECT p.id AS pedido_id, p.criado_em, p.observacoes, i.quantidade, i.preco_unitario_centavos
        FROM pedidos p
        JOIN itens_pedido i ON i.pedido_id = p.id
-      WHERE p.criado_em::date BETWEEN $1 AND $2
+      WHERE p.criado_em >= $1::date AND p.criado_em < $2::date + 1
         AND p.status <> 'cancelado'`,
     [req.query.inicio, req.query.fim],
   );
