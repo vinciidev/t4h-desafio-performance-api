@@ -1,5 +1,5 @@
 {
-  "base": "00-linha-de-base-B",
+  "base": "00-linha-de-base",
   "rotulos": [
     {
       "rotulo": "00-linha-de-base",
@@ -151,9 +151,7 @@
         }
       },
       "avisos": [
-        "arquivos sem commit (ou sem git) em: 20261116-163843-00-linha-de-base, 20261116-164039-00-linha-de-base, 20261116-164228-00-linha-de-base",
-        "contrato não mantido em: 20261116-163843-00-linha-de-base (ausente), 20261116-164039-00-linha-de-base (ausente), 20261116-164228-00-linha-de-base (ausente)",
-        "parâmetros de carga diferentes da base ({} vs {\"vus\":\"20\",\"duracao\":\"60s\"}): comparação inválida"
+        "arquivos sem commit (ou sem git) em: 20261116-163843-00-linha-de-base, 20261116-164039-00-linha-de-base, 20261116-164228-00-linha-de-base"
       ]
     },
     {
@@ -307,8 +305,7 @@
       },
       "avisos": [
         "arquivos sem commit (ou sem git) em: 20261116-171626-01-pool-10, 20261116-171832-01-pool-10, 20261116-172015-01-pool-10",
-        "contrato não mantido em: 20261116-171626-01-pool-10 (ausente), 20261116-171832-01-pool-10 (ausente), 20261116-172015-01-pool-10 (ausente)",
-        "parâmetros de carga diferentes da base ({} vs {\"vus\":\"20\",\"duracao\":\"60s\"}): comparação inválida"
+        "contrato não mantido em: 20261116-171626-01-pool-10 (ausente), 20261116-171832-01-pool-10 (ausente), 20261116-172015-01-pool-10 (ausente)"
       ]
     },
     {
@@ -462,8 +459,7 @@
       },
       "avisos": [
         "arquivos sem commit (ou sem git) em: 20261116-172308-01b-pool-5, 20261116-172449-01b-pool-5, 20261116-172632-01b-pool-5",
-        "contrato não mantido em: 20261116-172308-01b-pool-5 (ausente), 20261116-172449-01b-pool-5 (ausente), 20261116-172632-01b-pool-5 (ausente)",
-        "parâmetros de carga diferentes da base ({} vs {\"vus\":\"20\",\"duracao\":\"60s\"}): comparação inválida"
+        "contrato não mantido em: 20261116-172308-01b-pool-5 (ausente), 20261116-172449-01b-pool-5 (ausente), 20261116-172632-01b-pool-5 (ausente)"
       ]
     },
     {
@@ -617,8 +613,7 @@
       },
       "avisos": [
         "arquivos sem commit (ou sem git) em: 20261116-172911-01c-pool-20, 20261116-173101-01c-pool-20, 20261116-173246-01c-pool-20",
-        "contrato não mantido em: 20261116-172911-01c-pool-20 (ausente), 20261116-173101-01c-pool-20 (ausente), 20261116-173246-01c-pool-20 (ausente)",
-        "parâmetros de carga diferentes da base ({} vs {\"vus\":\"20\",\"duracao\":\"60s\"}): comparação inválida"
+        "contrato não mantido em: 20261116-172911-01c-pool-20 (ausente), 20261116-173101-01c-pool-20 (ausente), 20261116-173246-01c-pool-20 (ausente)"
       ]
     },
     {
@@ -771,8 +766,7 @@
         }
       },
       "avisos": [
-        "arquivos sem commit (ou sem git) em: 20261116-230525-02a-indice-itens-pedido-pedido-id, 20261116-230722-02a-indice-itens-pedido-pedido-id, 20261116-230917-02a-indice-itens-pedido-pedido-id",
-        "parâmetros de carga diferentes da base ({} vs {\"vus\":\"20\",\"duracao\":\"60s\"}): comparação inválida"
+        "arquivos sem commit (ou sem git) em: 20261116-230525-02a-indice-itens-pedido-pedido-id, 20261116-230722-02a-indice-itens-pedido-pedido-id, 20261116-230917-02a-indice-itens-pedido-pedido-id"
       ]
     },
     {
@@ -925,8 +919,7 @@
         }
       },
       "avisos": [
-        "arquivos sem commit (ou sem git) em: 20261116-231411-02b-indice-pedidos-cliente-id, 20261116-231609-02b-indice-pedidos-cliente-id, 20261116-231801-02b-indice-pedidos-cliente-id",
-        "parâmetros de carga diferentes da base ({} vs {\"vus\":\"20\",\"duracao\":\"60s\"}): comparação inválida"
+        "arquivos sem commit (ou sem git) em: 20261116-231411-02b-indice-pedidos-cliente-id, 20261116-231609-02b-indice-pedidos-cliente-id, 20261116-231801-02b-indice-pedidos-cliente-id"
       ]
     },
     {
@@ -1079,8 +1072,7 @@
         }
       },
       "avisos": [
-        "arquivos sem commit (ou sem git) em: 20261116-233459-03-pedidos-cliente-sem-n-mais-1, 20261116-233700-03-pedidos-cliente-sem-n-mais-1, 20261116-233931-03-pedidos-cliente-sem-n-mais-1",
-        "parâmetros de carga diferentes da base ({} vs {\"vus\":\"20\",\"duracao\":\"60s\"}): comparação inválida"
+        "arquivos sem commit (ou sem git) em: 20261116-233459-03-pedidos-cliente-sem-n-mais-1, 20261116-233700-03-pedidos-cliente-sem-n-mais-1, 20261116-233931-03-pedidos-cliente-sem-n-mais-1"
       ]
     },
     {
@@ -1236,7 +1228,8 @@
         }
       },
       "avisos": [
-        "arquivos sem commit (ou sem git) em: 20261117-234931-00-linha-de-base-B, 20261117-235149-00-linha-de-base-B, 20261117-235352-00-linha-de-base-B"
+        "arquivos sem commit (ou sem git) em: 20261117-234931-00-linha-de-base-B, 20261117-235149-00-linha-de-base-B, 20261117-235352-00-linha-de-base-B",
+        "parâmetros de carga diferentes da base ({\"vus\":\"20\",\"duracao\":\"60s\"} vs {}): comparação inválida"
       ]
     },
     {
@@ -1392,7 +1385,8 @@
         }
       },
       "avisos": [
-        "arquivos sem commit (ou sem git) em: 20261117-235903-01c-pool-20-B, 20261118-000102-01c-pool-20-B, 20261118-000259-01c-pool-20-B"
+        "arquivos sem commit (ou sem git) em: 20261117-235903-01c-pool-20-B, 20261118-000102-01c-pool-20-B, 20261118-000259-01c-pool-20-B",
+        "parâmetros de carga diferentes da base ({\"vus\":\"20\",\"duracao\":\"60s\"} vs {}): comparação inválida"
       ]
     },
     {
@@ -1548,7 +1542,8 @@
         }
       },
       "avisos": [
-        "arquivos sem commit (ou sem git) em: 20261118-002526-02a-indice-itens-pedido-pedido-id-B, 20261118-002729-02a-indice-itens-pedido-pedido-id-B, 20261118-002924-02a-indice-itens-pedido-pedido-id-B"
+        "arquivos sem commit (ou sem git) em: 20261118-002526-02a-indice-itens-pedido-pedido-id-B, 20261118-002729-02a-indice-itens-pedido-pedido-id-B, 20261118-002924-02a-indice-itens-pedido-pedido-id-B",
+        "parâmetros de carga diferentes da base ({\"vus\":\"20\",\"duracao\":\"60s\"} vs {}): comparação inválida"
       ]
     },
     {
@@ -1704,7 +1699,8 @@
         }
       },
       "avisos": [
-        "arquivos sem commit (ou sem git) em: 20261118-003225-02b-indice-pedidos-cliente-id-B, 20261118-003412-02b-indice-pedidos-cliente-id-B, 20261118-003558-02b-indice-pedidos-cliente-id-B"
+        "arquivos sem commit (ou sem git) em: 20261118-003225-02b-indice-pedidos-cliente-id-B, 20261118-003412-02b-indice-pedidos-cliente-id-B, 20261118-003558-02b-indice-pedidos-cliente-id-B",
+        "parâmetros de carga diferentes da base ({\"vus\":\"20\",\"duracao\":\"60s\"} vs {}): comparação inválida"
       ]
     },
     {
@@ -1860,7 +1856,8 @@
         }
       },
       "avisos": [
-        "arquivos sem commit (ou sem git) em: 20261118-010222-03-pedidos-cliente-sem-n-mais-1-B, 20261118-010425-03-pedidos-cliente-sem-n-mais-1-B, 20261118-010621-03-pedidos-cliente-sem-n-mais-1-B"
+        "arquivos sem commit (ou sem git) em: 20261118-010222-03-pedidos-cliente-sem-n-mais-1-B, 20261118-010425-03-pedidos-cliente-sem-n-mais-1-B, 20261118-010621-03-pedidos-cliente-sem-n-mais-1-B",
+        "parâmetros de carga diferentes da base ({\"vus\":\"20\",\"duracao\":\"60s\"} vs {}): comparação inválida"
       ]
     },
     {
@@ -2016,7 +2013,8 @@
         }
       },
       "avisos": [
-        "arquivos sem commit (ou sem git) em: 20261118-012627-04-indice-clientes-email-lower-B, 20261118-012814-04-indice-clientes-email-lower-B, 20261118-013006-04-indice-clientes-email-lower-B"
+        "arquivos sem commit (ou sem git) em: 20261118-012627-04-indice-clientes-email-lower-B, 20261118-012814-04-indice-clientes-email-lower-B, 20261118-013006-04-indice-clientes-email-lower-B",
+        "parâmetros de carga diferentes da base ({\"vus\":\"20\",\"duracao\":\"60s\"} vs {}): comparação inválida"
       ]
     },
     {
@@ -2172,7 +2170,8 @@
         }
       },
       "avisos": [
-        "arquivos sem commit (ou sem git) em: 20261118-013722-06-indice-pedidos-status-B, 20261118-013859-06-indice-pedidos-status-B, 20261118-014038-06-indice-pedidos-status-B"
+        "arquivos sem commit (ou sem git) em: 20261118-013722-06-indice-pedidos-status-B, 20261118-013859-06-indice-pedidos-status-B, 20261118-014038-06-indice-pedidos-status-B",
+        "parâmetros de carga diferentes da base ({\"vus\":\"20\",\"duracao\":\"60s\"} vs {}): comparação inválida"
       ]
     },
     {
@@ -2328,7 +2327,8 @@
         }
       },
       "avisos": [
-        "arquivos sem commit (ou sem git) em: 20261118-065626-11a-api-cpu-035-B, 20261118-065809-11a-api-cpu-035-B, 20261118-065953-11a-api-cpu-035-B"
+        "arquivos sem commit (ou sem git) em: 20261118-065626-11a-api-cpu-035-B, 20261118-065809-11a-api-cpu-035-B, 20261118-065953-11a-api-cpu-035-B",
+        "parâmetros de carga diferentes da base ({\"vus\":\"20\",\"duracao\":\"60s\"} vs {}): comparação inválida"
       ]
     },
     {
@@ -2484,7 +2484,8 @@
         }
       },
       "avisos": [
-        "arquivos sem commit (ou sem git) em: 20261118-070317-11b-api-cpu-025-B, 20261118-070457-11b-api-cpu-025-B, 20261118-070640-11b-api-cpu-025-B"
+        "arquivos sem commit (ou sem git) em: 20261118-070317-11b-api-cpu-025-B, 20261118-070457-11b-api-cpu-025-B, 20261118-070640-11b-api-cpu-025-B",
+        "parâmetros de carga diferentes da base ({\"vus\":\"20\",\"duracao\":\"60s\"} vs {}): comparação inválida"
       ]
     },
     {
@@ -2640,7 +2641,8 @@
         }
       },
       "avisos": [
-        "arquivos sem commit (ou sem git) em: 20261118-071003-11c-api-mem-128-B, 20261118-071142-11c-api-mem-128-B, 20261118-071323-11c-api-mem-128-B"
+        "arquivos sem commit (ou sem git) em: 20261118-071003-11c-api-mem-128-B, 20261118-071142-11c-api-mem-128-B, 20261118-071323-11c-api-mem-128-B",
+        "parâmetros de carga diferentes da base ({\"vus\":\"20\",\"duracao\":\"60s\"} vs {}): comparação inválida"
       ]
     },
     {
@@ -2796,7 +2798,481 @@
         }
       },
       "avisos": [
-        "arquivos sem commit (ou sem git) em: 20261118-071632-11d-api-cpu-035-mem-128-B, 20261118-071809-11d-api-cpu-035-mem-128-B, 20261118-071948-11d-api-cpu-035-mem-128-B"
+        "arquivos sem commit (ou sem git) em: 20261118-071632-11d-api-cpu-035-mem-128-B, 20261118-071809-11d-api-cpu-035-mem-128-B, 20261118-071948-11d-api-cpu-035-mem-128-B",
+        "parâmetros de carga diferentes da base ({\"vus\":\"20\",\"duracao\":\"60s\"} vs {}): comparação inválida"
+      ]
+    },
+    {
+      "rotulo": "12-controle-B",
+      "execucoes": [
+        "20261118-195014-12-controle-B",
+        "20261118-195208-12-controle-B",
+        "20261118-195419-12-controle-B"
+      ],
+      "commits": [
+        "29f1ac2"
+      ],
+      "parametros": {
+        "vus": "20",
+        "duracao": "60s"
+      },
+      "limites": {
+        "api": {
+          "cpus": 0.35,
+          "memoriaMiB": 128
+        },
+        "banco": {
+          "cpus": 1,
+          "memoriaMiB": 512
+        }
+      },
+      "reqPorSegundo": {
+        "mediana": 6.646022269738209,
+        "min": 4.489615216471776,
+        "max": 6.862552631556041,
+        "n": 3
+      },
+      "p50": {
+        "mediana": 816.69835,
+        "min": 572.4181005,
+        "max": 1144.0367845,
+        "n": 3
+      },
+      "p95": {
+        "mediana": 13737.220100049999,
+        "min": 11303.288523,
+        "max": 22105.314689599963,
+        "n": 3
+      },
+      "p99": {
+        "mediana": 28064.65924376974,
+        "min": 24895.381589250024,
+        "max": 33873.73478846006,
+        "n": 3
+      },
+      "erros": {
+        "mediana": 0,
+        "min": 0,
+        "max": 0.2564102564102564,
+        "n": 3
+      },
+      "porRota": {
+        "cliente": {
+          "mediana": 2716.7655325499995,
+          "min": 1385.035584649999,
+          "max": 3309.89521945,
+          "n": 3
+        },
+        "pedidos-do-cliente": {
+          "mediana": 4484.431428499999,
+          "min": 1771.3523269999996,
+          "max": 4718.073995299999,
+          "n": 3
+        },
+        "cliente-por-email": {
+          "mediana": 2405.531584799999,
+          "min": 1679.7411533999998,
+          "max": 3688.064979199997,
+          "n": 3
+        },
+        "pedidos-por-status": {
+          "mediana": 17309.398945950004,
+          "min": 15353.94156825,
+          "max": 22930.3364644,
+          "n": 3
+        },
+        "busca-produtos": {
+          "mediana": 4143.9221695,
+          "min": 1827.8465389999978,
+          "max": 4281.829949649999,
+          "n": 3
+        },
+        "vendas-por-dia": {
+          "mediana": 20466.523152149995,
+          "min": 19822.696756749992,
+          "max": 25627.8486976,
+          "n": 3
+        },
+        "top-produtos": {
+          "mediana": 48644.422701999996,
+          "min": 42579.537065000004,
+          "max": 58859.772972,
+          "n": 3
+        }
+      },
+      "recursos": {
+        "api": {
+          "cpuMedia": {
+            "mediana": 23.6,
+            "min": 19.2,
+            "max": 25.7,
+            "n": 3
+          },
+          "memMedia": {
+            "mediana": 60.4,
+            "min": 51.2,
+            "max": 63.4,
+            "n": 3
+          },
+          "memMax": {
+            "mediana": 93.8,
+            "min": 82,
+            "max": 94.8,
+            "n": 3
+          },
+          "cpuMsPorReq": {
+            "mediana": 38.66974704105579,
+            "min": 27.977927501368423,
+            "max": 52.565751990092316,
+            "n": 3
+          }
+        },
+        "banco": {
+          "cpuMedia": {
+            "mediana": 95,
+            "min": 87.2,
+            "max": 96.6,
+            "n": 3
+          },
+          "memMedia": {
+            "mediana": 427.6,
+            "min": 423.5,
+            "max": 431.3,
+            "n": 3
+          },
+          "memMax": {
+            "mediana": 495.9,
+            "min": 475.7,
+            "max": 500.9,
+            "n": 3
+          },
+          "cpuMsPorReq": {
+            "mediana": 140.76394774125987,
+            "min": 131.2063012443605,
+            "max": 211.59942538384615,
+            "n": 3
+          }
+        }
+      },
+      "avisos": [
+        "arquivos sem commit (ou sem git) em: 20261118-195014-12-controle-B, 20261118-195208-12-controle-B, 20261118-195419-12-controle-B",
+        "contrato não mantido em: 20261118-195014-12-controle-B (ausente), 20261118-195208-12-controle-B (ausente), 20261118-195419-12-controle-B (ausente)",
+        "parâmetros de carga diferentes da base ({\"vus\":\"20\",\"duracao\":\"60s\"} vs {}): comparação inválida"
+      ]
+    },
+    {
+      "rotulo": "12a-vendas-por-dia-indice-B",
+      "execucoes": [
+        "20261118-195723-12a-vendas-por-dia-indice-B",
+        "20261118-195939-12a-vendas-por-dia-indice-B",
+        "20261118-200233-12a-vendas-por-dia-indice-B"
+      ],
+      "commits": [
+        "7001f29"
+      ],
+      "parametros": {
+        "vus": "20",
+        "duracao": "60s"
+      },
+      "limites": {
+        "api": {
+          "cpus": 0.35,
+          "memoriaMiB": 128
+        },
+        "banco": {
+          "cpus": 1,
+          "memoriaMiB": 512
+        }
+      },
+      "reqPorSegundo": {
+        "mediana": 5.610610136860773,
+        "min": 1.7109513857767877,
+        "max": 7.470104173054357,
+        "n": 3
+      },
+      "p50": {
+        "mediana": 579.121915,
+        "min": 569.6758609999999,
+        "max": 4281.757787500001,
+        "n": 3
+      },
+      "p95": {
+        "mediana": 14462.413709000004,
+        "min": 8216.210441,
+        "max": 55254.38055559996,
+        "n": 3
+      },
+      "p99": {
+        "mediana": 36797.88026619997,
+        "min": 30114.67527707999,
+        "max": 60004.61644314,
+        "n": 3
+      },
+      "erros": {
+        "mediana": 0.3952569169960474,
+        "min": 0,
+        "max": 5.194805194805195,
+        "n": 3
+      },
+      "porRota": {
+        "cliente": {
+          "mediana": 1977.0517548,
+          "min": 1383.4908668999997,
+          "max": 8757.731091599995,
+          "n": 3
+        },
+        "pedidos-do-cliente": {
+          "mediana": 3828.904112849998,
+          "min": 2899.1275025,
+          "max": 21635.07159339998,
+          "n": 3
+        },
+        "cliente-por-email": {
+          "mediana": 3636.490759000002,
+          "min": 1392.9475989999992,
+          "max": 6563.6726792,
+          "n": 3
+        },
+        "pedidos-por-status": {
+          "mediana": 33356.371613599986,
+          "min": 28964.1993916,
+          "max": 60008.88235465,
+          "n": 3
+        },
+        "busca-produtos": {
+          "mediana": 3230.9965955000002,
+          "min": 1932.1659343000008,
+          "max": 20825.837556,
+          "n": 3
+        },
+        "vendas-por-dia": {
+          "mediana": 18222.202185799997,
+          "min": 15908.47956065,
+          "max": 60005.4464068,
+          "n": 3
+        },
+        "top-produtos": {
+          "mediana": 42536.2782618,
+          "min": 31355.283074799998,
+          "max": 60001.34136,
+          "n": 3
+        }
+      },
+      "recursos": {
+        "api": {
+          "cpuMedia": {
+            "mediana": 20.7,
+            "min": 20.6,
+            "max": 27,
+            "n": 3
+          },
+          "memMedia": {
+            "mediana": 48.8,
+            "min": 35.9,
+            "max": 55,
+            "n": 3
+          },
+          "memMax": {
+            "mediana": 71.1,
+            "min": 45.6,
+            "max": 78.1,
+            "n": 3
+          },
+          "cpuMsPorReq": {
+            "mediana": 48.1231084345257,
+            "min": 27.710456936688523,
+            "max": 120.40084932423379,
+            "n": 3
+          }
+        },
+        "banco": {
+          "cpuMedia": {
+            "mediana": 97.7,
+            "min": 94.7,
+            "max": 101.6,
+            "n": 3
+          },
+          "memMedia": {
+            "mediana": 415.1,
+            "min": 411.8,
+            "max": 420.4,
+            "n": 3
+          },
+          "memMax": {
+            "mediana": 452.4,
+            "min": 436.1,
+            "max": 457.8,
+            "n": 3
+          },
+          "cpuMsPorReq": {
+            "mediana": 168.78734699072533,
+            "min": 130.78800206350093,
+            "max": 593.8216646282598,
+            "n": 3
+          }
+        }
+      },
+      "avisos": [
+        "arquivos sem commit (ou sem git) em: 20261118-195723-12a-vendas-por-dia-indice-B, 20261118-195939-12a-vendas-por-dia-indice-B, 20261118-200233-12a-vendas-por-dia-indice-B",
+        "contrato não mantido em: 20261118-195723-12a-vendas-por-dia-indice-B (ausente), 20261118-195939-12a-vendas-por-dia-indice-B (ausente), 20261118-200233-12a-vendas-por-dia-indice-B (ausente)",
+        "parâmetros de carga diferentes da base ({\"vus\":\"20\",\"duracao\":\"60s\"} vs {}): comparação inválida"
+      ]
+    },
+    {
+      "rotulo": "12b-top-produtos-reescrita-B",
+      "execucoes": [
+        "20261118-234331-12b-top-produtos-reescrita-B",
+        "20261118-234508-12b-top-produtos-reescrita-B",
+        "20261118-234642-12b-top-produtos-reescrita-B"
+      ],
+      "commits": [
+        "9bb0f72"
+      ],
+      "parametros": {
+        "vus": "20",
+        "duracao": "60s"
+      },
+      "limites": {
+        "api": {
+          "cpus": 0.35,
+          "memoriaMiB": 128
+        },
+        "banco": {
+          "cpus": 1,
+          "memoriaMiB": 512
+        }
+      },
+      "reqPorSegundo": {
+        "mediana": 15.133705964244646,
+        "min": 12.923101283858816,
+        "max": 17.043693370472727,
+        "n": 3
+      },
+      "p50": {
+        "mediana": 396.41465,
+        "min": 308.087101,
+        "max": 506.383897,
+        "n": 3
+      },
+      "p95": {
+        "mediana": 5120.628709,
+        "min": 3985.40156605,
+        "max": 6190.620385399988,
+        "n": 3
+      },
+      "p99": {
+        "mediana": 16175.635368999961,
+        "min": 14282.552496840002,
+        "max": 18302.29980130001,
+        "n": 3
+      },
+      "erros": {
+        "mediana": 0,
+        "min": 0,
+        "max": 0,
+        "n": 3
+      },
+      "porRota": {
+        "cliente": {
+          "mediana": 812.8951963999991,
+          "min": 579.6924149999999,
+          "max": 1264.6078809999988,
+          "n": 3
+        },
+        "pedidos-do-cliente": {
+          "mediana": 1306.062178,
+          "min": 896.7574518999994,
+          "max": 1976.5413064999998,
+          "n": 3
+        },
+        "cliente-por-email": {
+          "mediana": 1056.9432638499986,
+          "min": 400.939091,
+          "max": 1113.1893803999992,
+          "n": 3
+        },
+        "pedidos-por-status": {
+          "mediana": 11670.359717300018,
+          "min": 7444.204620799997,
+          "max": 12626.31997559998,
+          "n": 3
+        },
+        "busca-produtos": {
+          "mediana": 1223.4510177999996,
+          "min": 911.9403029999999,
+          "max": 1808.2638436999982,
+          "n": 3
+        },
+        "vendas-por-dia": {
+          "mediana": 7892.554499999999,
+          "min": 6271.79232805,
+          "max": 9395.121318999998,
+          "n": 3
+        },
+        "top-produtos": {
+          "mediana": 24783.834669999997,
+          "min": 16901.705570599996,
+          "max": 30414.119947199997,
+          "n": 3
+        }
+      },
+      "recursos": {
+        "api": {
+          "cpuMedia": {
+            "mediana": 24.9,
+            "min": 20.9,
+            "max": 25.1,
+            "n": 3
+          },
+          "memMedia": {
+            "mediana": 55.7,
+            "min": 51.9,
+            "max": 66.9,
+            "n": 3
+          },
+          "memMax": {
+            "mediana": 77.6,
+            "min": 74.7,
+            "max": 96.2,
+            "n": 3
+          },
+          "cpuMsPorReq": {
+            "mediana": 14.72685494535145,
+            "min": 13.810232635270552,
+            "max": 19.26782082184912,
+            "n": 3
+          }
+        },
+        "banco": {
+          "cpuMedia": {
+            "mediana": 94.2,
+            "min": 93.5,
+            "max": 97.8,
+            "n": 3
+          },
+          "memMedia": {
+            "mediana": 429.2,
+            "min": 426.2,
+            "max": 432.6,
+            "n": 3
+          },
+          "memMax": {
+            "mediana": 476.4,
+            "min": 468.4,
+            "max": 485.6,
+            "n": 3
+          },
+          "cpuMsPorReq": {
+            "mediana": 64.62395941289283,
+            "min": 54.859001489655796,
+            "max": 72.89271973567017,
+            "n": 3
+          }
+        }
+      },
+      "avisos": [
+        "arquivos sem commit (ou sem git) em: 20261118-234331-12b-top-produtos-reescrita-B, 20261118-234508-12b-top-produtos-reescrita-B, 20261118-234642-12b-top-produtos-reescrita-B",
+        "parâmetros de carga diferentes da base ({\"vus\":\"20\",\"duracao\":\"60s\"} vs {}): comparação inválida"
       ]
     }
   ]
