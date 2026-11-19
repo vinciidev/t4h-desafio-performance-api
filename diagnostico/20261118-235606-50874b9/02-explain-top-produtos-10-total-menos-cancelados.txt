@@ -1,0 +1,80 @@
+-- top-produtos-10-total-menos-cancelados
+-- 2026-11-18 23:56:34 -0300 · commit 50874b9
+WITH total AS (SELECT produto_id, count(*) AS itens, sum(quantidade) AS unidades, sum(quantidade * preco_unitario_centavos) AS receita FROM itens_pedido GROUP BY produto_id), cancelados AS (SELECT i.produto_id, count(*) AS itens, sum(i.quantidade) AS unidades, sum(i.quantidade * i.preco_unitario_centavos) AS receita FROM pedidos p JOIN itens_pedido i ON i.pedido_id = p.id WHERE p.status = 'cancelado' GROUP BY i.produto_id) SELECT pr.id, pr.nome, pr.categoria, t.unidades - coalesce(c.unidades, 0) AS unidades, t.receita - coalesce(c.receita, 0) AS receita_centavos FROM total t JOIN produtos pr ON pr.id = t.produto_id LEFT JOIN cancelados c ON c.produto_id = t.produto_id WHERE t.itens > coalesce(c.itens, 0) ORDER BY receita_centavos DESC, pr.id LIMIT 10
+
+                                                                                                          QUERY PLAN                                                                                                          
+------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+ Limit  (cost=67561.56..67561.58 rows=10 width=56) (actual time=2072.979..2073.747 rows=10 loops=1)
+   Buffers: shared hit=4746 read=14914
+   ->  Sort  (cost=67561.56..68723.60 rows=464817 width=56) (actual time=2072.977..2073.743 rows=10 loops=1)
+         Sort Key: ((t.receita - COALESCE(c.receita, '0'::bigint))) DESC, pr.id
+         Sort Method: top-N heapsort  Memory: 27kB
+         Buffers: shared hit=4746 read=14914
+         ->  Hash Left Join  (cost=54705.45..57517.03 rows=464817 width=56) (actual time=2049.429..2068.653 rows=19206 loops=1)
+               Hash Cond: (t.produto_id = c.produto_id)
+               Filter: (t.itens > COALESCE(c.itens, '0'::bigint))
+               Rows Removed by Filter: 794
+               Buffers: shared hit=4740 read=14914
+               ->  Hash Join  (cost=29001.25..29443.76 rows=16700 width=68) (actual time=1280.255..1292.614 rows=20000 loops=1)
+                     Hash Cond: (pr.id = t.produto_id)
+                     Buffers: shared hit=2240 read=7505
+                     ->  Seq Scan on produtos pr  (cost=0.00..390.00 rows=20000 width=40) (actual time=0.014..2.268 rows=20000 loops=1)
+                           Buffers: shared hit=190
+                     ->  Hash  (cost=28792.50..28792.50 rows=16700 width=28) (actual time=1280.087..1280.258 rows=20000 loops=1)
+                           Buckets: 32768  Batches: 1  Memory Usage: 1506kB
+                           Buffers: shared hit=2050 read=7505
+                           ->  Subquery Scan on t  (cost=28458.50..28792.50 rows=16700 width=28) (actual time=1265.480..1273.890 rows=20000 loops=1)
+                                 Buffers: shared hit=2050 read=7505
+                                 ->  Finalize HashAggregate  (cost=28458.50..28625.50 rows=16700 width=28) (actual time=1265.478..1270.601 rows=20000 loops=1)
+                                       Group Key: itens_pedido.produto_id
+                                       Batches: 1  Memory Usage: 3089kB
+                                       Buffers: shared hit=2050 read=7505
+                                       ->  Gather  (cost=24617.50..28124.50 rows=33400 width=28) (actual time=1153.686..1167.659 rows=60000 loops=1)
+                                             Workers Planned: 2
+                                             Workers Launched: 2
+                                             Buffers: shared hit=2050 read=7505
+                                             ->  Partial HashAggregate  (cost=23617.50..23784.50 rows=16700 width=28) (actual time=1149.300..1154.968 rows=20000 loops=3)
+                                                   Group Key: itens_pedido.produto_id
+                                                   Batches: 1  Memory Usage: 3089kB
+                                                   Buffers: shared hit=2050 read=7505
+                                                   Worker 0:  Batches: 1  Memory Usage: 3089kB
+                                                   Worker 1:  Batches: 1  Memory Usage: 3089kB
+                                                   ->  Parallel Seq Scan on itens_pedido  (cost=0.00..15805.00 rows=625000 width=12) (actual time=0.080..324.198 rows=500000 loops=3)
+                                                         Buffers: shared hit=2050 read=7505
+               ->  Hash  (cost=25495.45..25495.45 rows=16700 width=28) (actual time=768.974..769.566 rows=3410 loops=1)
+                     Buckets: 32768  Batches: 1  Memory Usage: 456kB
+                     Buffers: shared hit=2500 read=7409
+                     ->  Subquery Scan on c  (cost=25161.45..25495.45 rows=16700 width=28) (actual time=766.920..768.685 rows=3410 loops=1)
+                           Buffers: shared hit=2500 read=7409
+                           ->  Finalize HashAggregate  (cost=25161.45..25328.45 rows=16700 width=28) (actual time=766.919..768.251 rows=3410 loops=1)
+                                 Group Key: i.produto_id
+                                 Batches: 1  Memory Usage: 1297kB
+                                 Buffers: shared hit=2500 read=7409
+                                 ->  Gather  (cost=21320.45..24827.45 rows=33400 width=28) (actual time=760.842..763.704 rows=10230 loops=1)
+                                       Workers Planned: 2
+                                       Workers Launched: 2
+                                       Buffers: shared hit=2500 read=7409
+                                       ->  Partial HashAggregate  (cost=20320.45..20487.45 rows=16700 width=28) (actual time=743.229..744.402 rows=3410 loops=3)
+                                             Group Key: i.produto_id
+                                             Batches: 1  Memory Usage: 1297kB
+                                             Buffers: shared hit=2500 read=7409
+                                             Worker 0:  Batches: 1  Memory Usage: 1297kB
+                                             Worker 1:  Batches: 1  Memory Usage: 1297kB
+                                             ->  Parallel Hash Join  (cost=2069.34..19514.97 rows=64438 width=12) (actual time=35.500..649.667 rows=50000 loops=3)
+                                                   Hash Cond: (i.pedido_id = p.id)
+                                                   Buffers: shared hit=2500 read=7409
+                                                   ->  Parallel Seq Scan on itens_pedido i  (cost=0.00..15805.00 rows=625000 width=16) (actual time=0.040..277.561 rows=500000 loops=3)
+                                                         Buffers: shared hit=2146 read=7409
+                                                   ->  Parallel Hash  (cost=1800.85..1800.85 rows=21479 width=4) (actual time=34.998..34.999 rows=16667 loops=3)
+                                                         Buckets: 65536  Batches: 1  Memory Usage: 2528kB
+                                                         Buffers: shared hit=348
+                                                         ->  Parallel Index Only Scan using pedidos_status_criado_em_idx on pedidos p  (cost=0.42..1800.85 rows=21479 width=4) (actual time=0.058..17.614 rows=16667 loops=3)
+                                                               Index Cond: (status = 'cancelado'::text)
+                                                               Heap Fetches: 55
+                                                               Buffers: shared hit=348
+ Planning:
+   Buffers: shared hit=282
+ Planning Time: 1.939 ms
+ Execution Time: 2077.689 ms
+(72 rows)
+

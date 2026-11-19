@@ -1,0 +1,30 @@
+-- vendas-por-dia-7-dias-intervalo
+-- 2026-11-18 23:56:31 -0300 · commit 50874b9
+SELECT p.id AS pedido_id, p.criado_em, p.observacoes, i.quantidade, i.preco_unitario_centavos FROM pedidos p JOIN itens_pedido i ON i.pedido_id = p.id WHERE p.criado_em >= '2024-03-01'::date AND p.criado_em < '2024-03-07'::date + 1 AND p.status <> 'cancelado'
+
+                                                                        QUERY PLAN                                                                         
+-----------------------------------------------------------------------------------------------------------------------------------------------------------
+ Gather  (cost=1107.23..25032.99 rows=13260 width=297) (actual time=1.438..15.165 rows=12951 loops=1)
+   Workers Planned: 2
+   Workers Launched: 2
+   Buffers: shared hit=18327
+   ->  Nested Loop  (cost=107.23..22706.99 rows=5525 width=297) (actual time=0.392..8.082 rows=4317 loops=3)
+         Buffers: shared hit=18327
+         ->  Parallel Bitmap Heap Scan on pedidos p  (cost=106.81..11690.10 rows=1842 width=289) (actual time=0.370..1.844 rows=1438 loops=3)
+               Recheck Cond: ((criado_em >= '2024-03-01'::date) AND (criado_em < '2024-03-08'::date))
+               Filter: (status <> 'cancelado'::text)
+               Rows Removed by Filter: 159
+               Heap Blocks: exact=386
+               Buffers: shared hit=1015
+               ->  Bitmap Index Scan on pedidos_criado_em_idx  (cost=0.00..105.70 rows=4928 width=0) (actual time=0.855..0.855 rows=4793 loops=1)
+                     Index Cond: ((criado_em >= '2024-03-01'::date) AND (criado_em < '2024-03-08'::date))
+                     Buffers: shared hit=19
+         ->  Index Scan using itens_pedido_pedido_id_idx on itens_pedido i  (cost=0.43..5.94 rows=4 width=12) (actual time=0.003..0.004 rows=3 loops=4315)
+               Index Cond: (pedido_id = p.id)
+               Buffers: shared hit=17312
+ Planning:
+   Buffers: shared hit=336
+ Planning Time: 0.984 ms
+ Execution Time: 15.814 ms
+(22 rows)
+

@@ -1,0 +1,15 @@
+-- clientes-id
+-- 2026-11-18 23:56:12 -0300 · commit 50874b9
+SELECT * FROM clientes WHERE id = 31337
+
+                                                       QUERY PLAN                                                        
+-------------------------------------------------------------------------------------------------------------------------
+ Index Scan using clientes_pkey on clientes  (cost=0.29..8.31 rows=1 width=60) (actual time=0.028..0.029 rows=1 loops=1)
+   Index Cond: (id = 31337)
+   Buffers: shared hit=3
+ Planning:
+   Buffers: shared hit=94
+ Planning Time: 0.620 ms
+ Execution Time: 0.849 ms
+(7 rows)
+

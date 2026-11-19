@@ -1,0 +1,41 @@
+== tamanho das tabelas (dados, índices, total) e linhas estimadas
+    tabela    | linhas_estimadas |  dados  | indices |  total  
+--------------+------------------+---------+---------+---------
+ pedidos      |           500000 | 163 MB  | 48 MB   | 211 MB
+ itens_pedido |          1500000 | 75 MB   | 53 MB   | 128 MB
+ clientes     |           100000 | 9248 kB | 7000 kB | 16 MB
+ produtos     |            20000 | 1520 kB | 456 kB  | 2016 kB
+(4 rows)
+
+
+== índices existentes
+  tablename   |          indexname           |                                                 indexdef                                                  
+--------------+------------------------------+-----------------------------------------------------------------------------------------------------------
+ clientes     | clientes_email_lower_idx     | CREATE INDEX clientes_email_lower_idx ON public.clientes USING btree (lower(email))
+ clientes     | clientes_pkey                | CREATE UNIQUE INDEX clientes_pkey ON public.clientes USING btree (id)
+ itens_pedido | itens_pedido_pedido_id_idx   | CREATE INDEX itens_pedido_pedido_id_idx ON public.itens_pedido USING btree (pedido_id)
+ itens_pedido | itens_pedido_pkey            | CREATE UNIQUE INDEX itens_pedido_pkey ON public.itens_pedido USING btree (id)
+ pedidos      | pedidos_cliente_id_idx       | CREATE INDEX pedidos_cliente_id_idx ON public.pedidos USING btree (cliente_id)
+ pedidos      | pedidos_criado_em_idx        | CREATE INDEX pedidos_criado_em_idx ON public.pedidos USING btree (criado_em)
+ pedidos      | pedidos_pkey                 | CREATE UNIQUE INDEX pedidos_pkey ON public.pedidos USING btree (id)
+ pedidos      | pedidos_status_criado_em_idx | CREATE INDEX pedidos_status_criado_em_idx ON public.pedidos USING btree (status, criado_em DESC, id DESC)
+ produtos     | produtos_pkey                | CREATE UNIQUE INDEX produtos_pkey ON public.produtos USING btree (id)
+(9 rows)
+
+
+== varreduras desde a criação do banco (seq_scan alto em tabela grande = suspeito)
+    tabela    | seq_scan | seq_tup_read | idx_scan | n_live_tup | last_vacuum |        last_autovacuum        |         last_analyze          | last_autoanalyze 
+--------------+----------+--------------+----------+------------+-------------+-------------------------------+-------------------------------+------------------
+ itens_pedido |      121 |     82500000 |   982127 |    1500000 |             | 2026-11-19 02:51:29.976963+00 | 2026-11-19 02:49:41.468869+00 | 
+ pedidos      |      192 |     43500000 |  1502599 |     500000 |             | 2026-11-19 02:51:07.382524+00 | 2026-11-19 02:49:39.675554+00 | 
+ produtos     |      610 |     12180000 |  1502028 |      20000 |             | 2026-11-19 02:51:29.415894+00 | 2026-11-19 02:49:41.640631+00 | 
+ clientes     |        3 |       100000 |   501952 |     100000 |             | 2026-11-19 02:50:29.10391+00  | 2026-11-19 02:49:39.190631+00 | 
+(4 rows)
+
+
+== banco: sessões, transações, arquivos temporários
+ datname | numbackends | sessions | xact_commit | temp_files | temp_bytes 
+---------+-------------+----------+-------------+------------+------------
+ loja    |           1 |      137 |        7089 |         67 | 627 MB
+(1 row)
+

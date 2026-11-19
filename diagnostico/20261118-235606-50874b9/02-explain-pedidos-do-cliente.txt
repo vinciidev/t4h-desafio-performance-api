@@ -1,0 +1,19 @@
+-- pedidos-do-cliente
+-- 2026-11-18 23:56:14 -0300 · commit 50874b9
+SELECT * FROM pedidos WHERE cliente_id = 42 ORDER BY criado_em DESC, id DESC
+
+                                                               QUERY PLAN                                                                
+-----------------------------------------------------------------------------------------------------------------------------------------
+ Sort  (cost=24.57..24.58 rows=5 width=299) (actual time=0.064..0.065 rows=5 loops=1)
+   Sort Key: criado_em DESC, id DESC
+   Sort Method: quicksort  Memory: 26kB
+   Buffers: shared hit=14
+   ->  Index Scan using pedidos_cliente_id_idx on pedidos  (cost=0.42..24.51 rows=5 width=299) (actual time=0.014..0.032 rows=5 loops=1)
+         Index Cond: (cliente_id = 42)
+         Buffers: shared hit=8
+ Planning:
+   Buffers: shared hit=148
+ Planning Time: 0.455 ms
+ Execution Time: 0.103 ms
+(11 rows)
+
