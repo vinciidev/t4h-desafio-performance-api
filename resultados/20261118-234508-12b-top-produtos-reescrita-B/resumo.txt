@@ -1,0 +1,17 @@
+Medição: 12b-top-produtos-reescrita-B
+Carga: 20 usuários virtuais por 60s
+
+Requisições:        1104
+Requisições/s:      17.04
+Tempo de resposta:  mediana 396.4 ms | p95 3985.4 ms | p99 14282.6 ms
+Erros:              0.00%
+
+Por rota:
+rota                  req       mediana       p95           p99           erros   
+cliente               284       112.8 ms      812.9 ms      1443.0 ms     0.0%    
+cliente-por-email     170       162.9 ms      1113.2 ms     1780.2 ms     0.0%    
+pedidos-do-cliente    228       389.4 ms      1306.1 ms     1753.2 ms     0.0%    
+pedidos-por-status    158       1500.5 ms     11670.4 ms    18795.7 ms    0.0%    
+busca-produtos        165       531.3 ms      1223.5 ms     1621.5 ms     0.0%    
+vendas-por-dia        80        2243.1 ms     9395.1 ms     12102.7 ms    0.0%    
+top-produtos          19        12414.2 ms    16901.7 ms    18503.7 ms    0.0%    
