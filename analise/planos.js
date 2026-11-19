@@ -23,6 +23,7 @@ const COLETAS = {
   '6ac55d3': 'após 02b (A)',
   'ef8d217': 'após 04 (B)',
   'a8050f5': 'após 06 (B)',
+  '50874b9': 'após 12a e 12b (B)',
 };
 
 const pastas = fs.readdirSync(PASTA, { withFileTypes: true })

@@ -54,7 +54,7 @@ Este arquivo reúne a pesquisa por problema, com as alternativas, o que cada uma
 | PostgreSQL 16, *Materialized Views* [18] | documentação | guarda o resultado como tabela; leitura mais rápida, dados defasados até o refresh | pode alterar o que a rota devolve |
 | PostgreSQL 16, *REFRESH MATERIALIZED VIEW* [19] | documentação | o refresh substitui o conteúdo; sem `CONCURRENTLY` pode bloquear leituras; com ele exige índice único | — |
 
-**Evidência do diagnóstico:** `top-produtos` 3.654,548 → 2.766,131 ms e `vendas-por-dia` 878,755 → 124,510 ms (ainda com varredura sequencial em `pedidos`); `busca-produtos` em torno de 20–27 ms por varredura de `produtos`. Fichas completas em [`proximos-testes.md`](proximos-testes.md).
+**Evidência do diagnóstico:** `top-produtos` 3.654,548 → 2.766,131 ms e `vendas-por-dia` 878,755 → 124,510 ms (ainda com varredura sequencial em `pedidos`); `busca-produtos` em torno de 20–27 ms por varredura de `produtos`. Depois, `vendas-por-dia` e `top-produtos` foram reescritas (mudanças 12a e 12b em [`experimentos.md`](experimentos.md)); as fichas do que ficou por testar estão em [`proximos-testes.md`](proximos-testes.md).
 
 ## 5. Recursos e método de medição
 
