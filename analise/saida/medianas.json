@@ -3274,6 +3274,163 @@
         "arquivos sem commit (ou sem git) em: 20261118-234331-12b-top-produtos-reescrita-B, 20261118-234508-12b-top-produtos-reescrita-B, 20261118-234642-12b-top-produtos-reescrita-B",
         "parâmetros de carga diferentes da base ({\"vus\":\"20\",\"duracao\":\"60s\"} vs {}): comparação inválida"
       ]
+    },
+    {
+      "rotulo": "12c-controle-sem-top-produtos-B",
+      "execucoes": [
+        "20261118-235003-12c-controle-sem-top-produtos-B",
+        "20261118-235208-12c-controle-sem-top-produtos-B",
+        "20261118-235350-12c-controle-sem-top-produtos-B"
+      ],
+      "commits": [
+        "7001f29"
+      ],
+      "parametros": {
+        "vus": "20",
+        "duracao": "60s"
+      },
+      "limites": {
+        "api": {
+          "cpus": 0.35,
+          "memoriaMiB": 128
+        },
+        "banco": {
+          "cpus": 1,
+          "memoriaMiB": 512
+        }
+      },
+      "reqPorSegundo": {
+        "mediana": 12.248499284277257,
+        "min": 9.287172076869936,
+        "max": 12.444126268647176,
+        "n": 3
+      },
+      "p50": {
+        "mediana": 401.347065,
+        "min": 395.911929,
+        "max": 403.64300249999997,
+        "n": 3
+      },
+      "p95": {
+        "mediana": 7955.6193427,
+        "min": 7262.0917839999975,
+        "max": 9239.811845149994,
+        "n": 3
+      },
+      "p99": {
+        "mediana": 19282.997950099936,
+        "min": 17503.866510659987,
+        "max": 21034.49051475995,
+        "n": 3
+      },
+      "erros": {
+        "mediana": 0,
+        "min": 0,
+        "max": 0,
+        "n": 3
+      },
+      "porRota": {
+        "cliente": {
+          "mediana": 820.4876043999996,
+          "min": 812.2768727999993,
+          "max": 885.9872266499998,
+          "n": 3
+        },
+        "pedidos-do-cliente": {
+          "mediana": 1610.8270682,
+          "min": 1384.5406791,
+          "max": 1904.3244662000009,
+          "n": 3
+        },
+        "cliente-por-email": {
+          "mediana": 1002.4608268000001,
+          "min": 877.9150085,
+          "max": 1306.098318049999,
+          "n": 3
+        },
+        "pedidos-por-status": {
+          "mediana": 14873.372075,
+          "min": 12649.375214699998,
+          "max": 20034.785489099988,
+          "n": 3
+        },
+        "busca-produtos": {
+          "mediana": 1598.1694496,
+          "min": 1409.8367686999998,
+          "max": 1679.6282082999992,
+          "n": 3
+        },
+        "vendas-por-dia": {
+          "mediana": 13162.7395904,
+          "min": 9678.4236233,
+          "max": 14437.915330749993,
+          "n": 3
+        },
+        "top-produtos": {
+          "mediana": 28849.87160735,
+          "min": 23167.524244199998,
+          "max": 30580.26039005,
+          "n": 3
+        }
+      },
+      "recursos": {
+        "api": {
+          "cpuMedia": {
+            "mediana": 21.3,
+            "min": 13.5,
+            "max": 23.1,
+            "n": 3
+          },
+          "memMedia": {
+            "mediana": 57.4,
+            "min": 57,
+            "max": 65.2,
+            "n": 3
+          },
+          "memMax": {
+            "mediana": 96.3,
+            "min": 95.6,
+            "max": 97.2,
+            "n": 3
+          },
+          "cpuMsPorReq": {
+            "mediana": 17.116509058305756,
+            "min": 14.536179461584734,
+            "max": 18.859453279841585,
+            "n": 3
+          }
+        },
+        "banco": {
+          "cpuMedia": {
+            "mediana": 90.7,
+            "min": 65.7,
+            "max": 94.1,
+            "n": 3
+          },
+          "memMedia": {
+            "mediana": 423.2,
+            "min": 403.5,
+            "max": 424.8,
+            "n": 3
+          },
+          "memMax": {
+            "mediana": 483.4,
+            "min": 473.6,
+            "max": 494.6,
+            "n": 3
+          },
+          "cpuMsPorReq": {
+            "mediana": 74.04988798621783,
+            "min": 70.74274004637904,
+            "max": 75.61800480688129,
+            "n": 3
+          }
+        }
+      },
+      "avisos": [
+        "arquivos sem commit (ou sem git) em: 20261118-235003-12c-controle-sem-top-produtos-B, 20261118-235208-12c-controle-sem-top-produtos-B, 20261118-235350-12c-controle-sem-top-produtos-B",
+        "parâmetros de carga diferentes da base ({\"vus\":\"20\",\"duracao\":\"60s\"} vs {}): comparação inválida"
+      ]
     }
   ]
 }

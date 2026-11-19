@@ -1,6 +1,6 @@
 # Resumo das medições
 
-> Gerado por `analise/resumir.js` em 2026-11-19T02:48:29.252Z a partir de 63 pastas de `resultados/`. Não editar à mão: rode o script de novo.
+> Gerado por `analise/resumir.js` em 2026-11-19T02:55:24.545Z a partir de 66 pastas de `resultados/`. Não editar à mão: rode o script de novo.
 
 Valores: **mediana** das execuções de cada rótulo, com a faixa (mínimo–máximo) entre parênteses. Base de comparação: `00-linha-de-base`. Parâmetros da base: VUS=undefined, DURAÇÃO=undefined, SEMENTE=undefined.
 
@@ -29,6 +29,7 @@ Valores: **mediana** das execuções de cada rótulo, com a faixa (mínimo–má
 | `12-controle-B` | 3 | 6,6 (4,5–6,9) | +336% | -42% | 13737,2 (11303,3–22105,3) | -70% | +38% ⚠︎ | 816,7 | 28064,7 | 0,00 |
 | `12a-vendas-por-dia-indice-B` | 3 | 5,6 (1,7–7,5) | +268% | -16% | 14462,4 (8216,2–55254,4) | -68% ⚠︎ | +5% ⚠︎ | 579,1 | 36797,9 | 0,40 |
 | `12b-top-produtos-reescrita-B` | 3 | 15,1 (12,9–17,0) | +892% | +170% | 5120,6 (3985,4–6190,6) | -89% | -65% | 396,4 | 16175,6 | 0,00 |
+| `12c-controle-sem-top-produtos-B` | 3 | 12,2 (9,3–12,4) | +703% | -19% | 7955,6 (7262,1–9239,8) | -83% | +55% | 401,3 | 19283,0 | 0,00 |
 
 ⚠︎ = as faixas mínimo–máximo das execuções se sobrepõem: a diferença pode estar dentro do ruído.
 
@@ -57,6 +58,7 @@ Valores: **mediana** das execuções de cada rótulo, com a faixa (mínimo–má
 | `12-controle-B` | 23,6 | 60,4 | 0,35 CPU / 128 MiB | 95,0 | 427,6 | 1,00 CPU / 512 MiB |
 | `12a-vendas-por-dia-indice-B` | 20,7 | 48,8 | 0,35 CPU / 128 MiB | 97,7 | 415,1 | 1,00 CPU / 512 MiB |
 | `12b-top-produtos-reescrita-B` | 24,9 | 55,7 | 0,35 CPU / 128 MiB | 94,2 | 429,2 | 1,00 CPU / 512 MiB |
+| `12c-controle-sem-top-produtos-B` | 21,3 | 57,4 | 0,35 CPU / 128 MiB | 90,7 | 423,2 | 1,00 CPU / 512 MiB |
 
 CPU: 100% = 1 CPU inteira (convenção do `docker stats`). Um container perto do próprio limite de CPU está saturado.
 
@@ -85,6 +87,7 @@ CPU: 100% = 1 CPU inteira (convenção do `docker stats`). Um container perto do
 | `12-controle-B` | 38,7 | 140,8 | -78% |
 | `12a-vendas-por-dia-indice-B` | 48,1 | 168,8 | -74% |
 | `12b-top-produtos-reescrita-B` | 14,7 | 64,6 | -90% |
+| `12c-controle-sem-top-produtos-B` | 17,1 | 74,0 | -89% |
 
 Calculado por execução como (CPU média ÷ 100) ÷ req/s × 1000 e depois mediana. É uma aproximação: o CPU vem do `docker stats` amostrado durante a carga. Mostra quanto trabalho de CPU cada requisição custa; é a medida de "mais barato de rodar" quando o limite de CPU está saturado.
 
@@ -113,6 +116,7 @@ Calculado por execução como (CPU média ÷ 100) ÷ req/s × 1000 e depois medi
 | `12-controle-B` | 2716,8 | 4484,4 | 2405,5 | 17309,4 | 4143,9 | 20466,5 | 48644,4 |
 | `12a-vendas-por-dia-indice-B` | 1977,1 | 3828,9 | 3636,5 | 33356,4 | 3231,0 | 18222,2 | 42536,3 |
 | `12b-top-produtos-reescrita-B` | 812,9 | 1306,1 | 1056,9 | 11670,4 | 1223,5 | 7892,6 | 24783,8 |
+| `12c-controle-sem-top-produtos-B` | 820,5 | 1610,8 | 1002,5 | 14873,4 | 1598,2 | 13162,7 | 28849,9 |
 
 Rotas lentas têm poucas requisições por execução: o p95 por rota oscila mais que o geral.
 
@@ -139,6 +143,7 @@ Rotas lentas têm poucas requisições por execução: o p95 por rota oscila mai
 - `12-controle-B` (commit 29f1ac2): [20261118-195014-12-controle-B](../../resultados/20261118-195014-12-controle-B/resumo.txt) · [20261118-195208-12-controle-B](../../resultados/20261118-195208-12-controle-B/resumo.txt) · [20261118-195419-12-controle-B](../../resultados/20261118-195419-12-controle-B/resumo.txt)
 - `12a-vendas-por-dia-indice-B` (commit 7001f29): [20261118-195723-12a-vendas-por-dia-indice-B](../../resultados/20261118-195723-12a-vendas-por-dia-indice-B/resumo.txt) · [20261118-195939-12a-vendas-por-dia-indice-B](../../resultados/20261118-195939-12a-vendas-por-dia-indice-B/resumo.txt) · [20261118-200233-12a-vendas-por-dia-indice-B](../../resultados/20261118-200233-12a-vendas-por-dia-indice-B/resumo.txt)
 - `12b-top-produtos-reescrita-B` (commit 9bb0f72): [20261118-234331-12b-top-produtos-reescrita-B](../../resultados/20261118-234331-12b-top-produtos-reescrita-B/resumo.txt) · [20261118-234508-12b-top-produtos-reescrita-B](../../resultados/20261118-234508-12b-top-produtos-reescrita-B/resumo.txt) · [20261118-234642-12b-top-produtos-reescrita-B](../../resultados/20261118-234642-12b-top-produtos-reescrita-B/resumo.txt)
+- `12c-controle-sem-top-produtos-B` (commit 7001f29): [20261118-235003-12c-controle-sem-top-produtos-B](../../resultados/20261118-235003-12c-controle-sem-top-produtos-B/resumo.txt) · [20261118-235208-12c-controle-sem-top-produtos-B](../../resultados/20261118-235208-12c-controle-sem-top-produtos-B/resumo.txt) · [20261118-235350-12c-controle-sem-top-produtos-B](../../resultados/20261118-235350-12c-controle-sem-top-produtos-B/resumo.txt)
 
 ## Avisos
 
@@ -182,3 +187,5 @@ Rotas lentas têm poucas requisições por execução: o p95 por rota oscila mai
 - `12a-vendas-por-dia-indice-B`: parâmetros de carga diferentes da base ({"vus":"20","duracao":"60s"} vs {}): comparação inválida
 - `12b-top-produtos-reescrita-B`: arquivos sem commit (ou sem git) em: 20261118-234331-12b-top-produtos-reescrita-B, 20261118-234508-12b-top-produtos-reescrita-B, 20261118-234642-12b-top-produtos-reescrita-B
 - `12b-top-produtos-reescrita-B`: parâmetros de carga diferentes da base ({"vus":"20","duracao":"60s"} vs {}): comparação inválida
+- `12c-controle-sem-top-produtos-B`: arquivos sem commit (ou sem git) em: 20261118-235003-12c-controle-sem-top-produtos-B, 20261118-235208-12c-controle-sem-top-produtos-B, 20261118-235350-12c-controle-sem-top-produtos-B
+- `12c-controle-sem-top-produtos-B`: parâmetros de carga diferentes da base ({"vus":"20","duracao":"60s"} vs {}): comparação inválida
