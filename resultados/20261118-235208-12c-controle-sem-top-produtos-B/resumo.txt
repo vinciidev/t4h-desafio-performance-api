@@ -1,0 +1,17 @@
+Medição: 12c-controle-sem-top-produtos-B
+Carga: 20 usuários virtuais por 60s
+
+Requisições:        834
+Requisições/s:      12.44
+Tempo de resposta:  mediana 403.6 ms | p95 7955.6 ms | p99 19283.0 ms
+Erros:              0.00%
+
+Por rota:
+rota                  req       mediana       p95           p99           erros   
+cliente               217       112.9 ms      820.5 ms      1244.8 ms     0.0%    
+cliente-por-email     127       164.5 ms      1002.5 ms     1419.7 ms     0.0%    
+pedidos-do-cliente    170       398.5 ms      1384.5 ms     2028.6 ms     0.0%    
+pedidos-por-status    119       1298.2 ms     20034.8 ms    27754.2 ms    0.0%    
+busca-produtos        130       504.2 ms      1409.8 ms     3393.0 ms     0.0%    
+vendas-por-dia        58        2905.2 ms     9678.4 ms     10526.5 ms    0.0%    
+top-produtos          13        12644.5 ms    23167.5 ms    24203.7 ms    0.0%    
