@@ -1,0 +1,17 @@
+Medição: 12a-vendas-por-dia-indice-B
+Carga: 20 usuários virtuais por 60s
+
+Requisições:        506
+Requisições/s:      5.61
+Tempo de resposta:  mediana 569.7 ms | p95 8216.2 ms | p99 36797.9 ms
+Erros:              0.40%
+
+Por rota:
+rota                  req       mediana       p95           p99           erros   
+cliente               137       147.7 ms      1977.1 ms     5436.7 ms     0.0%    
+cliente-por-email     77        209.9 ms      3636.5 ms     5638.9 ms     0.0%    
+pedidos-do-cliente    100       598.3 ms      3828.9 ms     7241.6 ms     0.0%    
+pedidos-por-status    68        2291.3 ms     33356.4 ms    60001.0 ms    2.9%    
+busca-produtos        87        672.9 ms      3231.0 ms     6175.7 ms     0.0%    
+vendas-por-dia        32        5515.5 ms     15908.5 ms    16840.0 ms    0.0%    
+top-produtos          5         34596.5 ms    42536.3 ms    43660.8 ms    0.0%    

@@ -1,0 +1,23 @@
+momento,container,cpu_percentual,memoria
+20:00:51,desafio-performance-api-1,0.00%,15.37MiB / 128MiB
+20:00:51,desafio-performance-banco-1,0.00%,378.9MiB / 512MiB
+20:00:55,desafio-performance-api-1,19.24%,16.75MiB / 128MiB
+20:00:55,desafio-performance-banco-1,26.16%,393.2MiB / 512MiB
+20:00:59,desafio-performance-api-1,35.80%,26.87MiB / 128MiB
+20:00:59,desafio-performance-banco-1,108.94%,436.1MiB / 512MiB
+20:01:04,desafio-performance-api-1,37.55%,38.31MiB / 128MiB
+20:01:04,desafio-performance-banco-1,15.38%,431.9MiB / 512MiB
+20:01:10,desafio-performance-api-1,16.09%,39.97MiB / 128MiB
+20:01:10,desafio-performance-banco-1,107.68%,420.5MiB / 512MiB
+20:01:55,desafio-performance-api-1,46.86%,43.32MiB / 128MiB
+20:01:55,desafio-performance-banco-1,123.94%,407.8MiB / 512MiB
+20:02:16,desafio-performance-api-1,9.29%,42.94MiB / 128MiB
+20:02:16,desafio-performance-banco-1,104.56%,405.8MiB / 512MiB
+20:02:21,desafio-performance-api-1,26.71%,45.11MiB / 128MiB
+20:02:21,desafio-performance-banco-1,110.45%,410.6MiB / 512MiB
+20:02:24,desafio-performance-api-1,1.79%,45.61MiB / 128MiB
+20:02:24,desafio-performance-banco-1,303.25%,415.7MiB / 512MiB
+20:02:27,desafio-performance-api-1,12.25%,44.77MiB / 128MiB
+20:02:27,desafio-performance-banco-1,115.76%,417.9MiB / 512MiB
+20:02:29,desafio-performance-api-1,11.16%,45.59MiB / 128MiB
+20:02:29,desafio-performance-banco-1,99.02%,433.3MiB / 512MiB

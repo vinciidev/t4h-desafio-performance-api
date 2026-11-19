@@ -1,0 +1,17 @@
+Medição: 12-controle-B
+Carga: 20 usuários virtuais por 60s
+
+Requisições:        466
+Requisições/s:      6.65
+Tempo de resposta:  mediana 816.7 ms | p95 11303.3 ms | p99 24895.4 ms
+Erros:              0.00%
+
+Por rota:
+rota                  req       mediana       p95           p99           erros   
+cliente               124       275.8 ms      3309.9 ms     4383.0 ms     0.0%    
+cliente-por-email     69        326.2 ms      3688.1 ms     6142.0 ms     0.0%    
+pedidos-do-cliente    95        883.6 ms      4718.1 ms     6905.2 ms     0.0%    
+pedidos-por-status    66        3854.7 ms     15353.9 ms    22053.1 ms    0.0%    
+busca-produtos        75        1004.1 ms     4143.9 ms     5517.6 ms     0.0%    
+vendas-por-dia        32        8999.8 ms     20466.5 ms    30312.0 ms    0.0%    
+top-produtos          5         26178.6 ms    48644.4 ms    49489.4 ms    0.0%    
